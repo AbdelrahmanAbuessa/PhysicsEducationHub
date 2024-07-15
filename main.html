@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>JavaScript Force Simulation</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <h1>Physics Simulator</h1>
+        
+        <div hide class="layover">
+            <div class="box">
+                <div class="Section">
+                    <label for="mag">Magnitude</label>
+                    <input type="number" id="mag" placeholder="Enter a Number">              
+                </div>
+                <div class="Section">
+                    <label for="dir">Direction</label>
+                    <input type="number" id="dir" placeholder="Enter a Number">
+                </div>
+                <div class="Section">
+                    <div btn id="addForce">Add Force</div>
+                    <div btn id="abort">Cancel</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <!-- Section 1: Force List -->
+            <div class="forcelist">
+                <div btn id="activateMenu">
+                    Add Force
+                </div>
+            </div>
+
+            <!-- Section 2: Axis -->
+            <div class="axisgrid">
+                <div class="x axis"></div>
+                <div class="y axis"></div>
+            </div>
+
+            <!-- Section 3: Force Property -->
+            <div class="properties">
+
+            </div>
+    
+        </div>
+        <!-- JS -->
+        <script src="script.js"></script>
+    </body>
+</html>
