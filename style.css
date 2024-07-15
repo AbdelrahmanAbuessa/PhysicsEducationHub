@@ -32,6 +32,9 @@ h1 {
 }
 
 .axisgrid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 60%;
 }
 
@@ -47,15 +50,11 @@ h1 {
 .x {
     height: 2px;
     width: inherit;
-    top: 50%;
-    transform: translateY(-50%);
 }
 
 .y {
     height: calc(100% - 49px);
     width: 2px;
-    left: 50%;
-    transform: translateX(-50%);
 }
 
 [btn] {
@@ -142,4 +141,62 @@ h1 {
     border: none;
     background-color: gray;
     color: white;
+}
+
+.force {
+    border-bottom: solid black 1px;
+    display: flex;
+    height: 40px;
+    justify-content: space-around;
+    align-items: center;
+}
+
+input[type="checkbox"] {
+    width: 30px;
+    height: 30px;
+    visibility: hidden;
+}
+
+.forceVisibility {
+    position: relative;
+}
+
+.checkbox {
+    border: 2px solid blue;
+    background-color: white;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: inline-block;
+    position: absolute;
+}
+
+[check = true] {
+    background-color: blue;
+}
+
+[check = false] {
+    background-color: white;
+}
+
+.divider {
+    width: 1px;
+    height: 100%;
+    background-color: black;
+}
+
+.forceName {
+    width: 100px;
+}
+
+[vector] {
+    width: 100px;
+    height: 5px;
+    background-color: red;
+    position: relative;
+}
+
+[vector]:after {
+    content: "";
+    border-left: 10px solid red;
 }

@@ -1,5 +1,36 @@
-let menu = document.querySelector(".layover");
 let canvas = document.querySelector(".axisgrid");
+let hirearchy = document.querySelector(".forcelist");
+
+let btn = document.querySelector(`input[type="checkbox"]`);
+let overlay = document.querySelector(".checkbox");
+
+document.addEventListener("click", function (e) {
+    if (e.target === overlay) {
+        if (btn.checked === true) {
+            btn.checked = false;
+            overlay.setAttribute("check", true);
+        } else {
+            btn.checked = true;
+            overlay.setAttribute("check", false);
+        }
+        console.log(overlay.getAttribute("check"));
+    }
+})
+
+let vectorList = document.querySelectorAll("[vector]");
+
+for (let i = 0; i < vectorList.length; i++) {
+
+}
+
+
+
+
+
+
+/*
+
+let menu = document.querySelector(".layover");
 
 let forceMagnitude = document.querySelector("#mag"); 
 let forceDirection = document.querySelector("#dir"); 
@@ -33,10 +64,14 @@ function addForce() {
 
     for (let i = 0; i <= forceList; i++) {
         let vector = document.createElement("div");
-        vector.style.setProperty("width", forceList[i].magnitude);
+        vector.style.setProperty("content", " ");
+        vector.style.setProperty("width", `${forceList[i].magnitude}px`);
+        vector.style.setProperty("transform", `rotateX(${forceList[i].direction}deg)`);
         vector.style.setProperty("height", "5px");
         vector.style.setProperty("background-color", "red");
         vector.setAttribute("arrow");
         canvas.appendChild(vector);
     }
 }
+    
+*/
