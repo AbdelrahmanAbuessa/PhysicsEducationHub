@@ -147,36 +147,8 @@ h1 {
     border-bottom: solid black 1px;
     display: flex;
     height: 40px;
-    justify-content: space-around;
+    justify-content: space-evenly;
     align-items: center;
-}
-
-input[type="checkbox"] {
-    width: 30px;
-    height: 30px;
-    visibility: hidden;
-}
-
-.forceVisibility {
-    position: relative;
-}
-
-.checkbox {
-    border: 2px solid blue;
-    background-color: white;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    display: inline-block;
-    position: absolute;
-}
-
-[check = true] {
-    background-color: blue;
-}
-
-[check = false] {
-    background-color: white;
 }
 
 .divider {
@@ -185,18 +157,78 @@ input[type="checkbox"] {
     background-color: black;
 }
 
-.forceName {
-    width: 100px;
+[checkmark] {
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 5%;
 }
 
-[vector] {
+[checkmark] > input[type="checkbox"] {
+    opacity: 0;
+    width: 0;
+    height: 0;
+    position: absolute;
+}
+
+[checkmark] > .checkbox {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 3px solid blue;
+}
+
+[checkmark] input[type="checkbox"]:checked ~ .checkbox {
+    background-color: blue;
+} 
+
+.forceName {
+    width: 70%;
+}
+
+[vector], [antivector] {
     width: 100px;
     height: 5px;
     background-color: red;
-    position: relative;
+    position: absolute;
+    transform: translateY(-50%);
 }
 
-[vector]:after {
-    content: "";
-    border-left: 10px solid red;
+[vector]::after, [antivector]::after {
+    content: " ";
+    border: 10px solid red;
+    border-color: transparent transparent transparent red;
+    position: absolute;
+    left: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+[antivector] {
+    background-color: black;
+    transform: translate(-100%, -50%);
+}
+
+[antivector]::after {
+    border-color: transparent black transparent transparent;
+    left: -20px;
+}
+
+[force2] > [vector] {
+    background-color: green;
+}
+
+[force2] > [vector]::after {
+    border-color: transparent transparent transparent green;
+}
+
+[force1] {
+    transform: rotate(-30deg);
+}
+
+[force2] {
+    transform: rotate(-90deg);
 }

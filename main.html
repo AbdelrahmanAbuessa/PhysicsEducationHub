@@ -32,19 +32,19 @@
                 <!-- <div btn id="activateMenu">
                     Add Force
                 </div> -->
-                <div class="force" id="2">
-                    <div class="forceVisibility">
+                <div class="force">
+                    <label checkmark>
+                        <input type="checkbox">
                         <span class="checkbox"></span>
-                        <input type="checkbox" id="btn1">
-                    </div>
+                    </label>
                     <span class="divider"></span>
                     <p class="forceName">F<sub>1</sub></p>
                 </div>
-                <div class="force" id="1">
-                    <div class="forceVisibility">
+                <div class="force">
+                    <label checkmark>
+                        <input type="checkbox">
                         <span class="checkbox"></span>
-                        <input type="checkbox" id="btn2">
-                    </div>
+                    </label>
                     <span class="divider"></span>
                     <p class="forceName">F<sub>2</sub></p>
                 </div>
@@ -54,8 +54,14 @@
             <div class="axisgrid">
                 <div class="x axis"></div>
                 <div class="y axis"></div>
-                <div vector id="1"></div>
-                <div vector id="2"></div>
+                <div force1>
+                    <span vector=""></span>
+                    <span antivector=""></span>
+                </div>
+                <div force2>
+                    <span vector=""></span>
+                    <span antivector=""></span>
+                </div>
             </div>
 
             <!-- Section 3: Force Property -->

@@ -1,22 +1,6 @@
 let canvas = document.querySelector(".axisgrid");
 let hirearchy = document.querySelector(".forcelist");
 
-let btn = document.querySelector(`input[type="checkbox"]`);
-let overlay = document.querySelector(".checkbox");
-
-document.addEventListener("click", function (e) {
-    if (e.target === overlay) {
-        if (btn.checked === true) {
-            btn.checked = false;
-            overlay.setAttribute("check", true);
-        } else {
-            btn.checked = true;
-            overlay.setAttribute("check", false);
-        }
-        console.log(overlay.getAttribute("check"));
-    }
-})
-
 let vectorList = document.querySelectorAll("[vector]");
 
 for (let i = 0; i < vectorList.length; i++) {
