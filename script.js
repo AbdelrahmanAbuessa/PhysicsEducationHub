@@ -30,10 +30,7 @@ document.addEventListener("click", function (e) {
         }
     } else if (elementTarget.className === "del") {
         delForce(elementTarget.id);
-    } else if (elementTarget.parent.target.target === "") {
-        console.log("visibility altered");
     }
-
 })
 
 let forceList = [];
@@ -42,7 +39,9 @@ function addForce() {
     let force = {
         "id": forceList.length,
         "magnitude": forceMagnitude.value,
-        "direction": forceDirection.value
+        "direction": forceDirection.value,
+        "visibility": 1, 
+        "color": generateColor()
     }
 
     forceList.push(force);
@@ -55,12 +54,6 @@ function delForce(forceID) {
     forceList.splice(forceID, 1);
 
     renderForce();
-}
-
-function hideForce(forceID) {
-
-    forceList[forceID].opacity = 0;
-    console.log("forceHidden");
 }
 
 function renderForce() {    
@@ -76,10 +69,13 @@ function renderForce() {
         let vectorHTML = document.createElement("div");
         vectorHTML.setAttribute("vector", "");
         vectorHTML.style.setProperty("width", `${forceList[i].magnitude * 10}px`);
+        vectorHTML.style.setProperty("visibility", `${forceList[i].visibility}`);
+        vectorHTML.style.setProperty("background-color", `#${forceList[i].color}`);
     
         let antiHTML = document.createElement("div");
         antiHTML.setAttribute("antivector", "");
         antiHTML.style.setProperty("width", `${forceList[i].magnitude * 10}px`);
+        antiHTML.style.setProperty("width", `${forceList[i].visibility}`);
     
         let forceHTML = document.createElement("div");
         forceHTML.id = `force${forceList[i].id}`;
@@ -93,14 +89,13 @@ function renderForce() {
         let forceListing = document.createElement("div");
         forceListing.className = `force`;
         forceListing.innerHTML = `
-            <label checkmark>
-                <input type="checkbox" id="${i}">
-                <span class="checkbox"></span>
-            </label>
-            <span class="divider"></span>
             <p class="forceName">F<sub>${i + 1}</sub></p>
             <div btn class="del" id="${i}">Delete</div>
         `;
         hirearchy.appendChild(forceListing);
     }
+}
+
+function generateColor() {
+    return Math.floor(Math.random() * 1000000);
 }

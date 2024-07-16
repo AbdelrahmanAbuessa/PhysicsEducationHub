@@ -148,41 +148,6 @@ h1 {
     align-items: center;
 }
 
-.divider {
-    width: 1px;
-    height: 100%;
-    background-color: black;
-}
-
-[checkmark] {
-    cursor: pointer;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 5%;
-}
-
-[checkmark] > input[type="checkbox"] {
-    display: none;
-    width: 0;
-    height: 0;
-    position: absolute;
-}
-
-[checkmark] > .checkbox {
-    position: absolute;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    border: 3px solid blue;
-    background-color: white;
-}
-
-[checkmark] input[type="checkbox"]:checked ~ .checkbox {
-    background-color: blue;
-} 
-
 .forceName {
     width: 40%;
 }
