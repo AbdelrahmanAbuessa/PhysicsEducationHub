@@ -11,9 +11,19 @@ let y = document.createElement("div");
 x.setAttribute("axis", "");
 y.setAttribute("axis", "");
 x.style.setProperty("width", "inherit");
-x.style.setProperty("height", "2px");
-y.style.setProperty("width", "2px");
+x.style.setProperty("height", "1px");
+y.style.setProperty("width", "1px");
 y.style.setProperty("height", "calc(100% - 49px)");
+
+let resultant = document.createElement("div");
+
+
+/*
+                <div id="resultant">
+                    <div vector=""></div>
+                    <div antivector=""></div>
+                </div>
+*/
 
 document.addEventListener("click", function (e) {
     let elementTarget = e.target;
@@ -35,27 +45,25 @@ document.addEventListener("click", function (e) {
 
 let forceList = [];
 
+// Adding Forces Function
 function addForce() {
     let force = {
         "id": forceList.length,
         "magnitude": forceMagnitude.value,
         "direction": forceDirection.value,
-        "visibility": 1, 
         "color": generateColor()
     }
-
     forceList.push(force);
-
     renderForce();
 }
 
+// Deleting Forces Function
 function delForce(forceID) {
-
     forceList.splice(forceID, 1);
-
     renderForce();
 }
 
+// Rendering Forces Function
 function renderForce() {    
     canvas.innerHTML = "";
     canvas.appendChild(x);
@@ -63,31 +71,41 @@ function renderForce() {
 
     hirearchy.innerHTML = "";
 
-
     for (let i = 0; i < forceList.length; i++) {
         // Adding Vectors to Canvas
         let vectorHTML = document.createElement("div");
         vectorHTML.setAttribute("vector", "");
         vectorHTML.style.setProperty("width", `${forceList[i].magnitude * 10}px`);
-        vectorHTML.style.setProperty("visibility", `${forceList[i].visibility}`);
         vectorHTML.style.setProperty("background-color", `#${forceList[i].color}`);
-    
+        
         let antiHTML = document.createElement("div");
         antiHTML.setAttribute("antivector", "");
         antiHTML.style.setProperty("width", `${forceList[i].magnitude * 10}px`);
-        antiHTML.style.setProperty("width", `${forceList[i].visibility}`);
-    
+        
+        let forceColorCode = document.createElement("style");
+        forceColorCode.innerHTML = `
+            #forceVector${forceList[i].id} [vector]::after {
+                border-color: transparent transparent transparent #${forceList[i].color};
+            }
+
+            #force${forceList[i].id} {
+                background-color: #${forceList[i].color};
+            }
+        `;
+        
         let forceHTML = document.createElement("div");
-        forceHTML.id = `force${forceList[i].id}`;
+        forceHTML.id = `forceVector${forceList[i].id}`;
         forceHTML.style.setProperty("transform", `rotate(${0 - forceList[i].direction}deg)`);
 
         forceHTML.appendChild(vectorHTML);
         forceHTML.appendChild(antiHTML);
+        forceHTML.appendChild(forceColorCode);
         canvas.appendChild(forceHTML);
 
         // Adding Forces to List
         let forceListing = document.createElement("div");
         forceListing.className = `force`;
+        forceListing.id = `force${forceList[i].id}`;
         forceListing.innerHTML = `
             <p class="forceName">F<sub>${i + 1}</sub></p>
             <div btn class="del" id="${i}">Delete</div>
