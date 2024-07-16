@@ -9,6 +9,7 @@
     <body>
         <h1>Physics Simulator</h1>
         
+        <!-- Layover Menu: Adding a Force -->
         <div hide class="layover">
             <div class="box">
                 <div class="Section">
@@ -29,31 +30,18 @@
         <div class="container">
             <!-- Section 1: Force List -->
             <div class="forcelist">
-                <!-- <div btn id="activateMenu">
-                    Add Force
-                </div> -->
-                <div class="force">
-                    <label checkmark>
-                        <input type="checkbox">
-                        <span class="checkbox"></span>
-                    </label>
-                    <span class="divider"></span>
-                    <p class="forceName">F<sub>1</sub></p>
+                <div class="list">
+                    <!-- Forces will be added here -->
                 </div>
-                <div class="force">
-                    <label checkmark>
-                        <input type="checkbox">
-                        <span class="checkbox"></span>
-                    </label>
-                    <span class="divider"></span>
-                    <p class="forceName">F<sub>2</sub></p>
+                <div btn id="activateMenu">
+                    Add Force
                 </div>
             </div>
 
             <!-- Section 2: Axis -->
             <div class="axisgrid">
-                <div class="x axis"></div>
-                <div class="y axis"></div>
+                <div axis class="x"></div>
+                <div axis class="y"></div>
                 <div force1>
                     <span vector=""></span>
                     <span antivector=""></span>

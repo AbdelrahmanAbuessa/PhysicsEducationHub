@@ -1,23 +1,19 @@
 let canvas = document.querySelector(".axisgrid");
 let hirearchy = document.querySelector(".forcelist");
 
-let vectorList = document.querySelectorAll("[vector]");
-
-for (let i = 0; i < vectorList.length; i++) {
-
-}
-
-
-
-
-
-
-/*
-
 let menu = document.querySelector(".layover");
 
 let forceMagnitude = document.querySelector("#mag"); 
 let forceDirection = document.querySelector("#dir"); 
+
+let x = document.createElement("div");
+let y = document.createElement("div");
+x.setAttribute("axis", "");
+y.setAttribute("axis", "");
+x.style.setProperty("width", "inherit");
+x.style.setProperty("height", "2px");
+y.style.setProperty("width", "2px");
+y.style.setProperty("height", "calc(100% - 49px)");
 
 document.addEventListener("click", function (e) {
     let elementTarget = e.target;
@@ -39,23 +35,42 @@ let forceList = [];
 
 function addForce() {
 
+    canvas.innerHTML = "";
+    canvas.appendChild(x);
+    canvas.appendChild(y);
+
     let force = {
+        "id": forceList.length + 1,
         "magnitude": forceMagnitude.value,
         "direction": forceDirection.value
     }
 
     forceList.push(force);
 
-    for (let i = 0; i <= forceList; i++) {
-        let vector = document.createElement("div");
-        vector.style.setProperty("content", " ");
-        vector.style.setProperty("width", `${forceList[i].magnitude}px`);
-        vector.style.setProperty("transform", `rotateX(${forceList[i].direction}deg)`);
-        vector.style.setProperty("height", "5px");
-        vector.style.setProperty("background-color", "red");
-        vector.setAttribute("arrow");
-        canvas.appendChild(vector);
-    }
-}
+        let vectorHTML = document.createElement("div");
+        vectorHTML.setAttribute("vector", "");
+        vectorHTML.style.setProperty("width", `${force.magnitude * 10}px`);
     
+        let antiHTML = document.createElement("div");
+        antiHTML.setAttribute("antivector", "");
+        antiHTML.style.setProperty("width", `${force.magnitude * 10}px`);
+    
+        let forceHTML = document.createElement("div");
+        forceHTML.id = `force${force.id}`;
+        forceHTML.style.setProperty("transform", `rotate(${0 - force.direction}deg)`);
+
+        forceHTML.appendChild(vectorHTML);
+        forceHTML.appendChild(antiHTML);
+        canvas.appendChild(forceHTML);
+}
+
+/*
+                    <div class="force">
+                        <label checkmark>
+                            <input type="checkbox">
+                            <span class="checkbox"></span>
+                        </label>
+                        <span class="divider"></span>
+                        <p class="forceName">F<sub>1</sub></p>
+                    </div>
 */

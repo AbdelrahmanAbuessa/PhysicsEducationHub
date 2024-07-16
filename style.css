@@ -42,7 +42,7 @@ h1 {
     width: 19%;
 }
 
-.axis {
+[axis] {
     background-color: black;
     position: absolute;
 }
@@ -69,7 +69,7 @@ h1 {
     cursor: pointer;
     transition-duration: 0.3s;
     transition-property: width;
-    display: inline-block;
+    display: block;
 }
 
 [btn]:hover {
@@ -81,9 +81,10 @@ h1 {
 }
 
 .forcelist > [btn] {
-    position: absolute;
+    position: relative;
     left: 50%;
     transform: translateX(-50%);
+    margin-top: 20px;
 }
 
 .layover {
