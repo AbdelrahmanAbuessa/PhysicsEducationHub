@@ -1,5 +1,5 @@
 let canvas = document.querySelector(".axisgrid");
-let hirearchy = document.querySelector(".forcelist");
+let hirearchy = document.querySelector(".list");
 
 let menu = document.querySelector(".layover");
 
@@ -28,49 +28,79 @@ document.addEventListener("click", function (e) {
             addForce();
             menu.style.setProperty("display", "none");
         }
+    } else if (elementTarget.className === "del") {
+        delForce(elementTarget.id);
+    } else if (elementTarget.parent.target.target === "") {
+        console.log("visibility altered");
     }
+
 })
 
 let forceList = [];
 
 function addForce() {
-
-    canvas.innerHTML = "";
-    canvas.appendChild(x);
-    canvas.appendChild(y);
-
     let force = {
-        "id": forceList.length + 1,
+        "id": forceList.length,
         "magnitude": forceMagnitude.value,
         "direction": forceDirection.value
     }
 
     forceList.push(force);
 
+    renderForce();
+}
+
+function delForce(forceID) {
+
+    forceList.splice(forceID, 1);
+
+    renderForce();
+}
+
+function hideForce(forceID) {
+
+    forceList[forceID].opacity = 0;
+    console.log("forceHidden");
+}
+
+function renderForce() {    
+    canvas.innerHTML = "";
+    canvas.appendChild(x);
+    canvas.appendChild(y);
+
+    hirearchy.innerHTML = "";
+
+
+    for (let i = 0; i < forceList.length; i++) {
+        // Adding Vectors to Canvas
         let vectorHTML = document.createElement("div");
         vectorHTML.setAttribute("vector", "");
-        vectorHTML.style.setProperty("width", `${force.magnitude * 10}px`);
+        vectorHTML.style.setProperty("width", `${forceList[i].magnitude * 10}px`);
     
         let antiHTML = document.createElement("div");
         antiHTML.setAttribute("antivector", "");
-        antiHTML.style.setProperty("width", `${force.magnitude * 10}px`);
+        antiHTML.style.setProperty("width", `${forceList[i].magnitude * 10}px`);
     
         let forceHTML = document.createElement("div");
-        forceHTML.id = `force${force.id}`;
-        forceHTML.style.setProperty("transform", `rotate(${0 - force.direction}deg)`);
+        forceHTML.id = `force${forceList[i].id}`;
+        forceHTML.style.setProperty("transform", `rotate(${0 - forceList[i].direction}deg)`);
 
         forceHTML.appendChild(vectorHTML);
         forceHTML.appendChild(antiHTML);
         canvas.appendChild(forceHTML);
-}
 
-/*
-                    <div class="force">
-                        <label checkmark>
-                            <input type="checkbox">
-                            <span class="checkbox"></span>
-                        </label>
-                        <span class="divider"></span>
-                        <p class="forceName">F<sub>1</sub></p>
-                    </div>
-*/
+        // Adding Forces to List
+        let forceListing = document.createElement("div");
+        forceListing.className = `force`;
+        forceListing.innerHTML = `
+            <label checkmark>
+                <input type="checkbox" id="${i}">
+                <span class="checkbox"></span>
+            </label>
+            <span class="divider"></span>
+            <p class="forceName">F<sub>${i + 1}</sub></p>
+            <div btn class="del" id="${i}">Delete</div>
+        `;
+        hirearchy.appendChild(forceListing);
+    }
+}
