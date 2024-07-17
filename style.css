@@ -209,3 +209,12 @@ input[type="radio"] {
 .properties {
     width: 15%;
 }
+
+.properties div {
+    margin: 20px auto;
+    font-size: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+}

@@ -19,6 +19,10 @@ let forceList = [];
 
 let pi = 3.141592653598;
 
+let idText = document.querySelector("#IDValue");
+let magText = document.querySelector("#magnitudeValue");
+let dirText = document.querySelector("#directionValue");
+
 document.addEventListener("click", function (e) {
     let elementTarget = e.target;
     if (elementTarget.id === "activateMenu") {
@@ -34,8 +38,11 @@ document.addEventListener("click", function (e) {
         }
     } else if (elementTarget.className === "del") {
         delForce(elementTarget.id);
+    } else if (elementTarget.id === "forceSelect") {
+        selectForce(elementTarget.getAttribute("force"));
     }
 })
+
 
 // Adding Forces Function
 function addForce() {
@@ -124,6 +131,13 @@ function renderSingleForce(i, id, mag, dir, color) {
     antiHTML.setAttribute("antivector", "");
     antiHTML.style.setProperty("width", `${mag * 10}px`);
     
+    let vectorID = document.createElement("div");
+    vectorID.innerHTML = `F<sub>${userIndex}</sub>`;
+    vectorID.style.setProperty("font-size", "18px");
+    vectorID.style.setProperty("position", "absolute");
+    vectorID.style.setProperty("left", `${mag * 10 + 10}px`);
+    vectorID.style.setProperty("transform", `rotate(${dir}rad)`);
+
     let forceColorCode = document.createElement("style");
     forceColorCode.innerHTML = `
         #forceVector${id} [vector]::after {
@@ -139,6 +153,7 @@ function renderSingleForce(i, id, mag, dir, color) {
     forceHTML.id = `forceVector${id}`;
     forceHTML.style.setProperty("transform", `rotate(${0 - dir}rad)`);
 
+    forceHTML.appendChild(vectorID);
     forceHTML.appendChild(vectorHTML);
     forceHTML.appendChild(antiHTML);
     forceHTML.appendChild(forceColorCode);
@@ -149,9 +164,22 @@ function renderSingleForce(i, id, mag, dir, color) {
     forceListing.className = `force`;
     forceListing.id = `force${id}`;
     forceListing.innerHTML = `
-        <input type="radio" name="a" id="${realIndex}">
+        <input type="radio" name="a" id="forceSelect" force="${realIndex}">
         <p class="forceName">F<sub>${userIndex}</sub></p>
         <div btn class="del" id="${realIndex}">Delete</div>
     `;
     hirearchy.appendChild(forceListing);
+}
+
+// Showing Selected Function Properties
+function selectForce(idName) {
+    if (idName !== "resultant") {
+        idText.innerText = parseInt(idName) + 1;
+        magText.innerHTML = forceList[parseInt(idName)].magnitude;
+        dirText.innerHTML = Math.floor(forceList[parseInt(idName)].direction * (180 / Math.PI) * 1000) / 1000 + ` <sup>o</sup>`;
+    } else {
+        idText.innerHTML = idName;
+        magText.innerHTML = Math.floor(renderResultant().resultantMagnitude * 1000) / 1000;
+        dirText.innerHTML = Math.floor(renderResultant().resultantDirection * (180 / Math.PI) * 1000) / 1000 + ` <sup>o</sup>`;
+    }
 }
