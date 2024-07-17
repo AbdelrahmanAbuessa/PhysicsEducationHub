@@ -17,6 +17,8 @@ y.style.setProperty("height", "calc(100% - 49px)");
 
 let forceList = [];
 
+let pi = 3.141592653598;
+
 document.addEventListener("click", function (e) {
     let elementTarget = e.target;
     if (elementTarget.id === "activateMenu") {
@@ -40,7 +42,7 @@ function addForce() {
     let force = {
         "id": forceList.length,
         "magnitude": forceMagnitude.value,
-        "direction": forceDirection.value,
+        "direction": forceDirection.value * (pi / 180),
         "color": generateColor()
     }
     forceList.push(force);
@@ -70,7 +72,7 @@ function renderAllForces() {
         "direction": renderResultant().resultantDirection
     }
 
-    renderSingleForce(0, "resultant", resultant.magnitude, resultant.direction, "red");
+    renderSingleForce(undefined, "resultant", resultant.magnitude, resultant.direction, "red");
 }
 
 // Random Color Generation Function
@@ -84,14 +86,14 @@ function renderResultant() {
     let totalY = 0;
     let resultantMagnitude = 0;
     let resultantDirection = 0;
-    for (let i = 0; i < forceList.length - 1; i++) {
-        totalX += forceList[i].magnitude * Math.cos(forceList[i].direction * Math.PI / 180);
-        totalY += forceList[i].magnitude * Math.sin(forceList[i].direction * Math.PI / 180);
+    for (let i = 0; i < forceList.length; i++) {
+        totalX += forceList[i].magnitude * Math.cos(forceList[i].direction);
+        totalY += forceList[i].magnitude * Math.sin(forceList[i].direction);
     }
+    resultantDirection = Math.atan2(totalY , totalX);
     totalX = totalX * totalX;
     totalY = totalY * totalY;
     resultantMagnitude = Math.sqrt(totalX + totalY);
-    resultantDirection = (totalY / totalX) * (Math.PI / 180);
 
     return new Object (
         {
@@ -135,7 +137,7 @@ function renderSingleForce(i, id, mag, dir, color) {
     
     let forceHTML = document.createElement("div");
     forceHTML.id = `forceVector${id}`;
-    forceHTML.style.setProperty("transform", `rotate(${0 - dir}deg)`);
+    forceHTML.style.setProperty("transform", `rotate(${0 - dir}rad)`);
 
     forceHTML.appendChild(vectorHTML);
     forceHTML.appendChild(antiHTML);
@@ -147,6 +149,7 @@ function renderSingleForce(i, id, mag, dir, color) {
     forceListing.className = `force`;
     forceListing.id = `force${id}`;
     forceListing.innerHTML = `
+        <input type="radio" name="a" id="${realIndex}">
         <p class="forceName">F<sub>${userIndex}</sub></p>
         <div btn class="del" id="${realIndex}">Delete</div>
     `;
