@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Resultant Simulation</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <h1>Resultant (Net Force) Simulator</h1>
+        
+        <!-- Layover Menu: Adding a Force -->
+        <div hide class="layover">
+            <div class="box">
+                <div class="Section">
+                    <label for="mag">Magnitude</label>
+                    <input type="number" id="mag" placeholder="Enter a Number">              
+                </div>
+                <div class="Section">
+                    <label for="dir">Direction</label>
+                    <input type="number" id="dir" placeholder="Enter a Number">
+                </div>
+                <div class="Section">
+                    <div btn id="addForce">Add Force</div>
+                    <div btn id="disableMenu">Cancel</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+
+            <!-- Section 1: Force List -->
+            <div class="forcelist">
+                <div class="list">
+                    <!-- Forces will be added here -->
+                </div>
+                <div btn id="activateMenu">
+                    Add Force
+                </div>
+            </div>
+
+            <!-- Section 2: Axis -->
+            <div class="axisgrid">
+                <div axis class="x"></div>
+                <div axis class="y"></div>
+                <div quarter="" class="q1">Q <sub>1</sub> </div>
+                <div quarter="" class="q2">Q <sub>2</sub></div>
+                <div quarter="" class="q3">Q <sub>3</sub></div>
+                <div quarter="" class="q4">Q <sub>4</sub></div>
+            </div>    
+
+            <!-- Section 3: Properties Menu -->
+            <div class="properties">
+                <div class="vectorID">
+                    ID =
+                    <span id="IDValue">0</span>
+                </div>
+                <div class="vectorMagnitude">
+                    Magnitude =
+                    <span id="magnitudeValue">0</span>
+                </div>
+                <div class="vectorDirection">
+                    Direction =
+                    <span id="directionValue">0</span>
+                </div>
+                <hr>
+                <div class="xcomp">
+                    Xnet =
+                    <span id="xc">0</span>
+                </div>
+                <div class="ycomp">
+                    Ynet =
+                    <span id="yc">0</span>
+                </div>
+            </div>
+            
+        </div>
+
+        <!-- JS -->
+        <script src="script.js"></script>
+
+    </body>
+</html>
