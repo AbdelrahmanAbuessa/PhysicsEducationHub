@@ -10,10 +10,27 @@ let x = document.createElement("div");
 let y = document.createElement("div");
 x.setAttribute("axis", "");
 y.setAttribute("axis", "");
-x.style.setProperty("width", "inherit");
+x.style.setProperty("width", "100%");
 x.style.setProperty("height", "1px");
 y.style.setProperty("width", "1px");
-y.style.setProperty("height", "calc(100% - 49px)");
+y.style.setProperty("height", "100%");
+
+let q1 = document.createElement("div");
+let q2 = document.createElement("div");
+let q3 = document.createElement("div");
+let q4 = document.createElement("div");
+q1.setAttribute("quarter", "");
+q2.setAttribute("quarter", "");
+q3.setAttribute("quarter", "");
+q4.setAttribute("quarter", "");
+q1.className = "q1";
+q2.className = "q2";
+q3.className = "q3";
+q4.className = "q4";
+q1.innerHTML = `Q <sub>1</sub>`;
+q2.innerHTML = `Q <sub>2</sub>`;
+q3.innerHTML = `Q <sub>3</sub>`;
+q4.innerHTML = `Q <sub>4</sub>`;
 
 let forceList = [];
 
@@ -23,10 +40,15 @@ let idText = document.querySelector("#IDValue");
 let magText = document.querySelector("#magnitudeValue");
 let dirText = document.querySelector("#directionValue");
 
+let xc = document.querySelector("#xc");
+let yc = document.querySelector("#yc");
+
 document.addEventListener("click", function (e) {
     let elementTarget = e.target;
     if (elementTarget.id === "activateMenu") {
         menu.style.setProperty("display", "flex");
+        forceMagnitude.value = "";
+        forceDirection.value = "";
     } else if (elementTarget.id === "disableMenu") {
         menu.style.setProperty("display", "none");
     } else if (elementTarget.id === "addForce") {
@@ -67,6 +89,10 @@ function renderAllForces() {
     canvas.innerHTML = "";
     canvas.appendChild(x);
     canvas.appendChild(y);
+    canvas.appendChild(q1);
+    canvas.appendChild(q2);
+    canvas.appendChild(q3);
+    canvas.appendChild(q4);
 
     hirearchy.innerHTML = "";
 
@@ -76,7 +102,7 @@ function renderAllForces() {
 
     let resultant = {
         "magnitude": renderResultant().resultantMagnitude,
-        "direction": renderResultant().resultantDirection
+        "direction": renderResultant().resultantDirection,
     }
 
     renderSingleForce(undefined, "resultant", resultant.magnitude, resultant.direction, "red");
@@ -98,6 +124,8 @@ function renderResultant() {
         totalY += forceList[i].magnitude * Math.sin(forceList[i].direction);
     }
     resultantDirection = Math.atan2(totalY , totalX);
+    xc.innerHTML = `${Math.floor(totalX * 1000) / 1000}`;
+    yc.innerHTML = `${Math.floor(totalY * 1000) / 1000}`;
     totalX = totalX * totalX;
     totalY = totalY * totalY;
     resultantMagnitude = Math.sqrt(totalX + totalY);

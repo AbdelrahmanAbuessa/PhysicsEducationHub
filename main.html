@@ -3,11 +3,11 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>JavaScript Force Simulation</title>
+        <title>Resultant Simulation</title>
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
-        <h1>Physics Simulator</h1>
+        <h1>Resultant (Net Force) Simulator</h1>
         
         <!-- Layover Menu: Adding a Force -->
         <div hide class="layover">
@@ -43,6 +43,10 @@
             <div class="axisgrid">
                 <div axis class="x"></div>
                 <div axis class="y"></div>
+                <div quarter="" class="q1">Q <sub>1</sub> </div>
+                <div quarter="" class="q2">Q <sub>2</sub></div>
+                <div quarter="" class="q3">Q <sub>3</sub></div>
+                <div quarter="" class="q4">Q <sub>4</sub></div>
             </div>    
 
             <!-- Section 3: Properties Menu -->
@@ -59,7 +63,17 @@
                     Direction =
                     <span id="directionValue">0</span>
                 </div>
+                <hr>
+                <div class="xcomp">
+                    Xnet =
+                    <span id="xc">0</span>
+                </div>
+                <div class="ycomp">
+                    Ynet =
+                    <span id="yc">0</span>
+                </div>
             </div>
+            
         </div>
 
         <!-- JS -->

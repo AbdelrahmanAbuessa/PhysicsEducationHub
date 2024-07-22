@@ -34,8 +34,10 @@ h1 {
 .axisgrid {
     display: flex;
     justify-content: center;
+    background-color: white;
     align-items: center;
     width: 64%;
+    position: relative;
 }
 
 [axis] {
@@ -45,11 +47,11 @@ h1 {
 
 .x {
     height: 1px;
-    width: inherit;
+    width: 100%;
 }
 
 .y {
-    height: calc(100% - 49px);
+    height: 100%;
     width: 1px;
 }
 
@@ -217,4 +219,30 @@ input[type="radio"] {
     justify-content: space-between;
     align-items: center;
     width: 90%;
+}
+
+[quarter] {
+    font-size: 20px;
+    color: gray;
+    position: absolute;
+}
+
+.q1 {
+    top: 10px;
+    right: 10px;
+}
+
+.q2 {
+    top: 10px;
+    left: 10px;
+}
+
+.q3 {
+    bottom: 10px;
+    left: 10px;
+}
+
+.q4 {
+    bottom: 10px;
+    right: 10px;
 }
