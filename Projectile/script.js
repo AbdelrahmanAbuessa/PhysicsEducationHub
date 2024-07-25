@@ -5,13 +5,19 @@ let canvas = document.querySelector(".render");
 let Vi = document.querySelector("#vi");
 let theta = document.querySelector("#angle");
 let g = document.querySelector("#g");
-let maxt = 0;
+
+let maxT = 50;
+
+let Xmax = 1000;
+let Ymax = 400;
+
+let vi = 10;
+let thetaVal = 45 * Math.PI / 180;
 
 document.addEventListener("click", function (e) {
     let targetElement = e.target;
     if (targetElement.id === "animate") {
-        maxt = Math.sqrt(2 * 400 / g.value);
-        for (let t = 0; t <= maxt; t += 2*Math.PI/1000) {
+        for (let t = 0; t <= maxT; t += 0.001) {
             setTimeout(function () {
                 renderBall(t);
             }, 1);
@@ -19,12 +25,11 @@ document.addEventListener("click", function (e) {
     }
 });
 
-ball.style.bottom = "170px";
-ball.style.left = "17px";
+ball.style.bottom = "100px";
 
 function renderBall(t) {
         canvas.innerHTML = "";
-        // ball.style.bottom = `calc(170px - ${0.5 * parseInt(g.value) * t * t}px)`;
-        ball.style.left = `calc(17px + ${25 * t}px)`;
+        ball.style.left = `${vi * Math.cos(thetaVal) * t}px`;
+        ball.style.bottom = `${(vi * Math.sin(thetaVal) * t) - (0.5 * t * t * 9.81)}px`;
         canvas.appendChild(ball);
 }
