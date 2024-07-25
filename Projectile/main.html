@@ -31,7 +31,7 @@
                 </div>
                 <div class="subsection">
                     <label for="g">Show Past Launches</label>
-                    <input type="checkbox" id="path">
+                    <input type="checkbox" id="past">
                 </div>
                 <div class="subsection">
                     <label for="g">Show Path</label>
@@ -42,9 +42,26 @@
             </div>
 
             <!-- Section 2: Render -->
-            <canvas class="canvas" height="500" width="1000">
+            <div class="main">
+                <canvas class="canvas" height="500" width="1000">
+    
+                </canvas>
 
-            </canvas>
+                <div class="additionalinfo">
+                    <div>
+                        Max Height = 
+                        <span id="hmax">0</span>m
+                    </div>
+                    <div>
+                        Range = 
+                        <span id="r">0</span>m
+                    </div>
+                    <div>
+                        Time =
+                        <span id="t">0</span>s
+                    </div>
+                </div>
+            </div>
 
         </div>
         
