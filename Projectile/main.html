@@ -29,15 +29,22 @@
                     <input type="number" id="g" value="9.81">
                     <span class="unit">m/s<sup>2</sup></span>
                 </div>
+                <div class="subsection">
+                    <label for="g">Show Past Launches</label>
+                    <input type="checkbox" id="path">
+                </div>
+                <div class="subsection">
+                    <label for="g">Show Path</label>
+                    <input type="checkbox" id="path">
+                </div>
                 <div btn="" id="animate">Launch</div>
+                <div btn="" id="reset">Reset</div>
             </div>
 
             <!-- Section 2: Render -->
-            <div class="canvas">
-                <div class="ground"></div>
-                <div class="render"></div>
-                <!-- <div ball></div> -->
-            </div>
+            <canvas class="canvas" height="500" width="1000">
+
+            </canvas>
 
         </div>
         

@@ -1,35 +1,47 @@
-let ball = document.createElement("div");
-ball.setAttribute("ball", "");
-let canvas = document.querySelector(".render");
+let canvas = document.querySelector("canvas");
+let ctx = canvas.getContext("2d");
+ctx.transform(1, 0, 0, -1, 0, canvas.height);
+ctx.fillStyle = "red";
 
-let Vi = document.querySelector("#vi");
-let theta = document.querySelector("#angle");
-let g = document.querySelector("#g");
-
-let maxT = 50;
-
-let Xmax = 1000;
-let Ymax = 400;
-
-let vi = 10;
-let thetaVal = 45 * Math.PI / 180;
+let Vi = document.getElementById("vi");
+let theta = document.getElementById("angle");
+let g = document.getElementById("g");
+let path = document.getElementById("path");
 
 document.addEventListener("click", function (e) {
     let targetElement = e.target;
     if (targetElement.id === "animate") {
-        for (let t = 0; t <= maxT; t += 0.001) {
-            setTimeout(function () {
-                renderBall(t);
-            }, 1);
+        if (Vi.value === "" || theta.value === "" || g.value === "") {
+            alert("Please fill all the fields");
+        } else {
+            renderPath(Vi.value * 4, theta.value * (Math.PI / 180), g.value, path.checked);
         }
     }
 });
 
-ball.style.bottom = "100px";
+function renderPath(vi, deg, g, path) {
+    let vx = vi * Math.cos(deg);
+    let vy = vi * Math.sin(deg);
 
-function renderBall(t) {
-        canvas.innerHTML = "";
-        ball.style.left = `${vi * Math.cos(thetaVal) * t}px`;
-        ball.style.bottom = `${(vi * Math.sin(thetaVal) * t) - (0.5 * t * t * 9.81)}px`;
-        canvas.appendChild(ball);
+    let ti = Date.now();
+    function renderBall() {
+        t = (Date.now() - ti) / 100;
+        let x = vx * t;
+        let y = vy * t - (0.5 * g * t * t);
+        ctx.beginPath();
+        ctx.arc(x, y, 10, 0, Math.PI * 2);
+        ctx.fill();
+        if (y < 0) {
+            return;
+        }
+        setTimeout(renderBall, t);
+    }
+
+    if (path) {
+        renderBall();
+    } else {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        renderBall();
+    }
+
 }
