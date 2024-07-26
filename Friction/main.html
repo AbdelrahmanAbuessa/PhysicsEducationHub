@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="style.css">
+        <title>Projectile Motion</title>
+    </head>
+    <body>
+        <div class="title">
+            Projectile Motion
+        </div>
+
+        <div class="content">
+
+            <!-- Section 1: Sidebar -->
+            <div class="sidebar">
+                <div class="subsection">
+                    <label for="angle">Launch Angle</label>
+                    <input type="number" id="angle">
+                </div>
+                <div class="subsection">
+                    <label for="vi">Initial Velocity</label>
+                    <input type="number" id="vi">
+                    <span class="unit">m/s</span>
+                </div>
+                <div class="subsection">
+                    <label for="g">Gravitational Potential</label>
+                    <input type="number" id="g" value="9.81">
+                    <span class="unit">m/s<sup>2</sup></span>
+                </div>
+                <div class="subsection">
+                    <label for="g">Show Past Launches</label>
+                    <input type="checkbox" id="past">
+                </div>
+                <div class="subsection">
+                    <label for="g">Show Path</label>
+                    <input type="checkbox" id="path">
+                </div>
+                <div btn="" id="animate">Launch</div>
+                <div btn="" id="reset">Reset</div>
+            </div>
+
+            <!-- Section 2: Render -->
+            <div class="main">
+                <canvas class="canvas" height="500" width="1000">
+    
+                </canvas>
+
+                <div class="additionalinfo">
+                    <div>
+                        Max Height = 
+                        <span id="hmax">0</span>m
+                    </div>
+                    <div>
+                        Range = 
+                        <span id="r">0</span>m
+                    </div>
+                    <div>
+                        Time =
+                        <span id="t">0</span>s
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        
+        <script src="script.js"></script>
+
+    </body>
+</html>

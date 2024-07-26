@@ -1,0 +1,94 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+body {
+    height: 100vh;
+    background-color: lightgray;
+}
+
+.title {
+    height: 8%;
+    font-size: 25px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.content {
+    height: 92%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.sidebar {
+    background-color: white;
+    padding: 10px;
+    width: 21%;
+    display: grid;
+    place-items: center;
+}
+
+.subsection {
+    margin-top: 20px;
+    font-size: 20px;
+}
+
+.subsection > input {
+    width: 150px;
+    display: inline-block;
+    margin-top: 5px;
+    font-size: 18px;
+}
+
+[btn] {
+    font-size: 30px;
+    background-color: gray;
+    color: white;
+    padding: 20px;
+    width: 150px;
+    text-align: center;
+    border-radius: 25px;
+    transition-duration: 0.3s;
+    transition-property: width;
+    cursor: pointer;
+}
+
+[btn]:hover {
+    width: 200px;
+}
+
+[btn]:active {
+    background-color: black;
+}
+
+.canvas {
+    position: relative;
+    background-color: lightblue !important;
+    border: 1px solid black;
+}
+
+.subsection:nth-child(4), .subsection:nth-child(5) {
+    width: 200px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+input[type="checkbox"] {
+    width: 25px;
+    height: 25px;
+}
+
+.additionalinfo {
+    background-color: white;
+    height: 20%;
+    font-size: 20px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
