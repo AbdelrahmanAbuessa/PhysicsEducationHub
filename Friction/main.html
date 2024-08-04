@@ -25,25 +25,29 @@
                     <input type="number" id="fa">
                 </div>
                 <div>
-                    <label for="inc">Surface Incline = </label>
-                    <input type="number" id="inc">
-                </div>
-                <div>
                     <label for="g">Gravitational Acceleration = </label>
                     <input type="number" id="g">
                 </div>
                 <div btn="" id="start">Start</div>
             </div>
 
-            <div class="simulation">
-                <canvas id="canvas">
-
-                </canvas>
+            <div class="rendering">
+                <div class="simulation">
+                    <div class="canvas">
+                        <div class="items">
+                            <div id="applied" force></div>
+                            <div class="ball"></div>
+                            <div id="friction" force></div>
+                        </div>
+                    </div>
+                    <div class="gnd"></div>
+                </div>
+    
+                <div class="properties">
+    
+                </div>
             </div>
 
-            <div class="properties">
-
-            </div>
 
         </div>
 
