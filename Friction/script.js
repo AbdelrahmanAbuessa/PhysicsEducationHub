@@ -5,8 +5,19 @@ let uk_txt = document.getElementById("fkc");
 let fapp_slider = document.getElementById("fa");
 let fapp_txt = document.getElementById("force");
 let inc_txt = document.getElementById("inc");
-g_txt.value = 9.81;
 let d = 50;
+g_txt.value = 9.81;
+
+let mass;
+let g;
+let us;
+let uk;
+let fa;
+let theta;
+let max_friction;
+let app_friction;
+let type_friction;
+let kinetic_friction;
 
 let canvas = document.getElementById("canvas");
 canvas.width = 700;
@@ -44,10 +55,18 @@ function start() {
     g = parseFloat(g_txt.value);
     fa = parseFloat(fapp_slider.value);
     theta = parseFloat(inc_txt.value);
-    
     max_friction = mass * g * us;
+    kinetic_friction = mass * g * uk;
 
-    requestAnimationFrame(updatePosition);
+    if (fa <= max_friction) {
+        type_friction = "static";
+        app_friction = fa;
+        draw(pos);
+    } else if (fa > max_friction) {
+        type_friction = "kinetic";
+        app_friction = kinetic_friction;
+        requestAnimationFrame(updatePosition);
+    }
 }
 
 // if applied force > maximum friction force:
@@ -84,11 +103,13 @@ function draw(pos) {
 let dx = 0;
 
 function updatePosition() {
-    
-    
     pos += dx;
-    dx += g / 10;
-    draw(pos);
+    dx += (fa - app_friction) / mass / 10;
+    if (dx < 0) {
+        console.log("Please enter proper numbers");
+    } else {
+        draw(pos);
+    }
     if (pos < canvas.width - d) {
         animationFrameId = requestAnimationFrame(updatePosition);
     } else if (pos >= canvas.width - d) {
