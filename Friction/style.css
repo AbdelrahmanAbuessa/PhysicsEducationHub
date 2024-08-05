@@ -88,3 +88,11 @@ body {
 canvas {
     border-bottom: 5px solid black;
 }
+
+[type="range"] {
+    width: 200px;
+}
+
+[type="range"] + label {
+    margin-left: 15px;
+}

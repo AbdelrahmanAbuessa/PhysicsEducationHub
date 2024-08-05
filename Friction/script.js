@@ -2,7 +2,8 @@ let m_txt = document.getElementById("m");
 let g_txt = document.getElementById("g");
 let us_txt = document.getElementById("fsc");
 let uk_txt = document.getElementById("fkc");
-let fapp_txt = document.getElementById("fa");
+let fapp_slider = document.getElementById("fa");
+let fapp_txt = document.getElementById("force");
 let inc_txt = document.getElementById("inc");
 g_txt.value = 9.81;
 let d = 50;
@@ -13,19 +14,27 @@ canvas.height = d;
 let ctx = canvas.getContext("2d");
 
 let X_init = (canvas.width - (d/2))/2;
+X_init = 0;
+let pos = X_init;
 
 document.addEventListener("click", function (e) {
     let targetElement = e.target;
     if (targetElement.id === "start") {
-        // checkAvailability();
-        start();    
+        checkAvailability();
     }
 })
 
+fapp_slider.oninput = function () {
+    fapp_txt.innerText = fapp_slider.value;
+}
+
 function checkAvailability() {
-    if (m_txt.value === "" || g_txt.value === "" || us_txt.value === "" || uk_txt.value === "" || fapp_txt.value === "" || inc_txt.value === "") {
-        alert("Please Insert a Number");
-    }
+    // if (m_txt.value === "" || g_txt.value === "" || us_txt.value === "" || uk_txt.value === "" || inc_txt.value === "" || fapp_slider.value === 0) {
+    //     alert("Please Insert a Number");
+    // } else {
+    //     start();    
+    // }
+    start();    
 }
 
 function start() {
@@ -33,9 +42,12 @@ function start() {
     us = parseFloat(us_txt.value);
     uk = parseFloat(uk_txt.value);
     g = parseFloat(g_txt.value);
-    fa = parseFloat(fapp_txt.value);
+    fa = parseFloat(fapp_slider.value);
     theta = parseFloat(inc_txt.value);
-    draw();
+    
+    max_friction = mass * g * us;
+
+    requestAnimationFrame(updatePosition);
 }
 
 // if applied force > maximum friction force:
@@ -52,11 +64,11 @@ function start() {
 
 // start with normal stuff first
 
-function draw() {
+function draw(pos) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.fillStyle = "blue";
     ctx.beginPath();
-    ctx.rect(X_init, 0, d, d);
+    ctx.rect(pos, 0, d, d);
     ctx.fill();
 
     ctx.fillStyle = 'white';
@@ -64,7 +76,23 @@ function draw() {
     const textMetrics = ctx.measureText(mass);
     const textWidth = textMetrics.width;
     const textHeight = parseInt(ctx.font, 10);
-    const x = (d - textWidth) / 2 + X_init;
+    const x = (d - textWidth) / 2 + pos;
     const y = (d + textHeight / 2) / 2;
     ctx.fillText(mass, x, y);
+}
+
+let dx = 0;
+
+function updatePosition() {
+    
+    
+    pos += dx;
+    dx += g / 10;
+    draw(pos);
+    if (pos < canvas.width - d) {
+        animationFrameId = requestAnimationFrame(updatePosition);
+    } else if (pos >= canvas.width - d) {
+        pos = X_init;
+        dx = 0;
+    }
 }

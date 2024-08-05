@@ -13,7 +13,7 @@
 
             <div class="sidebar">
                 <div>
-                    <label for="m">Mass of Block = </label>
+                    <label for="m">Mass of Block (kg) = </label>
                     <input type="number" id="m">
                 </div>
                 <div>
@@ -29,11 +29,12 @@
                     <input type="number" id="fkc">
                 </div>
                 <div>
-                    <label for="fa">Applied Force = </label>
-                    <input type="number" id="fa">
+                    <label for="fa">Applied Force (N) = </label>
+                    <input type="range" id="fa" min="0" max="30" step="1" value="0">
+                    <label for="fa" id="force">0</label>
                 </div>
                 <div>
-                    <label for="inc">Surface Incline = </label>
+                    <label for="inc">Surface Incline (Degrees) = </label>
                     <input type="number" id="inc">
                 </div>
                 <div btn="" id="start">Start</div>
