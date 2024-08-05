@@ -18,6 +18,9 @@ let max_friction;
 let app_friction;
 let type_friction;
 let kinetic_friction;
+let weight;
+let opposing_static_forces;
+let opposing_kinetic_forces;
 
 let canvas = document.getElementById("canvas");
 canvas.width = 700;
@@ -54,34 +57,39 @@ function start() {
     uk = parseFloat(uk_txt.value);
     g = parseFloat(g_txt.value);
     fa = parseFloat(fapp_slider.value);
-    theta = parseFloat(inc_txt.value);
-    max_friction = mass * g * us;
-    kinetic_friction = mass * g * uk;
+    theta = parseFloat(inc_txt.value) * (Math.PI / 180);
+    weight = mass * g;
+    max_friction = weight * us;
+    kinetic_friction = weight * uk;
+    opposing_static_forces = weight * (Math.sin(theta) + (Math.cos(theta) * us));
+    opposing_kinetic_forces = weight * (Math.sin(theta) + (Math.cos(theta) * uk));
 
-    if (fa <= max_friction) {
-        type_friction = "static";
-        app_friction = fa;
-        draw(pos);
-    } else if (fa > max_friction) {
-        type_friction = "kinetic";
-        app_friction = kinetic_friction;
-        requestAnimationFrame(updatePosition);
+    if (theta !== 0) {
+        canvas.style.rotate = `-${theta}rad`;
+        pos = (canvas.width - d) / 2;
+        if (fa <= opposing_static_forces) {
+            type_friction = "static";
+            app_inclined_friction = opposing_static_forces;
+            draw(pos);
+        } else if (fa > opposing_static_forces) {
+            type_friction = "kinetic";
+            app_inclined_friction = opposing_kinetic_forces;
+            requestAnimationFrame(updatePositionInclined);
+        }
+    } else {
+        if (fa <= max_friction) {
+            type_friction = "static";
+            app_friction = fa;
+            draw(pos);
+        } else if (fa > max_friction) {
+            type_friction = "kinetic";
+            app_friction = kinetic_friction;
+            requestAnimationFrame(updatePositionStatic);
+        }
     }
 }
 
-// if applied force > maximum friction force:
-// calculate acceleration
-// apply acceleration to block
-// move block
-// if applied force < maximum friction force:
-// do nothing
-
-// if inclinde:
-// calculate incline stuff
-// if not:
-// calculate normal stuff
-
-// start with normal stuff first
+let dx = 0;
 
 function draw(pos) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -100,20 +108,33 @@ function draw(pos) {
     ctx.fillText(mass, x, y);
 }
 
-let dx = 0;
-
-function updatePosition() {
+function updatePositionStatic() {
     pos += dx;
     dx += (fa - app_friction) / mass / 10;
-    if (dx < 0) {
+    if (dx < 0 && theta === 0) {
         console.log("Please enter proper numbers");
     } else {
         draw(pos);
     }
     if (pos < canvas.width - d) {
-        animationFrameId = requestAnimationFrame(updatePosition);
+        animationFrameId = requestAnimationFrame(updatePositionStatic);
     } else if (pos >= canvas.width - d) {
         pos = X_init;
+        dx = 0;
+    }
+}
+
+function updatePositionInclined() {
+    pos += dx;
+    dx += (fa - app_inclined_friction) / mass / 10;
+    draw(pos);
+    if (pos < canvas.width - d && pos >= 0) {
+        animationFrameId = requestAnimationFrame(updatePositionInclined);
+    } else if (pos >= canvas.width - d) {
+        pos = canvas.width - d;
+        dx = 0;
+    } else if (pos < 0) {
+        pos = 0;
         dx = 0;
     }
 }
