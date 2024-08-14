@@ -5,8 +5,15 @@ let uk_txt = document.getElementById("fkc");
 let fapp_slider = document.getElementById("fa");
 let fapp_txt = document.getElementById("force");
 let inc_txt = document.getElementById("inc");
+let container = document.querySelector(".simulation");
 let d = 50;
 g_txt.value = 9.81;
+m_txt.value = 5;
+us_txt.value = 0.5;
+uk_txt.value = 0.5;
+// fapp_txt.value = 10;
+// fapp_slider.value = 1;
+inc_txt.value = 30;
 
 let mass;
 let g;
@@ -22,9 +29,11 @@ let weight;
 let weight_inclined;
 let max_friction_inclined;
 let kinetic_friction_inclined;
+let opposing_max_inclined_friction;
+let opposing_kinetic_inclined_friction;
 
 let canvas = document.getElementById("canvas");
-canvas.width = 700;
+canvas.width = container.clientHeight * 0.9;
 canvas.height = d;
 let ctx = canvas.getContext("2d");
 
@@ -39,19 +48,20 @@ document.addEventListener("click", function (e) {
     }
 })
 
+
 fapp_slider.oninput = function () {
     fapp_txt.innerText = fapp_slider.value;
 }
 
 function checkAvailability() {
     // if (m_txt.value === "" || g_txt.value === "" || us_txt.value === "" || uk_txt.value === "" || inc_txt.value === "" || fapp_slider.value === 0) {
-    //     alert("Please Insert a Number");
-    // } else {
-    //     start();    
-    // }
+        //     alert("Please Insert a Number");
+        // } else {
+            //     start();    
+        // }
     start();    
-}
-
+}        
+        
 function start() {
     mass = parseFloat(m_txt.value);
     us = parseFloat(us_txt.value);
@@ -65,8 +75,9 @@ function start() {
     weight_inclined = weight * Math.sin(theta);
     max_friction_inclined = max_friction * Math.cos(theta);
     kinetic_friction_inclined = kinetic_friction * Math.cos(theta);
-    
+
     if (theta !== 0) {
+        canvas.style.rotate = `-${theta}rad`;
         if (fa === 0) {
             if (weight_inclined <= max_friction_inclined) {
                 app_friction = weight_inclined;
@@ -78,17 +89,20 @@ function start() {
                 app_friction = kinetic_friction_inclined;
                 pos = (canvas.width - d) / 2;
                 requestAnimationFrame(updatePositionInclinedNoAppliedForce);
-                console.log("this is activated");
             }
-        } else if (fa > 0) {
-            // check if the force is greater than the sum of the normal friction AND the weight 
-            // if the force is not greater
-            // calculate the difference between the force and the friction AND weight
-            // calculate acceleration using total F = ma
-            // apply acceleration and slide down
-            // if force is greater
-            // calculate acceleration using total F = ma
-            // apply acceleration and push upwards
+        } else if (fa !== 0) {
+            if (fa > max_friction_inclined + weight_inclined) {
+                type_friction = "kinetic";
+                app_friction = kinetic_friction_inclined + weight_inclined;
+                pos = (canvas.width - d) / 2;
+                requestAnimationFrame(updatePositionInclinedAppliedForce);
+            } else if (fa < max_friction_inclined + weight_inclined) {
+                type_friction = "kinetic";
+                fa = weight_inclined - fa
+                app_friction = kinetic_friction_inclined;
+                pos = (canvas.width - d) / 2;
+                requestAnimationFrame(updatePositionInclinedAppliedForceNotSufficient);
+            }
         }
     } else {
         if (fa <= max_friction) {
@@ -147,6 +161,38 @@ function updatePositionInclinedNoAppliedForce() {
     } else if (pos < 0) {
         pos = 0;
         dx = 0;
+    } else if (pos >= canvas.width - d) {
+        pos = X_init;
+        dx = 0;
     }
-    console.log(dx);
+}
+
+function updatePositionInclinedAppliedForceNotSufficient() {
+    pos -= dx;
+    dx += (app_friction - fa) / mass / 10;
+    draw(pos);
+    if (pos < canvas.width - d && pos >= 0) {
+        animationFrameId = requestAnimationFrame(updatePositionInclinedAppliedForceNotSufficient);
+    } else if (pos < 0) {
+        pos = 0;
+        dx = 0;
+    } else if (pos >= canvas.width - d) {
+        pos = X_init;
+        dx = 0;
+    }
+}
+
+function updatePositionInclinedAppliedForce() {
+    pos += dx;
+    dx += (fa - app_friction) / mass / 10;
+    draw(pos);
+    if (pos < canvas.width - d && pos >= 0) {
+        animationFrameId = requestAnimationFrame(updatePositionInclinedAppliedForce);
+    } else if (pos < 0) {
+        pos = 0;
+        dx = 0;
+    } else if (pos >= canvas.width - d) {
+        pos = canvas.width - d;
+        dx = 0;
+    }
 }
