@@ -6,14 +6,14 @@ let fapp_slider = document.getElementById("fa");
 let fapp_txt = document.getElementById("force");
 let inc_txt = document.getElementById("inc");
 let container = document.querySelector(".simulation");
+let btn = document.getElementById("start");
+let disabled = document.querySelector("[disabled='true']");
 let d = 50;
-g_txt.value = 9.81;
-m_txt.value = 5;
-us_txt.value = 0.5;
-uk_txt.value = 0.5;
-// fapp_txt.value = 10;
-// fapp_slider.value = 1;
-inc_txt.value = 30;
+
+let appFrictionField = document.getElementById("app_friction");
+let maxFrictionField = document.getElementById("max_friction");
+let typeFrictionField = document.getElementById("type_friction");
+let accelerationField = document.getElementById("a");
 
 let mass;
 let g;
@@ -31,6 +31,7 @@ let max_friction_inclined;
 let kinetic_friction_inclined;
 let opposing_max_inclined_friction;
 let opposing_kinetic_inclined_friction;
+let acceleration;
 
 let canvas = document.getElementById("canvas");
 canvas.width = container.clientHeight * 0.9;
@@ -44,7 +45,9 @@ let pos = X_init;
 document.addEventListener("click", function (e) {
     let targetElement = e.target;
     if (targetElement.id === "start") {
-        checkAvailability();
+        if (targetElement.getAttribute("disabled") === "false") {
+            checkAvailability();
+        }
     }
 })
 
@@ -54,12 +57,15 @@ fapp_slider.oninput = function () {
 }
 
 function checkAvailability() {
-    // if (m_txt.value === "" || g_txt.value === "" || us_txt.value === "" || uk_txt.value === "" || inc_txt.value === "" || fapp_slider.value === 0) {
-        //     alert("Please Insert a Number");
-        // } else {
-            //     start();    
-        // }
-    start();    
+    if (m_txt.value === "" || g_txt.value === "" || us_txt.value === "" || uk_txt.value === "" || inc_txt.value === "" || fapp_slider.value === 0) {
+        alert("Please Insert a Number");
+    } else {
+        start();
+        btn.setAttribute("disabled", "true");
+        setTimeout(() => {
+            btn.setAttribute("disabled", "false");
+        }, 2000);
+    }
 }        
         
 function start() {
@@ -83,38 +89,54 @@ function start() {
                 app_friction = weight_inclined;
                 type_friction = "static";
                 pos = (canvas.width - d) / 2;
+                maxFrictionField.innerText = Math.round(max_friction_inclined * 1000) / 1000;
                 draw(pos);
             } else if (weight_inclined > max_friction_inclined) {
-                type_friction = "kinetic";
-                app_friction = kinetic_friction_inclined;
-                pos = (canvas.width - d) / 2;
-                requestAnimationFrame(updatePositionInclinedNoAppliedForce);
+                if (fa > max_friction_inclined + weight_inclined) {
+                    type_friction = "kinetic";
+                    app_friction = kinetic_friction_inclined + weight_inclined;
+                    pos = (canvas.width - d) / 2;
+                    maxFrictionField.innerText = Math.round(max_friction_inclined * 1000) / 1000;
+                    requestAnimationFrame(updatePositionInclinedNoAppliedForce);
+                } else if (fa < max_friction_inclined + weight_inclined) {
+                    kinetic_friction_inclined = fa;
+                    app_friction = kinetic_friction_inclined + weight_inclined;
+                    type_friction = "kinetic";
+                    pos = (canvas.width - d) / 2;
+                    maxFrictionField.innerText = Math.round(max_friction_inclined * 1000) / 1000;
+                    requestAnimationFrame(updatePositionInclinedAppliedForceNotSufficient);
+                } else if (fa === max_friction_inclined + weight_inclined) {
+                    app_friction = fa;
+                    type_friction = "static";
+                    pos = (canvas.width - d) / 2;
+                    maxFrictionField.innerText = Math.round(max_friction_inclined * 1000) / 1000;
+                    draw(pos);
+                }
             }
         } else if (fa !== 0) {
-            if (fa > max_friction_inclined + weight_inclined) {
-                type_friction = "kinetic";
-                app_friction = kinetic_friction_inclined + weight_inclined;
-                pos = (canvas.width - d) / 2;
-                requestAnimationFrame(updatePositionInclinedAppliedForce);
-            } else if (fa < max_friction_inclined + weight_inclined) {
-                type_friction = "kinetic";
-                fa = weight_inclined - fa
-                app_friction = kinetic_friction_inclined;
-                pos = (canvas.width - d) / 2;
-                requestAnimationFrame(updatePositionInclinedAppliedForceNotSufficient);
-            }
+            type_friction = "kinetic";
+            app_friction = kinetic_friction_inclined + weight_inclined;
+            pos = (canvas.width - d) / 2;
+            maxFrictionField.innerText = Math.round(max_friction_inclined * 1000) / 1000;
+            requestAnimationFrame(updatePositionInclinedAppliedForce);
         }
     } else {
+        canvas.style.rotate = `0rad`;
         if (fa <= max_friction) {
             type_friction = "static";
             app_friction = fa;
+            maxFrictionField.innerText = Math.round(max_friction * 1000) / 1000;
             draw(pos);
         } else if (fa > max_friction) {
             type_friction = "kinetic";
             app_friction = kinetic_friction;
+            maxFrictionField.innerText = Math.round(max_friction * 1000) / 1000;
             requestAnimationFrame(updatePositionStatic);
         }
     }
+
+    appFrictionField.innerText = Math.round(app_friction * 1000) / 1000;
+    typeFrictionField.innerText = type_friction;
 }
 
 let dx = 0;
@@ -137,24 +159,23 @@ function draw(pos) {
 }
 
 function updatePositionStatic() {
-    pos += dx;
-    dx += (fa - app_friction) / mass / 10;
-    if (dx < 0 && theta === 0) {
-        console.log("Please enter proper numbers");
-    } else {
-        draw(pos);
-    }
+    pos -= dx;
+    acceleration = (app_friction - fa) / mass / 10 
+    dx += acceleration;
+    draw(pos);
     if (pos < canvas.width - d) {
         animationFrameId = requestAnimationFrame(updatePositionStatic);
     } else if (pos >= canvas.width - d) {
         pos = X_init;
         dx = 0;
     }
+    accelerationField.innerText = Math.round(acceleration * -1000) / 1000;
 }
 
 function updatePositionInclinedNoAppliedForce() {
     pos -= dx;
-    dx += (weight_inclined - app_friction) / mass / 10;
+    acceleration = (weight_inclined - app_friction) / mass / 10;
+    dx += acceleration;
     draw(pos);
     if (pos < canvas.width - d && pos >= 0) {
         animationFrameId = requestAnimationFrame(updatePositionInclinedNoAppliedForce);
@@ -165,11 +186,13 @@ function updatePositionInclinedNoAppliedForce() {
         pos = X_init;
         dx = 0;
     }
+    accelerationField.innerText = Math.round(acceleration * -1000) / 1000;
 }
 
 function updatePositionInclinedAppliedForceNotSufficient() {
     pos -= dx;
-    dx += (app_friction - fa) / mass / 10;
+    acceleration = (app_friction - fa) / mass / 10;
+    dx += acceleration;
     draw(pos);
     if (pos < canvas.width - d && pos >= 0) {
         animationFrameId = requestAnimationFrame(updatePositionInclinedAppliedForceNotSufficient);
@@ -180,11 +203,13 @@ function updatePositionInclinedAppliedForceNotSufficient() {
         pos = X_init;
         dx = 0;
     }
+    accelerationField.innerText = Math.round(acceleration * -1000) / 1000;
 }
 
 function updatePositionInclinedAppliedForce() {
     pos += dx;
-    dx += (fa - app_friction) / mass / 10;
+    acceleration = (fa - app_friction) / mass / 10;
+    dx += acceleration;
     draw(pos);
     if (pos < canvas.width - d && pos >= 0) {
         animationFrameId = requestAnimationFrame(updatePositionInclinedAppliedForce);
@@ -195,4 +220,5 @@ function updatePositionInclinedAppliedForce() {
         pos = canvas.width - d;
         dx = 0;
     }
+    accelerationField.innerText = Math.round(acceleration * -1000) / 1000;
 }

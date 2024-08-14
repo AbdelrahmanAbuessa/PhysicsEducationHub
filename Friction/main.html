@@ -37,7 +37,7 @@
                     <label for="inc">Surface Incline (Degrees) = </label>
                     <input type="text" id="inc">
                 </div>
-                <div btn="" id="start">Start</div>
+                <div btn="" id="start" disabled="false">Start</div>
             </div>
 
             <div class="section2">
@@ -46,11 +46,20 @@
                 </div>
 
                 <div class="properties">
-
+                    <div class="text">
+                        Friction Force (N) = <span id="app_friction">0</span>
+                    </div>
+                    <div class="text">
+                        Max Friction Force (N) = <span id="max_friction">0</span>
+                    </div>
+                    <div class="text">
+                        Friction Type = <span id="type_friction">Null</span>
+                    </div>
+                    <div class="text">
+                        Acceleration = <span id="a">0</span>
+                    </div>
                 </div>
             </div>
-
-
         </div>
 
         <script src="script.js"></script>
