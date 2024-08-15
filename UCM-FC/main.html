@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Centripital Forces</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div class="title">
+            Uniform Circular Motion
+        </div>
+
+        <div class="main">
+            <div class="props">
+                <div class="section">
+                    <label for="m">Mass (kg)</label>
+                    <input type="text" name="m" id="m">
+                </div>
+                <div class="section">
+                    <label for="v">Linear Velocity (m/s)</label>
+                    <input type="text" name="v" id="v">
+                </div>
+                <div class="section">
+                    <label for="r">Radius (m)</label>
+                    <input type="text" name="r" id="r">
+                </div>
+                <div class="text">
+                    Angular Velocity = <span id="omega">0</span>
+                </div>
+                <div class="text">
+                    Period Time (T) = <span id="pt">0</span>
+                </div>
+                <div class="text">
+                    Centripital Force = <span id="fc">0</span>
+                </div>
+                <div btn="" id="start">Start</div>
+            </div>
+
+            <div class="simulation">
+                <canvas id="canvas"></canvas>
+            </div>
+        </div>
+
+        <script src="script.js"></script>
+    </body>
+</html>
