@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Collision Simulator</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div class="title">2 Object Collision Simulator</div>
+
+        <div class="main">
+            <div class="props">
+                <div class="subtitle">Block 1</div>
+                <div class="section">
+                    <label for="m1">Mass (kg)</label>
+                    <input type="text" name="m1" id="m1">
+                </div>
+                <div class="section">
+                    <label for="v1">Velocity (m/s)</label>
+                    <input type="text" name="v1" id="v1">
+                </div>
+            </div>
+            
+            <div class="simulation">
+                <canvas id="canvas"></canvas>
+                
+                <div class="settings">
+                    <div class="section">
+                        <label for="e">Elastic</label>
+                        <input type="checkbox" name="e" id="e">
+                    </div>
+                    
+                    <div class="section">
+                        <div btn="" id="start">Start</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="props">
+                <div class="subtitle">Block 2</div>
+                <div class="section">
+                    <label for="m2">Mass (kg)</label>
+                    <input type="text" name="m2" id="m2">
+                </div>
+                <div class="section">
+                    <label for="v2">Velocity (m/s)</label>
+                    <input type="text" name="v2" id="v2">
+                </div>
+            </div>
+        </div>
+
+        <script src="script.js"></script>
+    </body>
+</html>
