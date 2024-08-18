@@ -65,7 +65,7 @@ input[type="text"] {
 }
 
 .settings {
-    height: 25%;
+    height: 100%;
     background-color: white;
     width: 100%;
     display: flex;
@@ -109,11 +109,15 @@ input[type="checkbox"] {
 }
 
 canvas {
-    border: 1px solid black;
+    border-bottom: 5px solid black;
 }
 
 .text {
     display: flex;
     justify-content: space-between;
     font-size: 18px;
+}
+
+.settings .text {
+    width: 200px;
 }

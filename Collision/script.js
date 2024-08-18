@@ -1,14 +1,18 @@
 let mass1_txt = document.getElementById("m1");
 let mass2_txt = document.getElementById("m2");
 let velocity1_txt = document.getElementById("v1");
-let velocityfinal1_text = document.getElementById("vf1");
 let velocity2_txt = document.getElementById("v2");
 let elastic = document.getElementById("e");
 elastic.checked = true;
 
-let vh2_txt = document.getElementById("vfh2");
-let moment2_txt = document.getElementById("moment2");
+let btn = document.getElementById("start");
+
 let moment1_txt = document.getElementById("moment1");
+let moment2_txt = document.getElementById("moment2");
+let vf1_txt = document.getElementById("vf1");
+let vf2_txt = document.getElementById("vf2");
+let dKE1_txt = document.getElementById("dKE1");
+let dKE2_txt = document.getElementById("dKE2");
 
 let m1;
 let v1;
@@ -18,6 +22,16 @@ let v2;
 let vf2;
 let m3;
 let e;
+
+let KEi_1;
+let KEi_2;
+let KEf_1;
+let KEf_2;
+
+let pi1;
+let pi2;
+let pf1;
+let pf2;
 
 let t1;
 let t2;
@@ -34,7 +48,9 @@ canvas.height = 250;
 document.addEventListener("click", function (e) {
     let targetElement = e.target;
     if (targetElement.id === "start") {
-        checkAvailability();
+        if (targetElement.getAttribute("disabled") === "false") {
+            checkAvailability();
+        }
     }
 })
 
@@ -43,20 +59,15 @@ function checkAvailability() {
         mass1_txt.value === "" || 
         mass2_txt.value === "" || 
         velocity1_txt.value === "" || 
-        velocity2_txt.value === "" || 
-        velocityfinal1_text.value === ""
+        velocity2_txt.value === ""
     ) {
         alert("Please fill out all fields");
-    } else if (
-        parseFloat(mass1_txt) === NaN || 
-        parseFloat(mass2_txt) === NaN || 
-        parseFloat(velocity1_txt) === NaN || 
-        parseFloat(velocity2_txt) === NaN || 
-        parseFloat(velocityfinal1_text) === NaN
-    ) {
-        alert("Please enter correct numbers");
     } else {
         start();
+        btn.setAttribute("disabled", "true");
+        setTimeout(() => {
+            btn.setAttribute("disabled", "false");
+        }, 2000);
     }
 }
 
@@ -66,24 +77,29 @@ function start() {
     m3 = m1 + m2;
     v1 = parseFloat(velocity1_txt.value);
     v2 = parseFloat(velocity2_txt.value);
-    vf1 = parseFloat(velocityfinal1_text.value);
     e = elastic.checked;
     
+    KEi_1 = 0.5 * m1 * Math.pow(v1, 2);
+    KEf_1 = 0.5 * m1 * Math.pow(vf1, 2);
+    KEi_2 = 0.5 * m2 * Math.pow(v2, 2);
+    KEf_2 = KEf_1 - KEi_1 + KEi_2;
+
+    pi1 = m1 * v1;
+    pi2 = m2 * v2;
+
     if (e) {
-        vf2 = ((m1 * v1) + (m2 * v2) - (m1 * vf1)) / m2;
+        // vf2 = Math.sqrt(KEf_2 * 2 / m2); 
     } else {
-        vf2 = (((m1 * v1) + (m2 * v2)) / m3) - vf1;
+        // vf2 = Math.sqrt(KEf_2 * 2 / (m1 + m2));
     }
 
-    t1 = m1 * 7;
-    t2 = m2 * 7;
+    t1 = m1 * 5;
+    t2 = m2 * 5;
     
     pos1 = 0;
     pos2 = canvas.width - t2;
 
-    vh2_txt.innerText = Math.floor(vf2 * 1000) / 1000;
-    moment1_txt.innerText = Math.floor(m1 * v1 * 1000) / 1000;
-    moment2_txt.innerText = Math.floor(m2 * v2 * 1000) / 1000;
+    vf2_txt.innerText = Math.floor(vf2 * 1000) / 1000;
 
     requestAnimationFrame(updatePosition);
 }
@@ -122,8 +138,8 @@ function updatePosition() {
     if (pos1 + t1 > pos2 || pos1 < pos2 - canvas.width) {
         collision();
     } else {
-        pos1 += v1 / 2;
-        pos2 -= v2 / 2;
+        pos1 += v1 / 3;
+        pos2 -= v2 / 3;
         animationFrameId = requestAnimationFrame(updatePosition);
     }
 }
@@ -149,14 +165,14 @@ function collisionElastic() {
     }
     draw(pos1, t1, m1, 1);
     draw(pos2, t2, m2, 2);
-    pos1 -= vf1 / 2;
-    pos2 += vf2 / 2;
+    pos1 -= vf1 / 3;
+    pos2 += vf2 / 3;
 }
 
 function collisionInElastic() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     draw(pos1, t1 + t2, m1 + m2, 0);
-    pos1 += vf2 / 2;
+    pos1 += vf2 / 3;
     if (pos1 < 0) {
         pos1 = 0;
         vf2 = 0;
