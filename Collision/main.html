@@ -9,6 +9,10 @@
     <body>
         <div class="title">2 Object Collision Simulator</div>
 
+        <div class="info" id="info">
+            i
+        </div>
+
         <div class="main">
             <div class="props">
                 <div class="subtitle">Block 1</div>
@@ -86,8 +90,11 @@
             </div>
         </div>
 
-        <div class="layover" id="lay">
+        <div class="layover" id="lay" hidden="true">
             <div class="lay-cont">
+                <div class="lay-close" id="closeinfo">
+                    X
+                </div>
                 <div class="lay-title">Collision</div>
                 <div class="lay-subtitle">Conservation of Energy and Momentum</div>
     
@@ -120,6 +127,19 @@
                     </span>
                     <span class="lay-section">
                         If the collision was Elastic:
+                        <br>
+                        Both Kinetic energy AND Momentum are conserved, and both laws work simultaniously.
+                    </span>
+                    <span class="lay-section">
+                        If the collision was Inelastic:
+                        <br>
+                        Only momentum is conserved, Kinetic energy is dissipated into heat, sound, and material deformation, in this case,
+                        the law of conservation of Momentum is:
+                        <span class="lay-bold">
+                            m1 × u1 + m2 × u2 =  (m1 + m2) × v
+                        </span>
+                        Where m1 and m2 are the masses of the two objects, u1 and u2 are the velocities of the two objects before collision,
+                        and v is the Velocity of the final object formed from the joining of the two objects.
                     </span>
                 </div>
             </div>

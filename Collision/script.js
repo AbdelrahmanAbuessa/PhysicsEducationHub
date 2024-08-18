@@ -5,6 +5,7 @@ let velocity2_txt = document.getElementById("v2");
 let elastic = document.getElementById("e");
 elastic.checked = true;
 
+let infobtn = document.getElementById("info");
 let layover = document.getElementById("lay");
 
 let btn = document.getElementById("start");
@@ -62,6 +63,10 @@ document.addEventListener("click", function (e) {
         if (targetElement.getAttribute("disabled") === "false") {
             checkAvailability();
         }
+    } else if (targetElement.id === "info") {
+        layover.setAttribute("hidden", "false");
+    } else if (targetElement.id === "closeinfo") {
+        layover.setAttribute("hidden", "true");
     }
 })
 
