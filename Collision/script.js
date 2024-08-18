@@ -5,6 +5,8 @@ let velocity2_txt = document.getElementById("v2");
 let elastic = document.getElementById("e");
 elastic.checked = true;
 
+let layover = document.getElementById("lay");
+
 let btn = document.getElementById("start");
 
 let vf1_txt = document.getElementById("vf1");
