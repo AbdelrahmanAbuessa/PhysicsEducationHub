@@ -7,12 +7,18 @@ elastic.checked = true;
 
 let btn = document.getElementById("start");
 
-let moment1_txt = document.getElementById("moment1");
-let moment2_txt = document.getElementById("moment2");
 let vf1_txt = document.getElementById("vf1");
 let vf2_txt = document.getElementById("vf2");
-let dKE1_txt = document.getElementById("dKE1");
-let dKE2_txt = document.getElementById("dKE2");
+let moment1i_txt = document.getElementById("moment1i");
+let moment2i_txt = document.getElementById("moment2i");
+let moment1f_txt = document.getElementById("moment1f");
+let moment2f_txt = document.getElementById("moment2f");
+let KEi1_txt = document.getElementById("KEi1");
+let KEi2_txt = document.getElementById("KEi2");
+let KEf1_txt = document.getElementById("KEf1");
+let KEf2_txt = document.getElementById("KEf2");
+let totalKE_txt = document.getElementById("KE");
+let totalP_txt = document.getElementById("moment");
 
 let m1;
 let v1;
@@ -32,6 +38,9 @@ let pi1;
 let pi2;
 let pf1;
 let pf2;
+
+let totalKE;
+let totalP;
 
 let t1;
 let t2;
@@ -80,26 +89,46 @@ function start() {
     e = elastic.checked;
     
     KEi_1 = 0.5 * m1 * Math.pow(v1, 2);
-    KEf_1 = 0.5 * m1 * Math.pow(vf1, 2);
     KEi_2 = 0.5 * m2 * Math.pow(v2, 2);
-    KEf_2 = KEf_1 - KEi_1 + KEi_2;
-
+    
     pi1 = m1 * v1;
     pi2 = m2 * v2;
-
+    
     if (e) {
-        // vf2 = Math.sqrt(KEf_2 * 2 / m2); 
+        vf1 = (((m1 - m2) / (m1 + m2)) * v1) + (((2 * m2) / (m1 + m2)) * v2);
+        vf2 = (((2 * m1) / (m1 + m2)) * v1) + (((m2 - m1) / (m1 + m2)) * v2);
     } else {
-        // vf2 = Math.sqrt(KEf_2 * 2 / (m1 + m2));
+        vf2 = (pi1 - pi2) / m3;
+        vf1 = vf2;
     }
-
+    
     t1 = m1 * 5;
     t2 = m2 * 5;
     
     pos1 = 0;
     pos2 = canvas.width - t2;
 
+    KEf_1 = 0.5 * m1 * Math.pow(vf1, 2);
+    KEf_2 = 0.5 * m2 * Math.pow(vf2, 2);
+    
+    pf1 = m1 * vf1;
+    pf2 = m2 * vf2;
+
+    vf1_txt.innerText = Math.floor(vf1 * 1000) / 1000;
     vf2_txt.innerText = Math.floor(vf2 * 1000) / 1000;
+
+    moment1i_txt.innerText = Math.floor(pi1 * 1000) / 1000;
+    moment2i_txt.innerText = Math.floor(pi2 * 1000) / 1000;
+    moment1f_txt.innerText = Math.floor(pf1 * 1000) / 1000;
+    moment2f_txt.innerText = Math.floor(pf2 * 1000) / 1000;
+
+    KEi1_txt.innerText = Math.floor(KEi_1 * 1000) / 1000;
+    KEi2_txt.innerText = Math.floor(KEi_2 * 1000) / 1000;
+    KEf1_txt.innerText = Math.floor(KEf_1 * 1000) / 1000;
+    KEf2_txt.innerText = Math.floor(KEf_2 * 1000) / 1000;
+
+    totalKE_txt.innerText = Math.floor((KEi_1 + KEi_2) * 1000) / 1000;
+    totalP_txt.innerText = Math.floor((pi1 + pi2) * 1000) / 1000;
 
     requestAnimationFrame(updatePosition);
 }
@@ -171,7 +200,8 @@ function collisionElastic() {
 
 function collisionInElastic() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    draw(pos1, t1 + t2, m1 + m2, 0);
+    draw(pos1, t1, m1, 1);
+    draw(pos1 + t1, t2, m2, 2);
     pos1 += vf2 / 3;
     if (pos1 < 0) {
         pos1 = 0;
