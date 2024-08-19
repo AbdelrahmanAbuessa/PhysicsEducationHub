@@ -37,7 +37,7 @@
                     <label for="g">Show Path</label>
                     <input type="checkbox" id="path">
                 </div>
-                <div btn="" id="animate">Launch</div>
+                <div btn="" id="animate" disabled="false">Launch</div>
                 <div btn="" id="reset">Reset</div>
             </div>
 
@@ -65,6 +65,66 @@
 
         </div>
         
+        <div class="info" id="info">i</div>
+
+        <div class="layover" id="layover" hidden="false">
+            <div class="lay-cont">
+                <div class="lay-close" id="closeinfo">X</div>
+                <div class="lay-article">
+                    <div class="lay-title">Projectile Motion</div>
+                    <div class="lay-subtitle">2D Kinematics</div>
+                    <div class="lay-section">
+                        When an object is launched with initial velocity and angle theta to the ground,
+                        2 types of kinematics affect the motion of the object, the X-axis, and the Y-axis kinematics:
+                    </div>
+                    <div class="lay-section">
+                        To calculate the velocity of the object in each of the two dimentions (axis) these formulas are used:
+                        <div class="lay-bold">
+                            X-axis Velocity = Initial Velocity × cos(theta)
+                        </div>
+                        <div class="lay-bold">
+                            Y-axis Velocity = Initial Velocity × sin(theta)
+                        </div>
+                        Starting from here, the laws of kinematics can be used in both dimentions to calculate other quantities.
+                    </div>
+                    <div class="lay-section">
+                        In the X-axis:
+                        <br>
+                        The velocity in the X-axis is constant, and the acceleration equals 0
+                        <div class="lay-bold">
+                            Distance (s) = Vi × t
+                        </div>
+                        <div class="lay-bold">
+                            Vf = Vi
+                        </div>
+                    </div>
+                    <div class="lay-section">
+                        In the Y-axis:
+                        <br>
+                        The velocity in the Y-axis is variable, and the acceleration equals the gravitational potential
+                        <div class="lay-bold">
+                            Distance (s) = Vi × t + 0.5 × a × t ^ 2
+                        </div>
+                        <div class="lay-bold">
+                            Vf = Vi + a × t
+                        </div>
+                    </div>
+                    <div class="lay-section">
+                        To calculate the time, maximum height, and range:
+                        <div class="lay-bold">
+                            Time (t) = 2 × Vi × sin(theta) ÷ g;
+                        </div>
+                        <div class="lay-bold">
+                            Max Height (H) = Vi ^ 2 × sin(theta) ^ 2 ÷ 2 × g;
+                        </div>
+                        <div class="lay-bold">
+                            Range (R) = Vi ^ 2 × sin(2 × theta) ÷ g;
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <script src="script.js"></script>
 
     </body>

@@ -8,9 +8,11 @@ let g = document.getElementById("g");
 let path = document.getElementById("path");
 let past = document.getElementById("past");
 
+let layover = document.getElementById("layover");
+
 let hmax = document.getElementById("hmax");
 let r = document.getElementById("r");
-let t = document.getElementById("t");
+let tText = document.getElementById("t");
 
 document.addEventListener("click", function (e) {
     let targetElement = e.target;
@@ -22,6 +24,10 @@ document.addEventListener("click", function (e) {
         }
     } else if (targetElement.id === "reset") {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
+    } else if (targetElement.id === "info") {
+        layover.setAttribute("hidden", "false");
+    } else if (targetElement.id === "closeinfo") {
+        layover.setAttribute("hidden", "true");
     }
 });
 
@@ -76,7 +82,7 @@ function renderPath(vi, deg, g, path, past, color) {
 
     hmax.innerText = `${calcHMAX(vi, deg, g)}`;
     r.innerText = `${calcR(vi, deg, g)}`;
-    t.innerText = `${calcT(vi, deg, g)}`;
+    tText.innerText = `${calcT(vi, deg, g)}`;
 
 }
 
