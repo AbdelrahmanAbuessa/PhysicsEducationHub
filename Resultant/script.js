@@ -1,10 +1,12 @@
 let canvas = document.querySelector(".axisgrid");
 let hirearchy = document.querySelector(".list");
 
-let menu = document.querySelector(".layover");
+let menu = document.querySelector(".menu");
 
 let forceMagnitude = document.querySelector("#mag"); 
 let forceDirection = document.querySelector("#dir"); 
+
+let layover = document.getElementById("layover");
 
 let x = document.createElement("div");
 let y = document.createElement("div");
@@ -62,6 +64,10 @@ document.addEventListener("click", function (e) {
         delForce(elementTarget.id);
     } else if (elementTarget.id === "forceSelect") {
         selectForce(elementTarget.getAttribute("force"));
+    } else if (elementTarget.id === "info") {
+        layover.setAttribute("hidden", "false");
+    } else if (elementTarget.id === "closeinfo") {
+        layover.setAttribute("hidden", "true");
     }
 })
 
@@ -126,13 +132,13 @@ function renderResultant() {
     resultantDirection = Math.atan2(totalY , totalX);
     xc.innerHTML = `${Math.floor(totalX * 1000) / 1000}`;
     yc.innerHTML = `${Math.floor(totalY * 1000) / 1000}`;
-    totalX = totalX * totalX;
-    totalY = totalY * totalY;
-    resultantMagnitude = Math.sqrt(totalX + totalY);
+    let xsqrt = totalX * totalX;
+    let ysqrt = totalY * totalY;
+    resultantMagnitude = Math.sqrt(xsqrt + ysqrt);
 
     return new Object (
         {
-            resultantDirection, resultantMagnitude
+            resultantDirection, resultantMagnitude, totalX, totalY
         }
     )
 }
@@ -141,12 +147,12 @@ function renderResultant() {
 function renderSingleForce(i, id, mag, dir, color) {
     let realIndex;
     let userIndex;
-    if (id !== "resultant") {
-        realIndex = i;
-        userIndex = i + 1;
-    } else {
+    if (id === "resultant") {
         realIndex = "resultant";
         userIndex = "res";
+    } else {
+        realIndex = i;
+        userIndex = i + 1;
     }
     
     // Adding Vectors to Canvas
@@ -201,13 +207,13 @@ function renderSingleForce(i, id, mag, dir, color) {
 
 // Showing Selected Function Properties
 function selectForce(idName) {
-    if (idName !== "resultant") {
-        idText.innerText = parseInt(idName) + 1;
-        magText.innerHTML = forceList[parseInt(idName)].magnitude;
-        dirText.innerHTML = Math.floor(forceList[parseInt(idName)].direction * (180 / Math.PI) * 1000) / 1000 + ` <sup>o</sup>`;
-    } else {
+    if (idName === "resultant") {
         idText.innerHTML = idName;
         magText.innerHTML = Math.floor(renderResultant().resultantMagnitude * 1000) / 1000;
         dirText.innerHTML = Math.floor(renderResultant().resultantDirection * (180 / Math.PI) * 1000) / 1000 + ` <sup>o</sup>`;
+    } else {
+        idText.innerText = parseInt(idName) + 1;
+        magText.innerHTML = forceList[parseInt(idName)].magnitude;
+        dirText.innerHTML = Math.floor(forceList[parseInt(idName)].direction * (180 / Math.PI) * 1000) / 1000 + ` <sup>o</sup>`;
     }
 }
