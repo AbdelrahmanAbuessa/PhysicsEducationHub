@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div class="title">Fluids & U Shaped Tube</div>
+        <div class="main">
+            <div class="fluid A">
+                <div class="subtitle">Fluid 1</div>
+                <div class="section">
+                    <label for="raw1">Fluid Density (r)</label>
+                    <input type="text" id="raw1" name="raw1">
+                </div>
+                <div class="section">
+                    <label for="g">Gravitational Potential (g)</label>
+                    <input type="text" id="g" name="g">
+                </div>
+                <div class="section">
+                    <label for="h1">Height (h)</label>
+                    <input type="text" id="h1" name="h1">
+                </div>
+            </div>
+            <div class="simulation">
+                <div class="canvas">
+
+                </div>
+                <div class="setting">
+                    <div btn="">Simulate</div>
+                </div>
+            </div>
+            <div class="fluid B">
+                <div class="subtitle">Fluid B</div>
+                <div class="section">
+                    <label for="raw2">Fluid Density</label>
+                    <input type="text" id="raw2" name="raw2">
+                </div>
+                <div class="text">
+                    Height (h) = <span id="h2">0</span>
+                </div>
+            </div>
+        </div>
+        <script src="script.js"></script>
+    </body>
+</html>
