@@ -13,6 +13,8 @@ let fc_txt = document.getElementById("fc");
 
 let btn = document.getElementById("start");
 
+let layover = document.getElementById("layover");
+
 let centerRadius = 10;
 let centerX = (canvas.width) / 2;
 let centerY = (canvas.height) / 2;
@@ -35,6 +37,10 @@ document.addEventListener("click", function (e) {
         if (targetElement.getAttribute("disabled") === "false") {
             checkAvailability();
         }
+    } else if (targetElement.id === "info") {
+        layover.setAttribute("hidden", "false");
+    } else if (targetElement.id === "closeinfo") {
+        layover.setAttribute("hidden", "true");
     }
 })
 
