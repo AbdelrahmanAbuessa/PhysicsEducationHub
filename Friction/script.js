@@ -33,6 +33,8 @@ let opposing_max_inclined_friction;
 let opposing_kinetic_inclined_friction;
 let acceleration;
 
+let layover = document.getElementById("layover");
+
 let canvas = document.getElementById("canvas");
 canvas.width = container.clientHeight * 0.9;
 canvas.height = d;
@@ -48,6 +50,10 @@ document.addEventListener("click", function (e) {
         if (targetElement.getAttribute("disabled") === "false") {
             checkAvailability();
         }
+    } else if (targetElement.id === "closeinfo") {
+        layover.setAttribute("hidden", "true");
+    } else if (targetElement.id === "info") {
+        layover.setAttribute("hidden", "false");
     }
 })
 
