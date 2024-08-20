@@ -37,6 +37,8 @@ let dB;
 
 let animationFrameId;
 
+let layover = document.getElementById("layover");
+
 atm_txt.value = 1013;
 g_txt.value = 9.81;
 
@@ -44,6 +46,10 @@ document.addEventListener("click", function (e) {
     let targetElement = e.target;
     if (targetElement.id === "start") {
         checkAvailability();
+    } else if (targetElement.id === "info") {
+        layover.setAttribute("hidden", "false");
+    } else if (targetElement.id === "closeinfo") {
+        layover.setAttribute("hidden", "true");
     }
 })
 
@@ -81,18 +87,25 @@ function start() {
             gaugePressure_B = AbsPressure_B;
         } else {
             gaugePressure_B = AbsPressure_B - atm;
+            if (gaugePressure_B < 0) {
+                gaugePressure_B = AbsPressure_B;
+            }
         }
     } else {
         AbsPressure_A = gaugePressure_A + atm;
         AbsPressure_B = AbsPressure_A;
-        gaugePressure_B = AbsPressure_B;
+        if (lidB === true) {
+            gaugePressure_B = AbsPressure_B;
+        } else {
+            gaugePressure_B = AbsPressure_B - atm;
+        }
     }
 
     fluidHeight_B = gaugePressure_B / (fluidDensity_B * g);
 
     startingHeight = (fluidHeight_A + fluidHeight_B) / 2;
-    dA = fluidHeight_A / 100;
-    dB = fluidHeight_B / 100;
+    dA = startingHeight / 100;
+    dB = startingHeight / 100;
     currentA = startingHeight;
     currentB = startingHeight;
 
@@ -109,7 +122,11 @@ function start() {
         requestAnimationFrame(animate);
     }
 
-
+    gaugePressure_A_txt.innerText = Math.floor(gaugePressure_A * 1000) / 1000;
+    gaugePressure_B_txt.innerText = Math.floor(gaugePressure_B * 1000) / 1000;
+    AbsPressure_A_txt.innerText = Math.floor(AbsPressure_A * 1000) / 1000;
+    AbsPressure_B_txt.innerText = Math.floor(AbsPressure_B * 1000) / 1000;
+    fluidHeight_B_txt.innerText = Math.floor(fluidHeight_B * 1000) / 1000;
 }
 
 function drawTube() {
