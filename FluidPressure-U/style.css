@@ -53,12 +53,24 @@ body {
 .section {
     margin-bottom: 20px;
     font-size: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.section input[type="text"] {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.section input[type="checkbox"] {
+    width: 25px;
+    height: 25px;
 }
 
 input {
     font-size: 20px;
-    width: 90%;
-    margin-top: 10px;
 }
 
 .text {

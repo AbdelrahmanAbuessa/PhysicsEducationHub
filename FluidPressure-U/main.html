@@ -27,6 +27,10 @@
                     <label for="atm">Atmospheric Pressure</label>
                     <input type="text" id="atm" name="atm">
                 </div>
+                <div class="section">
+                    <label for="lidA">Isolated</label>
+                    <input type="checkbox" name="lidA" id="lidA">
+                </div>
                 <div class="text">
                     Gauge Pressure = <span id="Gp1">0</span>
                 </div>
@@ -34,19 +38,25 @@
                     Absolute Pressure = <span id="Ap1">0</span>
                 </div>
             </div>
+
             <div class="simulation">
                 <canvas class="canvas" id="canvas">
 
                 </canvas>
                 <div class="setting">
-                    <div btn="">Simulate</div>
+                    <div btn="" id="start">Simulate</div>
                 </div>
             </div>
+
             <div class="fluid B">
                 <div class="subtitle">Fluid B</div>
                 <div class="section">
                     <label for="raw2">Fluid Density</label>
                     <input type="text" id="raw2" name="raw2">
+                </div>
+                <div class="section">
+                    <label for="lidB">Isolated</label>
+                    <input type="checkbox" name="lidB" id="lidB">
                 </div>
                 <div class="text">
                     Height (h) = <span id="h2">0</span>

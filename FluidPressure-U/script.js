@@ -11,20 +11,81 @@ let gaugePressure_A_txt = document.getElementById("Gp1");
 let gaugePressure_B_txt = document.getElementById("Gp2");
 let AbsPressure_A_txt = document.getElementById("Ap1");
 let AbsPressure_B_txt = document.getElementById("Ap2");
+let lid_A_check = document.getElementById("lidA");
+let lid_B_check = document.getElementById("lidB");
 let atm_txt = document.getElementById("atm");
 let g_txt = document.getElementById("g");
+
+let fluidDensity_A;
+let fluidDensity_B;
 let gaugePressure_A;
 let gaugePressure_B;
 let AbsPressure_A;
 let AbsPressure_B;
+let fluidHeight_A;
 let fluidHeight_B;
+let lidA;
+let lidB;
+let atm;
+let g;
 
-drawTube();
+document.addEventListener("click", function (e) {
+    let targetElement = e.target;
+    if (targetElement.id === "start") {
+        checkAvailability();
+    }
+})
 
-fluidA(100);
-fluidB(300);
+function checkAvailability() {
+    if (
+        fluidDensity_A_txt.value === "" ||
+        fluidDensity_B_txt.value === "" ||
+        fluidHeight_A_txt.value === "" ||
+        atm_txt.value === "" ||
+        g_txt.value === ""
+    ) {
+        alert("Please Fill out All fields");
+    } else {
+        start()
+    }
+}
 
-function drawTube() {
+function start() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    fluidDensity_A = parseFloat(fluidDensity_A_txt.value);
+    fluidDensity_B = parseFloat(fluidDensity_B_txt.value);
+    fluidHeight_A = parseFloat(fluidHeight_A_txt.value);
+    atm = parseFloat(atm_txt.value);
+    g = parseFloat(g_txt.value);
+    lidA = lid_A_check.checked;
+    lidB = lid_B_check.checked;
+    
+    gaugePressure_A = fluidDensity_A * g * fluidHeight_A;
+    
+    if (lidA === true) {
+        AbsPressure_A = gaugePressure_A;
+        AbsPressure_B = AbsPressure_A;
+        if (lidB === true) {
+            gaugePressure_B = AbsPressure_B;
+        } else {
+            gaugePressure_B = AbsPressure_B - atm;
+        }
+    } else {
+        AbsPressure_A = gaugePressure_A + atm;
+        AbsPressure_B = AbsPressure_A;
+        gaugePressure_B = AbsPressure_B;
+    }
+
+    fluidHeight_B = gaugePressure_B / (fluidDensity_B * g);
+
+    drawTube(fluidDensity_A, fluidDensity_B);
+    fluidA(fluidHeight_A, lidA);
+    fluidB(fluidHeight_B, lidB);
+}
+
+
+function drawTube(dA, dB) {
     ctx.beginPath();
     ctx.fillStyle = "black";
     ctx.fillRect((canvas.width - 200) / 2, 20, 5, 300);
@@ -32,14 +93,16 @@ function drawTube() {
     ctx.fillRect(((canvas.width - 200) / 2) + 150, 20, 5, 300);
     ctx.fillRect(((canvas.width - 200) / 2) + 50, 20, 5, 300);
     ctx.closePath();
-
+    
     ctx.beginPath();
+    ctx.strokeStyle = "black";
     ctx.arc(352.5, 320, 50, 0, Math.PI, false);
     ctx.lineWidth = 5;
     ctx.stroke();
     ctx.closePath();
-
+    
     ctx.beginPath();
+    ctx.strokeStyle = "black";
     ctx.arc(352.5, 320, 100, 0, Math.PI, false);
     ctx.lineWidth = 5;
     ctx.stroke();
@@ -48,7 +111,13 @@ function drawTube() {
     ctx.beginPath();
     ctx.arc(352.5, 320, 75, 0, Math.PI, false);
     ctx.lineWidth = 45;
-    ctx.strokeStyle = "blue";
+    if (dA > dB) {
+        ctx.strokeStyle = "blue";
+    } else if (dB > dA) {
+        ctx.strokeStyle = "red";
+    } else {
+        ctx.strokeStyle = "purple"
+    }
     ctx.stroke();
     ctx.closePath();
     
@@ -64,11 +133,18 @@ function drawTube() {
     ctx.closePath();
 }
 
-function fluidA(height) {
+function fluidA(height, lid) {
     ctx.beginPath();
     ctx.fillStyle = "blue";
     ctx.fillRect(((canvas.width - 200) / 2) + 5, 20 + (300 - height), 45, height);
     ctx.closePath();
+    
+    if (lid === true) {
+        ctx.beginPath();
+        ctx.fillStyle = "black";
+        ctx.fillRect(((canvas.width - 200) / 2) + 5, 10 + (300 - height), 45, 10);
+        ctx.closePath();
+    }
 
     ctx.beginPath();
     ctx.fillStyle = "black";
@@ -85,11 +161,18 @@ function fluidA(height) {
     ctx.closePath();
 }
 
-function fluidB(height) {
+function fluidB(height, lid) {
     ctx.beginPath();
     ctx.fillStyle = "red";
     ctx.fillRect(((canvas.width - 200) / 2) + 155, 20 + (300 - height), 45, height);
     ctx.closePath();
+
+    if (lid === true) {
+        ctx.beginPath();
+        ctx.fillStyle = "black";
+        ctx.fillRect(((canvas.width - 200) / 2) + 155, 10 + (300 - height), 45, 20);
+        ctx.closePath();
+    }
 
     ctx.beginPath();
     ctx.fillStyle = "black";
