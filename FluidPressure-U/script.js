@@ -29,6 +29,17 @@ let lidB;
 let atm;
 let g;
 
+let startingHeight;
+let currentA;
+let currentB;
+let dA;
+let dB;
+
+let animationFrameId;
+
+atm_txt.value = 1013;
+g_txt.value = 9.81;
+
 document.addEventListener("click", function (e) {
     let targetElement = e.target;
     if (targetElement.id === "start") {
@@ -79,13 +90,29 @@ function start() {
 
     fluidHeight_B = gaugePressure_B / (fluidDensity_B * g);
 
-    drawTube(fluidDensity_A, fluidDensity_B);
-    fluidA(fluidHeight_A, lidA);
-    fluidB(fluidHeight_B, lidB);
+    startingHeight = (fluidHeight_A + fluidHeight_B) / 2;
+    dA = fluidHeight_A / 100;
+    dB = fluidHeight_B / 100;
+    currentA = startingHeight;
+    currentB = startingHeight;
+
+    if (startingHeight >= fluidHeight_A) {
+        dA = dA * -1;
+    } 
+    if (startingHeight >= fluidHeight_B) {
+        dB = dB * -1;
+    }
+
+    if (animationFrameId) {
+        cancelAnimationFrame(animate);
+    } else {
+        requestAnimationFrame(animate);
+    }
+
+
 }
 
-
-function drawTube(dA, dB) {
+function drawTube() {
     ctx.beginPath();
     ctx.fillStyle = "black";
     ctx.fillRect((canvas.width - 200) / 2, 20, 5, 300);
@@ -110,14 +137,8 @@ function drawTube(dA, dB) {
 
     ctx.beginPath();
     ctx.arc(352.5, 320, 75, 0, Math.PI, false);
-    ctx.lineWidth = 45;
-    if (dA > dB) {
-        ctx.strokeStyle = "blue";
-    } else if (dB > dA) {
-        ctx.strokeStyle = "red";
-    } else {
-        ctx.strokeStyle = "purple"
-    }
+    ctx.lineWidth = 46;
+    ctx.strokeStyle = "black";
     ctx.stroke();
     ctx.closePath();
     
@@ -127,10 +148,6 @@ function drawTube(dA, dB) {
         ctx.fillRect(i, 320, 20, 5);
         ctx.closePath();
     }
-    
-    ctx.beginPath();
-    
-    ctx.closePath();
 }
 
 function fluidA(height, lid) {
@@ -170,7 +187,7 @@ function fluidB(height, lid) {
     if (lid === true) {
         ctx.beginPath();
         ctx.fillStyle = "black";
-        ctx.fillRect(((canvas.width - 200) / 2) + 155, 10 + (300 - height), 45, 20);
+        ctx.fillRect(((canvas.width - 200) / 2) + 155, 10 + (300 - height), 45, 10);
         ctx.closePath();
     }
 
@@ -187,4 +204,37 @@ function fluidB(height, lid) {
     const y = 322.5 + textHeight / 2 / 1.5;
     ctx.fillText("B", x, y);
     ctx.closePath();
+}
+
+function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawTube();
+    fluidA(currentA, lidA);
+    fluidB(currentB, lidB);
+    currentA += dA;
+    currentB += dB;
+    if (dA < 0) {
+        if (currentA <= fluidHeight_A) {
+            dA = 0;
+            currentA = fluidHeight_A;
+        }
+    } else if (dA > 0) {
+        if (currentA >= fluidHeight_A) {
+            dA = 0;
+            currentA = fluidHeight_A;
+        }
+    }
+    
+    if (dB < 0) {
+        if (currentB <= fluidHeight_B) {
+            dB = 0;
+            currentB = fluidHeight_B;
+        }
+    } else if (dB > 0) {
+        if (currentB >= fluidHeight_B) {
+            dB = 0;
+            currentB = fluidHeight_B;
+        }
+    }
+    animationFrameId = requestAnimationFrame(animate);
 }
