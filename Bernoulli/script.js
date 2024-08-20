@@ -13,6 +13,7 @@ let v1_txt = document.getElementById("v1");
 let v2_txt = document.getElementById("v1");
 let raw_txt = document.getElementById("raw");
 let g_txt = document.getElementById("g");
+let w_txt = document.getElementById("w");
 
 e1_range.oninput = function () {
     e1_txt.innerText = e1_range.value;
@@ -32,19 +33,26 @@ let e1;
 let e2;
 let raw;
 let g;
+let w;
+
+let collective1;
+let collective2;
+
+let animationFrameId;
+
+let particles = [];
 
 g_txt.value = 9.81
 
 document.addEventListener("click", function (e) {
-    // let targetElement = e.target;
-    // if (targetElement.id === "start") {
-    //     checkAvailability();
-    // } else if (targetElement.id === "info") {
-    //     layover.setAttribute("hidden", "false");
-    // } else if (targetElement.id === "closeinfo") {
-    //     layover.setAttribute("hidden", "true");
-    // }
-    start();
+    let targetElement = e.target;
+    if (targetElement.id === "start") {
+        checkAvailability();
+    } else if (targetElement.id === "info") {
+        layover.setAttribute("hidden", "false");
+    } else if (targetElement.id === "closeinfo") {
+        layover.setAttribute("hidden", "true");
+    }
 })
 
 function checkAvailability() {
@@ -61,33 +69,103 @@ function checkAvailability() {
     }
 }
 
+// let experimentalEA = 100;
+// let experimentalEB = -100;
+
+let posAXinitial;
+let posBXinitial;
+let posAYinitial;
+let posBYinitial;
+
+// drawPipeA(experimentalEA);
+// drawPipeB(experimentalEB);
+// drawPipeM(experimentalEA, experimentalEB);
+// drawLiquidA(experimentalEA);
+// drawLiquidB(experimentalEB);
+
 function start() {
-    g = g_txt.value;
-    raw = raw_txt.value;
-    p1 = p1_txt.value;
-    p2 = p2_txt.value;
-    e1 = e1_range.value;
-    e2 = e2_range.value;
-    v1 = v1_txt.value;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    g = parseFloat(g_txt.value);
+    raw = parseFloat(raw_txt.value);
+    p1 = parseFloat(p1_txt.value);
+    p2 = parseFloat(p2_txt.value);
+    e1 = parseFloat(e1_range.value);
+    e2 = parseFloat(e2_range.value);
+    v1 = parseFloat(v1_txt.value);
+
+    posAXinitial = 30;
+    posBXinitial = ((canvas.width - 75) / 2) + 105;
+    posAYinitial = ((canvas.height - 75) / 2) - e1 + 30;
+    posBYinitial = ((canvas.height - 75) / 2) - e2 + 30;
+
+    collective1 = p1 + (0.5 * raw * Math.pow(v1, 2)) + (raw * g * e1);
+    collective2 = p2 + (raw * g * e2);
+    v2 = Math.sqrt((collective1 - collective2) / (0.5 * raw));
+    
+    particles = [];
+
+    for (let i = 1; i <= 15; i++) {
+        let particleA = new Object({
+            pipe: "A",
+            posX: 0,
+            posY: 0
+        })
+        particles.push(particleA);
+        let particleB = new Object({
+            pipe: "B",
+            posX: 0,
+            posY: 0
+        })
+        particles.push(particleB);
+    }
+    
+    for (let i = 0; i <= particles.length - 1; i++) {
+        if (particles[i].pipe === "A") {
+            particles[i].posX = posAXinitial - (15 * (i + 1));
+            if (i < 10) {
+                particles[i].posY = posAYinitial;
+            } else if (i >= 10 && i < 20) {
+                particles[i].posY = posAYinitial + 20;
+            } else if (i >= 20 && i < 30) {
+                particles[i].posY = posAYinitial + 40;
+            }
+        } else {
+            particles[i].posX = posBXinitial - (15 * (i + 1));
+            if (i < 10) {
+                particles[i].posY = posBYinitial;
+            } else if (i >= 10 && i < 20) {
+                particles[i].posY = posBYinitial + 15;
+            } else if (i >= 20 && i < 30) {
+                particles[i].posY = posBYinitial + 30;
+            }
+        }
+    }
+    
+    
+    if (v2 < 0) {
+        noFlow();
+    } else {
+        FluidFlow();
+        w = (p1 - p2) * (v2 - v1);
+        // requestAnimationFrame(animateFluid);
+    }
+
+    fluidParticles();
 }
 
-// drawPipeA(elevation1);
-// drawPipeB(elevation2);
-// drawPipeM(elevation1, elevation2);
-
-function drawPipeA(elevation) {
+function drawPipeA(e1, e2) {
     ctx.beginPath();
     ctx.fillStyle = "black";
-    ctx.fillRect(0, ((canvas.height - 75) / 2) - elevation, ((canvas.width - 75) / 2) + 75, 10);
-    ctx.fillRect(0, ((canvas.height - 75) / 2) + 75 - elevation, (canvas.width - 75) / 2, 10);
+    ctx.fillRect(0, ((canvas.height - 75) / 2) - e1, ((canvas.width - 75) / 2) + 75, 10);
+    ctx.fillRect(0, ((canvas.height - 75) / 2) + 75 - e1, (canvas.width - 75) / 2, 10);
     ctx.closePath();
 }
 
-function drawPipeB(elevation) {
+function drawPipeB(e1, e2) {
     ctx.beginPath();
     ctx.fillStyle = "black";
-    ctx.fillRect(((canvas.width - 75) / 2) + 75, ((canvas.height - 75) / 2) - elevation, (canvas.width - 75) / 2, 10);
-    ctx.fillRect(((canvas.width - 75) / 2), ((canvas.height - 75) / 2) + 75 - elevation, ((canvas.width - 75) / 2) + 75, 10);
+    ctx.fillRect(((canvas.width - 75) / 2) + 75, ((canvas.height - 75) / 2) - e2, (canvas.width - 75) / 2, 10);
+    ctx.fillRect(((canvas.width - 75) / 2), ((canvas.height - 75) / 2) + 75 - e2, ((canvas.width - 75) / 2) + 75, 10);
     ctx.closePath();
 }
 
@@ -100,3 +178,72 @@ function drawPipeM(e1, e2) {
     ctx.fillRect((canvas.width - 57) / 2, ((canvas.height - 55) / 2) - e1, 57, (e1 - e2) + 65);
     ctx.closePath();
 }
+
+function drawLiquidA(e) {
+    ctx.beginPath();
+    ctx.fillStyle = "blue";
+    ctx.fillRect(0, (((canvas.height - 75) / 2) - e) + 10, ((canvas.width - 75) / 2) + 10, 65);
+    ctx.closePath();
+}
+
+function drawLiquidB(e) {
+    ctx.beginPath();
+    ctx.fillStyle = "blue";
+    ctx.fillRect(((canvas.width - 75) / 2) + 65, (((canvas.height - 75) / 2) - e) + 10, ((canvas.width - 75) / 2) + 10, 65);
+    ctx.closePath();
+}
+
+function noFlow() {
+    drawPipeA(e1, 0);
+    drawLiquidA(e1);
+    drawPipeB(0, e2);
+    drawPipeM(e1, e2);
+}
+
+function FluidFlow() {
+    drawPipeA(e1, 0);
+    drawLiquidA(e1);
+    drawPipeB(0, e2);
+    drawLiquidB(e2);
+    drawPipeM(e1, e2);
+}
+
+function animateFluid() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    FluidFlow();
+    fluidParticles();
+    posAX += v1 / 3;
+    posBX += v2 / 3;
+    // animationFrameId = requestAnimationFrame(animateFluid);
+}
+
+function fluidParticles() {
+    for (let i = 0; i <= particles.length - 1; i++) {
+        circle(particles[i].posX, particles[i].posY, 5);
+    }
+}
+
+function circle(posX, posY, r) {
+    ctx.beginPath();
+    ctx.fillStyle = "lightblue"
+    ctx.arc(posX, posY, r, 0, Math.PI * 2, false);
+    ctx.fill();
+    ctx.closePath();
+}
+
+// Method 1:
+// Loop
+// Create Set of Particles
+// Move Set of Particles every Step
+// Check for position of particles
+// If Position is surpassed
+// teleport the particles back to the initial Spot
+// Timer: Creates a finite set of particles which position is infinitely reset to the beginning
+
+// Method 2:
+// Create an array containing a finite number of particles
+// each particle is an object that stores position at X and Y, additionally which pipe it belongs to
+// each object's position is updated through the animation
+// go through the entire array each animation frame and render the particles
+// check for position of individual particles
+// teleport particles back at the beginning
