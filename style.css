@@ -107,66 +107,26 @@
     transform: scale(110%);
 }
 
-@media (max-width: 587px) {
+@media (max-width: 767px) {
     .header {
         height: 15vh;
     }
-
+    
     .title {
+        font-size: 28px;
+    }
+    
+    .subtitle {
         font-size: 22px;
     }
 
-    .subtitle {
-        font-size: 16px;
-    }
-
     .inner-title {
-        font-size: 18px;
-    }
-
-    .inner-p {
-        margin: 0;
-        font-size: 14px;
-    }
-
-    .sim, .txt {
-        grid-template-columns: 250px;
-        gap: 10px;
-        place-content: center;
-    }
-    
-    .sim a, .txt a {
-        font-size: 16px;
-        padding: 20px;
-    }
-    
-    .footer {
-        height: 10vh;
-        padding: 10px;
-        font-size: 20px;
-    }
-}
-
-@media (min-width: 588px) and (max-width: 767px) {
-    .header {
-        height: 15vh;
-    }
-    
-    .title {
         font-size: 24px;
     }
     
-    .subtitle {
-        font-size: 18px;
-    }
-
-    .inner-title {
-        font-size: 22px;
-    }
-    
     .inner-p {
         margin: 0;
-        font-size: 16px;
+        font-size: 20px;
     }
     
     .sim, .txt {
@@ -175,7 +135,7 @@
     }
 
     .sim a, .txt a {
-        font-size: 14px;
+        font-size: 18px;
         padding: 20px;
     }
 
