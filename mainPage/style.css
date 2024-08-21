@@ -85,3 +85,8 @@ a {
     text-decoration: none;
     color: black;
 }
+
+.intitle {
+    font-size: 25px;
+    width: 100%;
+}
