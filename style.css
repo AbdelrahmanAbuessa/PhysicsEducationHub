@@ -107,7 +107,7 @@
     transform: scale(110%);
 }
 
-@media (max-width: 424px) {
+@media (max-width: 587px) {
     .header {
         height: 15vh;
     }
@@ -147,7 +147,7 @@
     }
 }
 
-@media (min-width: 425px) and (max-width: 767px) {
+@media (min-width: 588px) and (max-width: 767px) {
     .header {
         height: 15vh;
     }
