@@ -10,7 +10,7 @@ let e2_range = document.getElementById("h2");
 let e1_txt = document.getElementById("h1range");
 let e2_txt = document.getElementById("h2range");
 let v1_txt = document.getElementById("v1");
-let v2_txt = document.getElementById("v1");
+let v2_txt = document.getElementById("v2");
 let raw_txt = document.getElementById("raw");
 let g_txt = document.getElementById("g");
 let w_txt = document.getElementById("w");
@@ -69,19 +69,10 @@ function checkAvailability() {
     }
 }
 
-// let experimentalEA = 100;
-// let experimentalEB = -100;
-
 let posAXinitial;
 let posBXinitial;
 let posAYinitial;
 let posBYinitial;
-
-// drawPipeA(experimentalEA);
-// drawPipeB(experimentalEB);
-// drawPipeM(experimentalEA, experimentalEB);
-// drawLiquidA(experimentalEA);
-// drawLiquidB(experimentalEB);
 
 function start() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -93,8 +84,8 @@ function start() {
     e2 = parseFloat(e2_range.value);
     v1 = parseFloat(v1_txt.value);
 
-    e1 *= 10;
-    e2 *= 10;
+    e1 *= 25;
+    e2 *= 25;
 
     posAXinitial = 0;
     posBXinitial = ((canvas.width - 75) / 2) + 10;
@@ -103,7 +94,23 @@ function start() {
 
     collective1 = p1 + (0.5 * raw * Math.pow(v1, 2)) + (raw * g * e1);
     collective2 = p2 + (raw * g * e2);
-    v2 = Math.sqrt((collective1 - collective2) / (0.5 * raw));
+    v2 = (collective1 - collective2) / (0.5 * raw);
+    
+    if (v2 < 0) {
+        noFlow();
+        v2_txt.innerText = 0;
+        w_txt.innerText = 0;
+    } else {
+        v2 = Math.sqrt(v2);
+        w = (p1 - p2) * (v2 - v1);
+        v2_txt.innerText = Math.floor(v2 * 1000) / 1000;
+        w_txt.innerText = Math.floor(w * 1000) / 1000;
+        if (animationFrameId) {
+            cancelAnimationFrame(animateFluid);
+        } else {
+            requestAnimationFrame(animateFluid);
+        }
+    }
     
     particles = [];
 
@@ -143,59 +150,43 @@ function start() {
             }
         }
     }
-    
-    if (v2 < 0) {
-        noFlow();
-    } else {
-        FluidFlow();
-        w = (p1 - p2) * (v2 - v1);
-        requestAnimationFrame(animateFluid);
-    }
-
-    fluidParticles();
 }
 
 function drawPipeA(e1, e2) {
     ctx.beginPath();
     ctx.fillStyle = "black";
-    if (e1 > e2) {
-        ctx.fillRect(0, ((canvas.height - 75) / 2) - e1, ((canvas.width - 75) / 2) + 75, 10);
-        ctx.fillRect(0, ((canvas.height - 75) / 2) + 75 - e1, (canvas.width - 75) / 2, 10);
-    } else {
-        ctx.fillRect(0, ((canvas.height - 75) / 2) - e1, (canvas.width - 75) / 2, 10);
-        ctx.fillRect(0, ((canvas.height - 75) / 2) + 75 - e1, ((canvas.width - 75) / 2) + 75, 10);
-    }
+    ctx.fillRect(0, ((canvas.height - 75) / 2) - e1, (canvas.width - 75) / 2, 10);
+    ctx.fillRect(0, ((canvas.height - 75) / 2) + 75 - e1, (canvas.width - 75) / 2, 10);
     ctx.closePath();
 }
 
 function drawPipeB(e1, e2) {
     ctx.beginPath();
     ctx.fillStyle = "black";
-    if (e2 > e1) {
-        ctx.fillRect(((canvas.width - 75) / 2), ((canvas.height - 75) / 2) - e2, ((canvas.width - 75) / 2) + 75, 10);
-        ctx.fillRect(((canvas.width - 75) / 2) + 75, ((canvas.height - 75) / 2) + 75 - e2, (canvas.width - 75) / 2, 10);
-    } else {
-        ctx.fillRect(((canvas.width - 75) / 2) + 75, ((canvas.height - 75) / 2) - e2, (canvas.width - 75) / 2, 10);
-        ctx.fillRect(((canvas.width - 75) / 2), ((canvas.height - 75) / 2) + 75 - e2, ((canvas.width - 75) / 2) + 75, 10);
-    }
+    ctx.fillRect(((canvas.width - 75) / 2) + 75, ((canvas.height - 75) / 2) - e2, (canvas.width - 75) / 2, 10);
+    ctx.fillRect(((canvas.width - 75) / 2) + 75, ((canvas.height - 75) / 2) + 75 - e2, (canvas.width - 75) / 2, 10);
     ctx.closePath();
 }
 
 function drawPipeM(e1, e2) {
     ctx.beginPath();
     ctx.fillStyle = "black";
-    if (e1 > e2) {
+    if (e1 >= e2) {
         ctx.fillRect((canvas.width - 76) / 2, ((canvas.height - 75) / 2) + 75 - e1, 10, (e1 - e2) + 10);
         ctx.fillRect((canvas.width - 94) / 2 + 75, ((canvas.height - 75) / 2) - e1, 10, (e1 - e2) + 10);
+        ctx.fillRect((canvas.width - 76) / 2, ((canvas.height - 75) / 2) - e1, 75, 10);
+        ctx.fillRect((canvas.width - 74) / 2, ((canvas.height - 75) / 2) + 75 - e2, 75, 10);
     } else {
         ctx.fillRect((canvas.width - 76) / 2, ((canvas.height - 75) / 2) - e2, 10, (e2 - e1) + 10);
         ctx.fillRect((canvas.width - 94) / 2 + 75, ((canvas.height - 75) / 2) + 75 - e2, 10, (e2 - e1) + 10);
+        ctx.fillRect((canvas.width - 74) / 2, ((canvas.height - 75) / 2) - e2, 75, 10);
+        ctx.fillRect((canvas.width - 76) / 2, ((canvas.height - 75) / 2) + 75 - e1, 75, 10);
     }
     ctx.fillStyle = "blue";
-    if (e1 > e2) {
-        ctx.fillRect((canvas.width - 57) / 2, ((canvas.height - 55) / 2) - e1, 57, (e1 - e2) + 65);
+    if (e1 >= e2) {
+        ctx.fillRect((canvas.width - 56) / 2, ((canvas.height - 55) / 2) - e1, 57, (e1 - e2) + 65);
     } else {
-        ctx.fillRect((canvas.width - 57) / 2, ((canvas.height - 55) / 2) - e2, 57, (e2 - e1) + 65);
+        ctx.fillRect((canvas.width - 56) / 2, ((canvas.height - 55) / 2) - e2, 57, (e2 - e1) + 65);
     }
     ctx.closePath();
 }
@@ -215,9 +206,10 @@ function drawLiquidB(e) {
 }
 
 function noFlow() {
-    drawPipeA(e1, 0);
+    drawPipeA(e1, e2);
     drawLiquidA(e1);
-    drawPipeB(0, e2);
+    drawPipeB(e1, e2);
+    drawLiquidB(e2);
     drawPipeM(e1, e2);
 }
 
@@ -263,20 +255,3 @@ function circle(posX, posY, r) {
     ctx.fill();
     ctx.closePath();
 }
-
-// Method 1:
-// Loop
-// Create Set of Particles
-// Move Set of Particles every Step
-// Check for position of particles
-// If Position is surpassed
-// teleport the particles back to the initial Spot
-// Timer: Creates a finite set of particles which position is infinitely reset to the beginning
-
-// Method 2:
-// Create an array containing a finite number of particles
-// each particle is an object that stores position at X and Y, additionally which pipe it belongs to
-// each object's position is updated through the animation
-// go through the entire array each animation frame and render the particles
-// check for position of individual particles
-// teleport particles back at the beginning
