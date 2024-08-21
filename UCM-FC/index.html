@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Centripetal Forces</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div class="title">
+            Uniform Circular Motion
+        </div>
+
+        <div class="main">
+            <div class="props">
+                <div class="section">
+                    <label for="m">Mass (kg)</label>
+                    <input type="text" name="m" id="m">
+                </div>
+                <div class="section">
+                    <label for="v">Linear Velocity (m/s)</label>
+                    <input type="text" name="v" id="v">
+                </div>
+                <div class="section">
+                    <label for="r">Radius (m)</label>
+                    <input type="text" name="r" id="r">
+                </div>
+                <div class="text">
+                    Angular Velocity = <span id="omega">0</span>
+                </div>
+                <div class="text">
+                    Period Time (T) = <span id="pt">0</span>
+                </div>
+                <div class="text">
+                    Centripetal Force = <span id="fc">0</span>
+                </div>
+                <div btn="" id="start" disabled="false">Start</div>
+            </div>
+
+            <div class="simulation">
+                <canvas id="canvas"></canvas>
+            </div>
+        </div>
+
+        <div class="info" id="info">i</div>
+
+        <div class="layover" id="layover" hidden="true">
+            <div class="lay-cont">
+                <div class="lay-close" id="closeinfo">
+                    X
+                </div>
+                <div class="lay-title">
+                    Uniform Circular Motion
+                </div>
+                <div class="lay-subtitle">
+                    Centripetal Forces
+                </div>
+                <div class="lay-article">
+                    <div class="lay-section">
+                        When an object is moving in a straight line, its velocity is the linear distance it 
+                        covers in a certain amount of time. However, when an object is moving around a circular path,
+                        it behaves differently than objects moving in a straight line.
+                    </div>
+                    <div class="lay-section">
+                        For an object to be in uniform circular motion, it needs to have a constant force that 
+                        always acts towards the center of the circular path, and a constant linear velocity that is
+                        always tangent to the circular path.
+                    </div>
+                    <div class="lay-section">
+                        The Angular Velocity (omega) of an object in uniform circular motion is calculated in different ways:
+                        <br><br>
+                        Given the radius of the circular path (r) and the linear velocity of the object (v):
+                        <div class="lay-bold">
+                            Angular Velocity (omega) = linear velocity (v) ÷ radius (r)
+                        </div>
+                        Given the angle covered by the object (theta) and the time it takes for the object to cover that angle (t):
+                        <div class="lay-bold">
+                            Angular Velocity (omega) = angle (theta) ÷ time (t)
+                        </div>
+                    </div>
+                    <div class="lay-section">
+                        The Centripetal Force is the force that always acts towards the center of the circular path, given the mass of
+                        an object moving in a circular path (m), its linear velocity (v) an the radius of the circular path (r):
+                        <div class="lay-bold">
+                            Centripetal Force = m × v ^ 2 ÷ r
+                        </div> 
+                    </div>
+                    <div class="lay-section">
+                        For any object moving along a circular path with angular velocity (omega), the object completes one full rotation across
+                        the entire path in a certain amount of time (t), which is called the Period Time (T):
+                        <br><br>
+                        Time Period (T): The time it takes for an object moving along a circular path to complete one full rotation across the entire path (or 360 degrees), 
+                        can be calculated using the following formula:
+                        <div class="lay-bold">
+                            Time Period (T) = 2 × pi ÷ omega
+                        </div>
+                    </div>
+                    <div class="lay-section">
+                        The Frequency (f): is the amount of rotations an object can complete around a circular path in only one second:
+                        <div class="lay-bold">
+                            Frequency (f) = 1 ÷ Time Period (T)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="script.js"></script>
+    </body>
+</html>
