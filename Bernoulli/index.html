@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Bernoulli's Principle</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div class="title">Bernoulli's Principle</div>
+        
+        <div class="main">
+            <div class="fluid">
+                <div class="subtitle">Section 1</div>
+                <div class="section">
+                    <label for="p1">Pressure</label>
+                    <input type="text" id="p1" name="p1">
+                </div>
+                <div class="section">
+                    <label for="h1">Elevation</label>
+                    <input type="range" min="-10" max="10" step="1" id="h1" name="h1">
+                    <span id="h1range">0</span>
+                </div>
+                <div class="section">
+                    <label for="g">Gravitational Potential</label>
+                    <input type="text" id="g" name="g">
+                </div>
+                <div class="section">
+                    <label for="raw">Fluid Density</label>
+                    <input type="text" id="raw" name="raw">
+                </div>
+                <div class="section">
+                    <label for="v1">Initial Velocity</label>
+                    <input type="text" id="v1" name="v1">
+                </div>
+            </div>
+
+            <div class="simulation">
+                <canvas id="canvas"></canvas>
+
+                <div class="setting">
+                    <div btn="" id="start">Start</div>
+                </div>
+            </div>
+
+            <div class="fluid">
+                <div class="subtitle">Section 2</div>
+                <div class="section">
+                    <label for="p2">Pressure</label>
+                    <input type="text" id="p2" name="p2">
+                </div>
+                <div class="section">
+                    <label for="h2">Elevation</label>
+                    <input type="range" min="-10" max="10" step="1" id="h2" name="h2">
+                    <span id="h2range">0</span>
+                </div>
+                <div class="text">
+                    Velocity = <span id="v2">0</span>
+                </div>
+                <div class="text">
+                    Work = <span id="w">0</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="info" id="info">i</div>
+
+        <div class="layover" id="layover" hidden="true">
+            <div class="lay-cont">
+                <div class="lay-close" id="closeinfo">X</div>
+                <div class="lay-article">
+                    <div class="lay-title">Bernoulli's Principle</div>
+                    <div class="lay-subtitle">Fluid Dynamics</div>
+                    <div class="lay-section">
+                        Bernoulli's Principle is used to describe the flow of fluids inside pipes of different 
+                        pressures and different elevations; firstly, the fluid must be:
+                    </div>
+                    <div class="lay-section">
+                        <ol>
+                            <li>Incompressible: The fluid's density doesn't change with pressure</li>
+                            <li>Non-Viscous: The fluid isn't thick and flows easily</li>
+                            <li>Achieves Laminar Flow: The flow of the liquid isn't turbulent</li>
+                        </ol>
+                        A perfect example of a fluid that satisfies all three rules is: Water
+                    </div>
+                    <div class="lay-section">
+                        Bernoulli's Principle is based on the Conservation of Energy, it states that the sum of energy
+                        (Kinetic + Potential + Internal) of a moving fluid at all points is constant, 
+                        thus a change in the speed of a fluid's flow inside a container must be accompanied by a change in 
+                        either the Pressure, or the Height:
+                        <div class="lay-bold">
+                            P1 + 0.5 × raw × v1 ^ 2 + raw × g × h1
+                            <br>
+                            =
+                            <br> P2 + 0.5 × raw × v2 ^ 2 + raw × g × h2 
+                        </div>
+                        Where P is the pressure, raw is the fluid's density, v is the fluid's velocity, g is the gravitational potential, 
+                        and h is the height / elevation of the tube.
+                        <br>
+                        Bernoulli's Equation states that:
+                        <div class="lay-bold">
+                            If: V1 > V2, Then: P1 < P2, Or: H1 < H2
+                        </div>
+                    </div>
+                    <div class="lay-section">
+                        Additionally, the area of the container plays a role in the change of the fluid's speed, 
+                        the principle known as the Continuity Equation, which is based on the Conservation of Mass:
+                    </div>
+                    <div class="lay-section">
+                        The Continuity Equation states that for an Incompressible, Non-Viscous, Fluid that is in Laminar Flow, 
+                        The mass of fluid that moves in a certain time inside an area of the container is always constant:
+                        <div class="lay-bold">
+                            A1 × V1 = A2 × V2
+                        </div>
+                        Where A is the area of the container, and v is the velocity of the fluid.
+                        <br>
+                        The Continuity Equation states that:
+                        <div class="lay-bold">
+                            If: A1 > A2, Then: V1 < V2
+                        </div>
+                    </div>
+                    <div class="lay-section">
+                        Applications of Bernoulli's Principle and the Continuity Equation Include:
+                        The Design of Aircraft Wings, and Pitot Tubes.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="script.js"></script>
+    </body>
+</html>
