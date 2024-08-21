@@ -113,20 +113,20 @@
     }
 
     .title {
-        font-size: 22px;
+        font-size: 66px;
     }
 
     .subtitle {
-        font-size: 16px;
+        font-size: calc(3 * 16px);
     }
 
     .inner-title {
-        font-size: 18px;
+        font-size: calc(3 * 18px);
     }
 
     .inner-p {
         margin: 0;
-        font-size: 14px;
+        font-size: calc(3 * 14px);
     }
 
     .sim, .txt {
@@ -136,7 +136,7 @@
     }
     
     .sim a, .txt a {
-        font-size: 16px;
+        font-size: calc(3 * 16px);
         padding: 20px;
     }
     
