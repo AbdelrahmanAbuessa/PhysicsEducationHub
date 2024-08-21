@@ -45,6 +45,7 @@
 .section {
     position: relative;
     color: white;
+    border-bottom: 2px solid #B30C00;
 }
 
 .footer {
@@ -53,7 +54,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 3vh;
+    height: 5vh;
 }
 
 .inner-title {
@@ -93,6 +94,9 @@
     padding: 30px;
     border-radius: 25px;
     font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     text-align: center;
     transition-duration: 0.3s;
     transition-property: transform;
@@ -101,4 +105,149 @@
 
 .sim a:hover, .txt a:hover {
     transform: scale(110%);
+}
+
+@media (max-width: 424px) {
+    .header {
+        height: 15vh;
+    }
+
+    .title {
+        font-size: 22px;
+    }
+
+    .subtitle {
+        font-size: 16px;
+    }
+
+    .inner-title {
+        font-size: 18px;
+    }
+
+    .inner-p {
+        margin: 0;
+        font-size: 14px;
+    }
+
+    .sim, .txt {
+        grid-template-columns: 200px;
+        gap: 10px;
+        place-content: center;
+    }
+    
+    .sim a, .txt a {
+        font-size: 16px;
+        padding: 20px;
+    }
+    
+    .footer {
+        height: 10vh;
+        padding: 10px;
+    }
+}
+
+@media (min-width: 425px) and (max-width: 767px) {
+    .header {
+        height: 15vh;
+    }
+    
+    .title {
+        font-size: 36px;
+    }
+    
+    .subtitle {
+        font-size: 24px;
+    }
+
+    .inner-title {
+        font-size: 24px;
+    }
+    
+    .inner-p {
+        margin: 0;
+        font-size: 18px;
+    }
+    
+    .sim, .txt {
+        grid-template-columns: 300px;
+        place-content: center;
+    }
+
+    .sim a, .txt a {
+        font-size: 18px;
+        padding: 20px;
+    }
+
+    .footer {
+        height: 5vh;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1357px) {
+    .header {
+        height: 15vh;
+    }
+    
+    .title {
+        font-size: 36px;
+    }
+    
+    .subtitle {
+        font-size: 24px;
+    }
+
+    .inner-title {
+        font-size: 28px;
+    }
+    
+    .inner-p {
+        margin: 0;
+        font-size: 26px;
+    }
+    
+    .sim, .txt {
+        grid-template-columns: 400px;
+        place-content: center;
+    }
+
+    .sim a, .txt a {
+        font-size: 24px;
+        padding: 20px;
+    }
+
+    .footer {
+        height: 5vh;
+    }
+}
+
+@media (min-width: 2560px) {
+    .title {
+        font-size: 92px;
+    }
+
+    .subtitle {
+        font-size: 60px;
+    }
+
+    .inner-title {
+        font-size: 52px;
+    }
+
+    .inner-p {
+        font-size: 44px;
+    }
+
+    .sim, .txt {
+        max-width: 1440px;
+        margin: auto;
+    }
+
+    .sim a, .txt a {
+        font-size: 36px;
+    }
+
+    .footer {
+        font-size: 32px;
+        height: 5vh;
+    }
 }
