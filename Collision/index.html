@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Collision Simulator</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div class="title">2 Object Collision Simulator</div>
+
+        <div class="info" id="info">
+            i
+        </div>
+
+        <div class="main">
+            <div class="props">
+                <div class="subtitle">Block 1</div>
+                <div class="section">
+                    <label for="m1">Mass (kg)</label>
+                    <input type="text" name="m1" id="m1">
+                </div>
+                <div class="section">
+                    <label for="v1">Initial Velocity (m/s)</label>
+                    <input type="text" name="v1" id="v1">
+                </div>
+                <div class="text">
+                    Final Velocity (m/s) = <span id="vf1">0</span>
+                </div>
+                <div class="text">
+                    Initial Kinetic Energy = <span id="KEi1">0</span>
+                </div>
+                <div class="text">
+                    Final Kinetic Energy = <span id="KEf1">0</span>
+                </div>
+                <div class="text">
+                    Initial Momentum = <span id="moment1i">0</span>
+                </div>
+                <div class="text">
+                    Final Momentum = <span id="moment1f">0</span>
+                </div>
+            </div>
+            
+            <div class="simulation">
+                <canvas id="canvas"></canvas>
+                
+                <div class="settings">
+                    <div class="section">
+                        <label for="e">Elastic</label>
+                        <input type="checkbox" name="e" id="e">
+                    </div>
+                    
+                    <div class="section">
+                        <div btn="" id="start" disabled="false">Start</div>
+                    </div>
+                    <div class="text">
+                        Kinetic Energy = <span id="KE">0</span>
+                    </div>
+                    <div class="text">
+                        Momentum = <span id="moment">0</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="props">
+                <div class="subtitle">Block 2</div>
+                <div class="section">
+                    <label for="m2">Mass (kg)</label>
+                    <input type="text" name="m2" id="m2">
+                </div>
+                <div class="section">
+                    <label for="v2">Initial Velocity (m/s)</label>
+                    <input type="text" name="v2" id="v2">
+                </div>
+                <div class="text">
+                    Final Velocity (m/s) = <span id="vf2">0</span>
+                </div>
+                <div class="text">
+                    Initial Kinetic Energy = <span id="KEi2">0</span>
+                </div>
+                <div class="text">
+                    Final Kinetic Energy = <span id="KEf2">0</span>
+                </div>
+                <div class="text">
+                    Initial Momentum = <span id="moment2i">0</span>
+                </div>
+                <div class="text">
+                    Final Momentum = <span id="moment2f">0</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="layover" id="lay" hidden="true">
+            <div class="lay-cont">
+                <div class="lay-close" id="closeinfo">
+                    X
+                </div>
+                <div class="lay-title">Collision</div>
+                <div class="lay-subtitle">Conservation of Energy and Momentum</div>
+    
+                <div class="lay-article">
+                    <span class="lay-section">
+                        When two objects interact in a heads-on collision, depending on the type of collision,
+                        momentum and energy are conserved, that is:
+                        <span class="lay-bold">
+                            Momentum of the system containing the two objects BEFORE the collision
+                            is equal to the Momentum of the system AFTER the collision.
+                        </span>
+                        or,
+                        <span class="lay-bold">
+                            m1 × u1 + m2 × u2 =  m1 × v1 + m2 × v2
+                        </span>
+                        where m1 and m2 are the masses of the two objects, u1 and u2 are the initial
+                        velocities BEFORE the collision, and v1 and v2 are the final velocities AFTER
+                        the collision.
+                        and,
+                        <span class="lay-bold">
+                            Kinetic Energy of the system containing the two objects BEFORE the collision
+                            is equal to the Kinetic Energy of the system AFTER the collision.
+                        </span>
+                        or,
+                        <span class="lay-bold">
+                            dKE1 = dKE2 
+                        </span>
+                        Momentum is always conserved. However, depending on the type of collision, either elastic or inelastic,
+                        the Kinetic energy isn't always conserved.
+                    </span>
+                    <span class="lay-section">
+                        If the collision was Elastic:
+                        <br>
+                        Both Kinetic energy AND Momentum are conserved, and both laws work simultaniously.
+                    </span>
+                    <span class="lay-section">
+                        If the collision was Inelastic:
+                        <br>
+                        Only momentum is conserved, Kinetic energy is dissipated into heat, sound, and material deformation, in this case,
+                        the law of conservation of Momentum is:
+                        <span class="lay-bold">
+                            m1 × u1 + m2 × u2 =  (m1 + m2) × v
+                        </span>
+                        Where m1 and m2 are the masses of the two objects, u1 and u2 are the velocities of the two objects before collision,
+                        and v is the Velocity of the final object formed from the joining of the two objects.
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <script src="script.js"></script>
+    </body>
+</html>
