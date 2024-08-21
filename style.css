@@ -130,7 +130,7 @@
     }
 
     .sim, .txt {
-        grid-template-columns: 200px;
+        grid-template-columns: 250px;
         gap: 10px;
         place-content: center;
     }
@@ -153,20 +153,20 @@
     }
     
     .title {
-        font-size: 36px;
+        font-size: 24px;
     }
     
     .subtitle {
-        font-size: 24px;
+        font-size: 18px;
     }
 
     .inner-title {
-        font-size: 24px;
+        font-size: 22px;
     }
     
     .inner-p {
         margin: 0;
-        font-size: 18px;
+        font-size: 16px;
     }
     
     .sim, .txt {
@@ -175,7 +175,7 @@
     }
 
     .sim a, .txt a {
-        font-size: 18px;
+        font-size: 14px;
         padding: 20px;
     }
 
