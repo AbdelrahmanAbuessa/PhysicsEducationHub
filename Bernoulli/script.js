@@ -93,10 +93,13 @@ function start() {
     e2 = parseFloat(e2_range.value);
     v1 = parseFloat(v1_txt.value);
 
-    posAXinitial = 30;
-    posBXinitial = ((canvas.width - 75) / 2) + 105;
-    posAYinitial = ((canvas.height - 75) / 2) - e1 + 30;
-    posBYinitial = ((canvas.height - 75) / 2) - e2 + 30;
+    e1 *= 10;
+    e2 *= 10;
+
+    posAXinitial = 0;
+    posBXinitial = ((canvas.width - 75) / 2) + 10;
+    posAYinitial = ((canvas.height - 75) / 2) - e1 + 25;
+    posBYinitial = ((canvas.height - 75) / 2) - e2 + 25;
 
     collective1 = p1 + (0.5 * raw * Math.pow(v1, 2)) + (raw * g * e1);
     collective2 = p2 + (raw * g * e2);
@@ -125,9 +128,9 @@ function start() {
             if (i < 10) {
                 particles[i].posY = posAYinitial;
             } else if (i >= 10 && i < 20) {
-                particles[i].posY = posAYinitial + 20;
+                particles[i].posY = posAYinitial + 15;
             } else if (i >= 20 && i < 30) {
-                particles[i].posY = posAYinitial + 40;
+                particles[i].posY = posAYinitial + 30;
             }
         } else {
             particles[i].posX = posBXinitial - (15 * (i + 1));
@@ -141,13 +144,12 @@ function start() {
         }
     }
     
-    
     if (v2 < 0) {
         noFlow();
     } else {
         FluidFlow();
         w = (p1 - p2) * (v2 - v1);
-        // requestAnimationFrame(animateFluid);
+        requestAnimationFrame(animateFluid);
     }
 
     fluidParticles();
@@ -156,26 +158,45 @@ function start() {
 function drawPipeA(e1, e2) {
     ctx.beginPath();
     ctx.fillStyle = "black";
-    ctx.fillRect(0, ((canvas.height - 75) / 2) - e1, ((canvas.width - 75) / 2) + 75, 10);
-    ctx.fillRect(0, ((canvas.height - 75) / 2) + 75 - e1, (canvas.width - 75) / 2, 10);
+    if (e1 > e2) {
+        ctx.fillRect(0, ((canvas.height - 75) / 2) - e1, ((canvas.width - 75) / 2) + 75, 10);
+        ctx.fillRect(0, ((canvas.height - 75) / 2) + 75 - e1, (canvas.width - 75) / 2, 10);
+    } else {
+        ctx.fillRect(0, ((canvas.height - 75) / 2) - e1, (canvas.width - 75) / 2, 10);
+        ctx.fillRect(0, ((canvas.height - 75) / 2) + 75 - e1, ((canvas.width - 75) / 2) + 75, 10);
+    }
     ctx.closePath();
 }
 
 function drawPipeB(e1, e2) {
     ctx.beginPath();
     ctx.fillStyle = "black";
-    ctx.fillRect(((canvas.width - 75) / 2) + 75, ((canvas.height - 75) / 2) - e2, (canvas.width - 75) / 2, 10);
-    ctx.fillRect(((canvas.width - 75) / 2), ((canvas.height - 75) / 2) + 75 - e2, ((canvas.width - 75) / 2) + 75, 10);
+    if (e2 > e1) {
+        ctx.fillRect(((canvas.width - 75) / 2), ((canvas.height - 75) / 2) - e2, ((canvas.width - 75) / 2) + 75, 10);
+        ctx.fillRect(((canvas.width - 75) / 2) + 75, ((canvas.height - 75) / 2) + 75 - e2, (canvas.width - 75) / 2, 10);
+    } else {
+        ctx.fillRect(((canvas.width - 75) / 2) + 75, ((canvas.height - 75) / 2) - e2, (canvas.width - 75) / 2, 10);
+        ctx.fillRect(((canvas.width - 75) / 2), ((canvas.height - 75) / 2) + 75 - e2, ((canvas.width - 75) / 2) + 75, 10);
+    }
     ctx.closePath();
 }
 
 function drawPipeM(e1, e2) {
     ctx.beginPath();
     ctx.fillStyle = "black";
-    ctx.fillRect((canvas.width - 76) / 2, ((canvas.height - 75) / 2) + 75 - e1, 10, (e1 - e2) + 10);
-    ctx.fillRect((canvas.width - 94) / 2 + 75, ((canvas.height - 75) / 2) - e1, 10, (e1 - e2) + 10);
+    if (e1 > e2) {
+        ctx.fillRect((canvas.width - 76) / 2, ((canvas.height - 75) / 2) + 75 - e1, 10, (e1 - e2) + 10);
+        ctx.fillRect((canvas.width - 94) / 2 + 75, ((canvas.height - 75) / 2) - e1, 10, (e1 - e2) + 10);
+    } else {
+        ctx.fillRect((canvas.width - 76) / 2, ((canvas.height - 75) / 2) - e2, 10, (e2 - e1) + 10);
+        ctx.fillRect((canvas.width - 94) / 2 + 75, ((canvas.height - 75) / 2) + 75 - e2, 10, (e2 - e1) + 10);
+    }
     ctx.fillStyle = "blue";
-    ctx.fillRect((canvas.width - 57) / 2, ((canvas.height - 55) / 2) - e1, 57, (e1 - e2) + 65);
+    if (e1 > e2) {
+        ctx.fillRect((canvas.width - 57) / 2, ((canvas.height - 55) / 2) - e1, 57, (e1 - e2) + 65);
+    } else {
+        ctx.fillRect((canvas.width - 57) / 2, ((canvas.height - 55) / 2) - e2, 57, (e2 - e1) + 65);
+    }
     ctx.closePath();
 }
 
@@ -212,14 +233,26 @@ function animateFluid() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     FluidFlow();
     fluidParticles();
-    posAX += v1 / 3;
-    posBX += v2 / 3;
-    // animationFrameId = requestAnimationFrame(animateFluid);
+    animationFrameId = requestAnimationFrame(animateFluid);
 }
 
 function fluidParticles() {
     for (let i = 0; i <= particles.length - 1; i++) {
-        circle(particles[i].posX, particles[i].posY, 5);
+        if (particles[i].pipe === "A") {
+            particles[i].posX += v1 / 4;
+            if (particles[i].posX > 0 && particles[i].posX <= (canvas.width - 94) / 2 + 75 - 10) {
+                circle(particles[i].posX, particles[i].posY, 5);
+            } else if (particles[i].posX > (canvas.width - 94) / 2 + 75 - 10) {
+                particles[i].posX = posAXinitial;
+            }
+        } else if (particles[i].pipe === "B") {
+            particles[i].posX += v2 / 4;
+            if (particles[i].posX > ((canvas.width - 76) / 2) + 10 && particles[i].posX < canvas.width) {
+                circle(particles[i].posX, particles[i].posY, 5);
+            } else if (particles[i].posX > canvas.width) {
+                particles[i].posX = posBXinitial;
+            }
+        }
     }
 }
 
