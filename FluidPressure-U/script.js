@@ -3,6 +3,46 @@ canvas.width = 700;
 canvas.height = 450;
 let ctx = canvas.getContext("2d");
 
+if (window.innerWidth <= 767) {
+    let settings = document.getElementById("settings");
+    let settings_content = `
+        <div class="subtitle">Fluid A</div>
+        <div class="section">
+            <label for="raw1">Fluid Density (r)</label>
+            <input type="text" id="raw1" name="raw1">
+        </div>
+        <div class="section">
+            <label for="g">Gravitational Potential (g)</label>
+            <input type="text" id="g" name="g">
+        </div>
+        <div class="section">
+            <label for="h1">Height (h)</label>
+            <input type="text" id="h1" name="h1">
+        </div>
+        <div class="section">
+            <label for="atm">Atmospheric Pressure</label>
+            <input type="text" id="atm" name="atm">
+        </div>
+        <div class="section">
+            <label for="lidA">Isolated</label>
+            <input type="checkbox" name="lidA" id="lidA">
+        </div>
+        <br>
+        <div class="subtitle">Fluid B</div>
+        <div class="section">
+            <label for="raw2">Fluid Density</label>
+            <input type="text" id="raw2" name="raw2">
+        </div>
+        <div class="section">
+            <label for="lidB">Isolated</label>
+            <input type="checkbox" name="lidB" id="lidB">
+        </div>
+    `;
+    settings.innerHTML = settings_content;
+    let settings_desktop = document.getElementById("desktop");
+    settings_desktop.innerHTML = "";
+}
+
 let fluidDensity_A_txt = document.getElementById("raw1");
 let fluidDensity_B_txt = document.getElementById("raw2");
 let fluidHeight_A_txt = document.getElementById("h1");
@@ -15,6 +55,18 @@ let lid_A_check = document.getElementById("lidA");
 let lid_B_check = document.getElementById("lidB");
 let atm_txt = document.getElementById("atm");
 let g_txt = document.getElementById("g");
+
+let settings_desktop = document.querySelectorAll(".fluid");
+let settings_phone = document.getElementById("fluid-phone");
+let black = document.getElementById("black-background");
+
+black.setAttribute("hidden", "true");
+if (window.innerWidth <= 767) {
+    settings_phone.setAttribute("hidden", "true");
+    for (let i = 0; i < settings_desktop.length; i++) {
+        settings_desktop[i].setAttribute("hidden", "true");
+    }
+}
 
 let fluidDensity_A;
 let fluidDensity_B;
@@ -39,6 +91,8 @@ let animationFrameId;
 
 let layover = document.getElementById("layover");
 
+g_txt.value = "9.81";
+
 atm_txt.value = 1013;
 g_txt.value = 9.81;
 
@@ -50,6 +104,12 @@ document.addEventListener("click", function (e) {
         layover.setAttribute("hidden", "false");
     } else if (targetElement.id === "closeinfo") {
         layover.setAttribute("hidden", "true");
+    } else if (targetElement.id === "open-settings") {
+        settings_phone.setAttribute("hidden", "false");
+        black.setAttribute("hidden", "false");
+    } else if (targetElement.id === "close-settings") {
+        settings_phone.setAttribute("hidden", "true");
+        black.setAttribute("hidden", "true");
     }
 })
 
@@ -63,7 +123,9 @@ function checkAvailability() {
     ) {
         alert("Please Fill out All fields");
     } else {
-        start()
+        settings_phone.setAttribute("hidden", "true");
+        black.setAttribute("hidden", "true");
+        window.setTimeout(start(), 300);
     }
 }
 
@@ -122,11 +184,13 @@ function start() {
         requestAnimationFrame(animate);
     }
 
-    gaugePressure_A_txt.innerText = Math.floor(gaugePressure_A * 1000) / 1000;
-    gaugePressure_B_txt.innerText = Math.floor(gaugePressure_B * 1000) / 1000;
-    AbsPressure_A_txt.innerText = Math.floor(AbsPressure_A * 1000) / 1000;
-    AbsPressure_B_txt.innerText = Math.floor(AbsPressure_B * 1000) / 1000;
-    fluidHeight_B_txt.innerText = Math.floor(fluidHeight_B * 1000) / 1000;
+    if (window.innerWidth > 767) {
+        gaugePressure_A_txt.innerText = Math.floor(gaugePressure_A * 1000) / 1000;
+        gaugePressure_B_txt.innerText = Math.floor(gaugePressure_B * 1000) / 1000;
+        AbsPressure_A_txt.innerText = Math.floor(AbsPressure_A * 1000) / 1000;
+        AbsPressure_B_txt.innerText = Math.floor(AbsPressure_B * 1000) / 1000;
+        fluidHeight_B_txt.innerText = Math.floor(fluidHeight_B * 1000) / 1000;
+    }
 }
 
 function drawTube() {

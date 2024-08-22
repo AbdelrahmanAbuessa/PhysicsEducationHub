@@ -8,10 +8,33 @@
         <link rel="stylesheet" href="layover.css">
     </head>
     <body>
-        <div class="title">Fluids & U Shaped Tube</div>
+        <div class="title">
+            <div class="ham-menu" id="open-settings">
+                <div class="line" id="open-settings"></div>
+                <div class="line" id="open-settings"></div>
+                <div class="line" id="open-settings"></div>
+            </div>
+            <div class="title-text">
+                Fluids & U Shaped Tube
+            </div>
+        </div>
+
+        <div class="black" id="black-background"></div>
+
         <div class="main">
-            <div class="fluid A">
-                <div class="subtitle">Fluid 1</div>
+            <div class="fluid-phone" id="fluid-phone">
+                <div class="container">
+                    <div class="close" id="close-settings">X</div>
+                    <div class="settings" id="settings">
+
+                    </div>
+                    <div class="setting-phone" id="btn-phone">
+                        <div btn="" id="start">Simulate</div>
+                    </div>
+                </div>
+            </div>
+            <div class="fluid A" id="desktop">
+                <div class="subtitle">Fluid A</div>
                 <div class="section">
                     <label for="raw1">Fluid Density (r)</label>
                     <input type="text" id="raw1" name="raw1">
@@ -44,12 +67,12 @@
                 <canvas class="canvas" id="canvas">
 
                 </canvas>
-                <div class="setting">
+                <div class="setting-desktop" id="btn-desktop">
                     <div btn="" id="start">Simulate</div>
                 </div>
             </div>
 
-            <div class="fluid B">
+            <div class="fluid B" id="desktop">
                 <div class="subtitle">Fluid B</div>
                 <div class="section">
                     <label for="raw2">Fluid Density</label>
