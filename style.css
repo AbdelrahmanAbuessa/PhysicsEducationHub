@@ -1,214 +1,384 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
-
 * {
     margin: 0;
-    padding: 0;
-    font-family: Inter;
     box-sizing: border-box;
+    font-family: sans-serif;
 }
 
-.header {
-    height: 16vh;
-    background-color: #B30C00;
-    color: white;
-    display: grid;
-    place-content: center;
+body {
+    height: 98vh;
+    background-color: lightgray;
+}
+
+h1 {
+    margin: 10px;
     text-align: center;
+    font-size: 25px;
 }
 
-.title {
-    font-size: 48px;
-    font-weight: 700;
-}
-
-.subtitle {
-    font-size: 32px;
-    font-weight: 200;
-}
-
-.background-image {
-    filter: brightness(0.13);
+.container {
+    display: flex;
+    justify-content: space-between;
     width: 100%;
-    height: 100%;
-    z-index: -1;
+    height: calc(100% - 35px);
+}
+
+.container > div{
+    background-color: white;
+}
+
+.forcelist {
+    position: relative;
+    width: 20%;
+}
+
+.axisgrid {
+    display: flex;
+    justify-content: center;
+    background-color: white;
+    align-items: center;
+    width: 64%;
+    position: relative;
+}
+
+[axis] {
+    background-color: black;
     position: absolute;
 }
 
-.simBG {
-    background-image: url(assets/sim-background.jpg);
+.x {
+    height: 1px;
+    width: 100%;
 }
 
-.txtBG {
-    background-image: url(assets/txt-background.jpg);
+.y {
+    height: 100%;
+    width: 1px;
 }
 
-.section {
-    position: relative;
+[btn] {
+    width: 150px;
+    background-color: gray;
     color: white;
-    border-bottom: 2px solid #B30C00;
-}
-
-.footer {
-    background-color: #B30C00;
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 5vh;
-}
-
-.inner-title {
-    height: 15%;
-    font-size: 36px;
-    font-weight: 600;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.content {
-    padding: 30px;
-}
-
-.inner-p {
-    font-size: 24px;
-    margin-left: 200px;
-    margin-right: 200px;
+    font-size: 22px;
     text-align: center;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    transition-duration: 0.3s;
+    transition-property: width;
+    display: block;
 }
 
-.left {
-    text-align: start;
+[btn]:hover {
+    width: 160px;
 }
 
-.sim, .txt {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(100px, 1fr));
-    gap: 30px;
-    padding: 30px;
+[btn]:active {
+    background-color: black;
 }
 
-.sim a, .txt a {
-    background-color: #B30C00;
-    color: white;
-    padding: 30px;
+.forcelist > [btn] {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 20px;
+}
+
+.menu {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    background-color: rgba(0, 0, 0, 50%);
+    z-index: 10;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.box {
+    width: 500px;
+    height: 200px;
+    padding: 20px;
+    background-color: white;
     border-radius: 25px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.box > .Section {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.box > .Section:nth-child(3) {
+    justify-content: space-evenly;
+}
+
+.Section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Section > label {
+    font-size: 20px;
+}
+
+.Section > input {
+    width: 250px;
+    height: 25px;
+    border: none;
+    border-bottom: 3px solid black;
+}
+
+.Section > input:focus {
+    outline: none;
+}
+
+.force {
+    border-bottom: solid black 1px;
+    display: flex;
+    height: 40px;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.forceName {
+    width: 30px;
+    background-color: white;
+    text-align: center;
+    padding: 5px;
+    border-radius: 50%;
+}
+
+[vector], [antivector] {
+    width: 100px;
+    height: 5px;
+    background-color: red;
+    position: absolute;
+    transform: translateY(-50%);
+}
+
+[vector]::after, [antivector]::after {
+    content: " ";
+    border: 7px solid;
+    border-color: transparent transparent transparent red;
+    position: absolute;
+    left: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+[antivector] {
+    background-color: black;
+    transform: translate(-100%, -50%);
+    opacity: 0;
+}
+
+[antivector]::after {
+    border-color: transparent black transparent transparent;
+    left: -14px;
+}
+
+.del {
+    font-size: 14px;
+    width: 60px;
+    height: 30px;
+    background-color: red;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    transition: none;
+}
+
+.del:hover {
+    width: 60px; 
+}
+
+input[type="radio"] {
+    width: 20px;
+    height: 20px;
+}
+
+.properties {
+    width: 15%;
+}
+
+.properties div {
+    margin: 20px auto;
     font-size: 20px;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    text-align: center;
-    transition-duration: 0.3s;
-    transition-property: transform;
-    text-decoration: none;
+    width: 90%;
 }
 
-.sim a:hover, .txt a:hover {
-    transform: scale(110%);
+[quarter] {
+    font-size: 20px;
+    color: gray;
+    position: absolute;
+}
+
+.q1 {
+    top: 10px;
+    right: 10px;
+}
+
+.q2 {
+    top: 10px;
+    left: 10px;
+}
+
+.q3 {
+    bottom: 10px;
+    left: 10px;
+}
+
+.q4 {
+    bottom: 10px;
+    right: 10px;
+}
+
+.closemenu {
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    background-color: red;
+    width: 30px;
+    height: 30px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    cursor: pointer;
+    display: none;
+}
+
+.closemenu:active {
+    background-color: black;    
+}
+
+.mainforcelist {
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.hamburger {
+    z-index: 1;
+    position: absolute;
+    top: 20px;
+    left: 10px;
+    width: 60px;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+}
+
+.line {
+    width: 100%;
+    height: 7px;
+    border-radius: 30px;
+    position: absolute;
+    background-color: black;
+    top: 0;
+}
+
+.line:nth-child(2) {
+    top: 50%;
+}
+
+.line:nth-child(3) {
+    top: 100%;
+}
+
+.black-background {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    position: absolute;
+    top: 0;
+    z-index: 99;
 }
 
 @media (max-width: 767px) {
-    .header {
-        height: 15vh;
-    }
-    
-    .title {
-        font-size: 28px;
-    }
-    
-    .subtitle {
-        font-size: 22px;
-    }
-
-    .inner-title {
+    h1 {
         font-size: 24px;
-    }
-    
-    .inner-p {
-        margin: 0;
-        font-size: 20px;
-    }
-    
-    .sim, .txt {
-        grid-template-columns: 300px;
-        place-content: center;
+        text-align: left;
+        margin-left: 90px;
     }
 
-    .sim a, .txt a {
+    .properties {
+        display: none;
+    }
+
+    .axisgrid {
+        width: 100%;
+        height: 100%;
+    }
+
+    .hamburger {
+        display: flex;
+        height: 30px;
+    }
+
+    .container {
+        display: block;
+    }
+
+    .forcelist {
+        border-radius: 25px;
+        width: 70%;
+        height: 70%;
+        overflow: scroll;
+        z-index: 100;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .closemenu {
+        display: flex;
+        margin: 20px;
+    }
+
+    .menu {
+        z-index: 101;
+    }
+    
+    .box {
+        width: 80%;
+        height: 60%;
+    }
+
+    .Section > label {
         font-size: 18px;
-        padding: 20px;
     }
 
-    .footer {
-        height: 5vh;
-    }
-}
-
-@media (min-width: 768px) and (max-width: 1357px) {
-    .header {
-        height: 15vh;
-    }
-    
-    .title {
-        font-size: 36px;
-    }
-    
-    .subtitle {
-        font-size: 24px;
+    .Section > input {
+        font-size: 14px;
+        width: 90%;
+        margin-bottom: 30px;
+        margin-top: 10px;
     }
 
-    .inner-title {
-        font-size: 28px;
-    }
-    
-    .inner-p {
-        margin: 0;
-        font-size: 26px;
-    }
-    
-    .sim, .txt {
-        grid-template-columns: 400px;
-        place-content: center;
+    [btn] {
+        font-size: 18px;
     }
 
-    .sim a, .txt a {
-        font-size: 24px;
-        padding: 20px;
+    .Section {
+        flex-direction: column;
     }
 
-    .footer {
-        height: 5vh;
-    }
-}
-
-@media (min-width: 2560px) {
-    .title {
-        font-size: 92px;
+    .lay-cont {
+        width: 90% !important;
+        z-index: 100;
     }
 
-    .subtitle {
-        font-size: 60px;
-    }
 
-    .inner-title {
-        font-size: 52px;
-    }
-
-    .inner-p {
-        font-size: 44px;
-    }
-
-    .sim, .txt {
-        max-width: 1440px;
-        margin: auto;
-    }
-
-    .sim a, .txt a {
-        font-size: 36px;
-    }
-
-    .footer {
-        font-size: 32px;
-        height: 5vh;
-    }
 }

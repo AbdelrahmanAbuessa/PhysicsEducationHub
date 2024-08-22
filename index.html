@@ -3,82 +3,135 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Physics Education Hub</title>
+        <title>Resultant Simulation</title>
         <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="layover.css">
     </head>
     <body>
-        <div class="header">
-            <div class="title">Physics Education Hub</div>
-            <div class="subtitle">For High School Students & Teachers</div>
-        </div>
-        <div class="main">
-            <div class="section">
-                <div class="background-image simBG"></div>
-                <div class="content">
+        <h1>Resultant (Net Force) Simulator</h1>
+        
+        <div class="black-background" id="black-background" hidden="true"></div>
 
-                    <div class="inner-title">Interactive Simulators</div>
-                    <div class="inner-p">
-                        Learn about important Physics concepts using Browser-Based Interactive Activities,
-                        Click on any activity below and start experimenting.
-                    </div>
-                    <div class="sim">
-                        <a href="Resultant/index.html" target="_blank">
-                            Resultant Force & Net Force
-                        </a>
-                        <a href="Projectile/index.html" target="_blank">
-                            Projectile Motion
-                        </a>
-                        <a href="Friction/index.html" target="_blank">
-                            Friction Force & Inclined Planes
-                        </a>
-                        <a href="Collision/index.html" target="_blank">
-                            Collision & Conservation of Energy
-                        </a>
-                        <a href="UCM-FC/index.html" target="_blank">
-                            Centripetal Force
-                        </a>
-                        <a href="FluidPressure-U/index.html" target="_blank">
-                            Fluid Pressure & U-Tubes
-                        </a>
-                        <a href="Bernoulli/index.html" target="_blank">
-                            Bernoulli's Principle & Equation
-                        </a>
-                    </div>
-                    <div class="inner-p left">
-                        Note: Click the "i" at the bottom right of the screen to read more information about the concept in addition to
-                        the Laws used in the simulation.
-                    </div>
-                    <div class="inner-p left">
-                        Note: Please refresh the page if you encounter any problem with any of the simulations.
-                    </div>
+        <div class="hamburger" id="hamburger">
+            <div class="line" id="hamburger"></div>
+            <div class="line" id="hamburger"></div>
+            <div class="line" id="hamburger"></div>
+        </div>
+
+        <!-- Layover Menu: Adding a Force -->
+        <div hide class="menu">
+            <div class="box">
+                <div class="Section">
+                    <label for="mag">Magnitude</label>
+                    <input type="number" id="mag" placeholder="Enter a Number">              
+                </div>
+                <div class="Section">
+                    <label for="dir">Direction</label>
+                    <input type="number" id="dir" placeholder="Enter a Number">
+                </div>
+                <div class="Section">
+                    <div btn id="addForce">Add Force</div>
+                    <div btn id="disableMenu">Cancel</div>
                 </div>
             </div>
-            <div class="section">
-                <div class="background-image txtBG"></div>
-                <div class="content">
-                    <div class="inner-title">Resources and Books</div>
-                    <div class="inner-p">
-                        Explore these resources and books offering clear explanations of key concepts and
-                        a wide range of problems to test your understanding. Whether you're a beginner or advancing 
-                        your knowledge,these resources are designed to help you grasp the principles of physics.
+        </div>
+
+        <div class="container">
+
+            <!-- Section 1: Force List -->
+            <div class="forcelist" id="forcelist">
+                <div class="closemenu" id="closemenu">
+                    X
+                </div>
+                <div class="list">
+                    <!-- Forces will be added here -->
+                </div>
+                <div btn id="activateMenu">
+                    Add Force
+                </div>
+            </div>
+
+            <!-- Section 2: Axis -->
+            <div class="axisgrid">
+                <div axis class="x"></div>
+                <div axis class="y"></div>
+                <div quarter="" class="q1">Q <sub>1</sub> </div>
+                <div quarter="" class="q2">Q <sub>2</sub></div>
+                <div quarter="" class="q3">Q <sub>3</sub></div>
+                <div quarter="" class="q4">Q <sub>4</sub></div>
+            </div>    
+
+            <!-- Section 3: Properties Menu -->
+            <div class="properties">
+                <div class="vectorID">
+                    ID =
+                    <span id="IDValue">0</span>
+                </div>
+                <div class="vectorMagnitude">
+                    Magnitude =
+                    <span id="magnitudeValue">0</span>
+                </div>
+                <div class="vectorDirection">
+                    Direction =
+                    <span id="directionValue">0</span>
+                </div>
+                <hr>
+                <div class="xcomp">
+                    Xnet =
+                    <span id="xc">0</span>
+                </div>
+                <div class="ycomp">
+                    Ynet =
+                    <span id="yc">0</span>
+                </div>
+            </div>
+            
+        </div>
+
+        <div class="info" id="info">i</div>
+
+        <!-- JS -->
+        <div class="layover" id="layover" hidden="true">
+            <div class="lay-cont">
+                <div class="lay-close" id="closeinfo">X</div>
+                <div class="lay-title">Resultants</div>
+                <div class="lay-subtitle">Net Forces</div>
+                <div class="lay-article">
+                    <div class="lay-section">
+                        When multiple forces with different magnitudes and directions act on a 
+                        single point or object, all these forces can be combined into one force which
+                        is the resultant force.
                     </div>
-                    <div class="txt">
-                        <a href="https://www.wcpss.net/cms/lib/NC01911451/Centricity/Domain/5203/CollegePhysicsforAPCourses-LR.pdf" target="_blank">
-                            BOOK: College Physics for AP Courses
-                        </a>
-                        <a href="https://phys.libretexts.org/" target="_blank">
-                            SITE: LibreText Physics
-                        </a>
-                        <a href="https://elearn.daffodilvarsity.edu.bd/pluginfile.php/987150/mod_label/intro/fundamentals-of-physics-textbook.pdf" target="_blank">
-                            BOOK: Fundamentals of Physics, Halliday
-                        </a>
-                        <a href="https://www.kau.edu.sa/files/0009103/files/72722_fundamentals_of_physics__7th_edition__test_bank.pdf" target="_blank">
-                            BOOK: Fundamentals of Physics, Halliday: (Question Bank)
-                        </a>
+                    <div class="lay-section">
+                        Each force with a direction and a magnitude can be represented using 2 components, 
+                        each found on either the X axis or the Y axis, using a number of formulas, these two
+                        components can be calculated: 
+                        <div class="lay-bold">
+                            X-axis component = Magnitude × cos(theta)
+                        </div>
+                        <div class="lay-bold">
+                            Y-axis component = Magnitude × sin(theta)
+                        </div>
+                    </div>
+                    <div class="lay-section">
+                        For a system of forces, if we calcualte the X and Y components of all the forces, the result
+                        will be two forces, one with its direction is on the X-axis, and the other with its direction on
+                        the Y-axis, using these two forces and the pythagorean theorem, the force resultant can be calculated:
+                        <div class="lay-bold">
+                            Resultant Force = sqrt(X ^ 2 + Y ^ 2)
+                        </div>
+                    </div>
+                    <div class="lay-section">
+                        The direction of the resultant force can be calculated using the following formula:
+                        <div class="lay-bold">
+                            Resultant Drection = arctan(Y ÷ X)
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="footer">Developed By: Abdelrahman Aboueissa (Mohemmat)</div>
+
+        <script src="script.js"></script>
+
     </body>
 </html>
