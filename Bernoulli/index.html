@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Fluids & U Shaped Tube</title>
+        <title>Bernoulli's Principle</title>
         <link rel="stylesheet" href="style.css">
         <link rel="stylesheet" href="layover.css">
     </head>
@@ -15,81 +15,73 @@
                 <div class="line" id="open-settings"></div>
             </div>
             <div class="title-text">
-                Fluids & U Shaped Tube
+                Bernoulli's Principle
             </div>
         </div>
-
-        <div class="black" id="black-background"></div>
+        
+        <div class="black-background" id="black"></div>
 
         <div class="main">
             <div class="fluid-phone" id="fluid-phone">
-                <div class="container">
-                    <div class="close" id="close-settings">X</div>
-                    <div class="settings" id="settings">
+                <div class="phone-content" id="phone-content">
+                    <div class="close-menu" id="close-settings">X</div>
+                    <div class="content" id="content">
 
                     </div>
-                    <div class="setting-phone" id="btn-phone">
-                        <div btn="" id="start">Simulate</div>
+                    <div class="setting-phone" id="setting-phone">
+                        <div btn="" id="start">Start</div>
                     </div>
                 </div>
             </div>
-            <div class="fluid A" id="desktop">
-                <div class="subtitle">Fluid A</div>
+            <div class="fluid" id="desktop">
+                <div class="subtitle">Pipe 1</div>
                 <div class="section">
-                    <label for="raw1">Fluid Density (r)</label>
-                    <input type="text" id="raw1" name="raw1">
+                    <label for="p1">Pressure</label>
+                    <input type="text" id="p1" name="p1">
                 </div>
                 <div class="section">
-                    <label for="g">Gravitational Potential (g)</label>
+                    <label for="h1">Elevation</label>
+                    <input type="range" min="-10" max="10" step="1" id="h1" name="h1">
+                    <span id="h1range">0</span>
+                </div>
+                <div class="section">
+                    <label for="g">Gravitational Potential</label>
                     <input type="text" id="g" name="g">
                 </div>
                 <div class="section">
-                    <label for="h1">Height (h)</label>
-                    <input type="text" id="h1" name="h1">
+                    <label for="raw">Fluid Density</label>
+                    <input type="text" id="raw" name="raw">
                 </div>
                 <div class="section">
-                    <label for="atm">Atmospheric Pressure</label>
-                    <input type="text" id="atm" name="atm">
-                </div>
-                <div class="section">
-                    <label for="lidA">Isolated</label>
-                    <input type="checkbox" name="lidA" id="lidA">
-                </div>
-                <div class="text">
-                    Gauge Pressure = <span id="Gp1">0</span>
-                </div>
-                <div class="text">
-                    Absolute Pressure = <span id="Ap1">0</span>
+                    <label for="v1">Initial Velocity</label>
+                    <input type="text" id="v1" name="v1">
                 </div>
             </div>
 
             <div class="simulation">
-                <canvas class="canvas" id="canvas">
+                <canvas id="canvas"></canvas>
 
-                </canvas>
-                <div class="setting-desktop" id="btn-desktop">
-                    <div btn="" id="start">Simulate</div>
+                <div class="setting-desktop" id="setting-desktop">
+                    <div btn="" id="start">Start</div>
                 </div>
             </div>
 
-            <div class="fluid B" id="desktop">
-                <div class="subtitle">Fluid B</div>
+            <div class="fluid" id="desktop">
+                <div class="subtitle">Pipe 2</div>
                 <div class="section">
-                    <label for="raw2">Fluid Density</label>
-                    <input type="text" id="raw2" name="raw2">
+                    <label for="p2">Pressure</label>
+                    <input type="text" id="p2" name="p2">
                 </div>
                 <div class="section">
-                    <label for="lidB">Isolated</label>
-                    <input type="checkbox" name="lidB" id="lidB">
+                    <label for="h2">Elevation</label>
+                    <input type="range" min="-10" max="10" step="1" id="h2" name="h2">
+                    <span id="h2range">0</span>
                 </div>
                 <div class="text">
-                    Height (h) = <span id="h2">0</span>
+                    Velocity = <span id="v2">0</span>
                 </div>
                 <div class="text">
-                    Gauge Pressure = <span id="Gp2">0</span>
-                </div>
-                <div class="text">
-                    Absolute Pressure = <span id="Ap2">0</span>
+                    Work = <span id="w">0</span>
                 </div>
             </div>
         </div>
@@ -100,67 +92,59 @@
             <div class="lay-cont">
                 <div class="lay-close" id="closeinfo">X</div>
                 <div class="lay-article">
-                    <div class="lay-title">U-Shaped Tubes & Fluids</div>
-                    <div class="lay-subtitle">Fluid Pressure</div>
+                    <div class="lay-title">Bernoulli's Principle</div>
+                    <div class="lay-subtitle">Fluid Dynamics</div>
                     <div class="lay-section">
-                        U-Shaped Tubes (Manometers) are used to calculate the pressure of different liquids
-                        based on density and Height. Using the principle of pressure at equal depths in a liquid:
+                        Bernoulli's Principle is used to describe the flow of fluids inside pipes of different 
+                        pressures and different elevations; firstly, the fluid must be:
+                    </div>
+                    <div class="lay-section">
+                        <ol>
+                            <li>Incompressible: The fluid's density doesn't change with pressure</li>
+                            <li>Non-Viscous: The fluid isn't thick and flows easily</li>
+                            <li>Achieves Laminar Flow: The flow of the liquid isn't turbulent</li>
+                        </ol>
+                        A perfect example of a fluid that satisfies all three rules is: Water
+                    </div>
+                    <div class="lay-section">
+                        Bernoulli's Principle is based on the Conservation of Energy, it states that the sum of energy
+                        (Kinetic + Potential + Internal) of a moving fluid at all points is constant, 
+                        thus a change in the speed of a fluid's flow inside a container must be accompanied by a change in 
+                        either the Pressure, or the Height:
                         <div class="lay-bold">
-                            For two points, A and B, present at the same depth inside a liquid, the two points experience the same pressure.
+                            P1 + 0.5 × raw × v1 ^ 2 + raw × g × h1
+                            <br>
+                            =
+                            <br> P2 + 0.5 × raw × v2 ^ 2 + raw × g × h2 
+                        </div>
+                        Where P is the pressure, raw is the fluid's density, v is the fluid's velocity, g is the gravitational potential, 
+                        and h is the height / elevation of the tube.
+                        <br>
+                        Bernoulli's Equation states that:
+                        <div class="lay-bold">
+                            If: V1 > V2, Then: P1 < P2, Or: H1 < H2
                         </div>
                     </div>
                     <div class="lay-section">
-                        To calculate the pressure done by a liquid on a point at a certain depth:
+                        Additionally, the area of the container plays a role in the change of the fluid's speed, 
+                        the principle known as the Continuity Equation, which is based on the Conservation of Mass:
+                    </div>
+                    <div class="lay-section">
+                        The Continuity Equation states that for an Incompressible, Non-Viscous, Fluid that is in Laminar Flow, 
+                        The mass of fluid that moves in a certain time inside an area of the container is always constant:
                         <div class="lay-bold">
-                            Gauge Pressure = Density * Gravitational Potential (g) * Depth (h)
+                            A1 × V1 = A2 × V2
                         </div>
-                        Note that this formula neglects the already existing Atmospheric pressure, thus is called Gauge Pressure, 
-                        which is the pressure done by the liquid only, to calculate the real pressure on the point at a certain depth, 
-                        the Atmospheric pressure must be added to the formula:
+                        Where A is the area of the container, and v is the velocity of the fluid.
+                        <br>
+                        The Continuity Equation states that:
                         <div class="lay-bold">
-                            Absolute Pressure = Atmospheric Pressure + Gauge Pressure
+                            If: A1 > A2, Then: V1 < V2
                         </div>
                     </div>
                     <div class="lay-section">
-                        Pressure Measuring units are:
-                        <div class="lay-bold">
-                            Bar, Pascal, and atm.
-                        </div>
-                        <div class="lay-bold">
-                            1 atm = 1.013 Bar
-                        </div>
-                        <div class="lay-bold">
-                            1 Bar = 100 Kilo-Pascal
-                        </div>
-                    </div>
-                    <div class="lay-section">
-                        When two points are in the same depth inside a liquid container that isn't isolated from the atmosphere, 
-                        they experience the same pressure regarding of the fluid, so the absolute pressure is equal at both points.
-                        <div class="lay-bold">
-                            Absolute Pressure at A = Absolute Pressure at B
-                        </div>
-                    </div>
-                    <div class="lay-section">
-                        When one or the two points at a certain depth are isolated from the atmosphere, 
-                        the Atmospheric Pressure will not affect the point, so only the Gauge pressure of the isolated
-                        point is applied:
-                        <br><br>
-                        Case 1: Point A is Isolated:
-                        <div class="lay-bold">
-                            Gauge Pressure at A = Absolute Pressure at B
-                        </div>
-                        Case 2: Point B is Isolated:
-                        <div class="lay-bold">
-                            Absolute Pressure at A = Gauge Pressure at B
-                        </div>
-                        Case 3: Both points are Isolated:
-                        <div class="lay-bold">
-                            Gauge Pressure at A = Gauge Pressure at B
-                        </div>
-                    </div>
-                    <div class="la-section">
-                        This Principle is applied to use in many applications, one of which is the Manometer, 
-                        used to measure pressure of a fluid. 
+                        Applications of Bernoulli's Principle and the Continuity Equation Include:
+                        The Design of Aircraft Wings, and Pitot Tubes.
                     </div>
                 </div>
             </div>

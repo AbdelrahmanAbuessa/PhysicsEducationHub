@@ -1,100 +1,96 @@
 let canvas = document.getElementById("canvas");
-canvas.width = 700;
-canvas.height = 450;
 let ctx = canvas.getContext("2d");
+canvas.width = 1000;
+canvas.height = 600;
 
+let black = document.getElementById("black");
+let settings_phone = document.getElementById("content");
+let layover_phone = document.getElementById("fluid-phone");
+
+let settings_phone_content = `
+    <div class="subtitle">Pipe 1</div>
+    <div class="section">
+        <label for="p1">Pressure</label>
+        <input type="text" id="p1" name="p1">
+    </div>
+    <div class="section">
+        <label for="h1">Elevation</label>
+        <input type="range" min="-10" max="10" step="1" id="h1" name="h1">
+        <span id="h1range">0</span>
+    </div>
+    <div class="section">
+        <label for="g">Gravitational Potential</label>
+        <input type="text" id="g" name="g">
+    </div>
+    <div class="section">
+        <label for="raw">Fluid Density</label>
+        <input type="text" id="raw" name="raw">
+    </div>
+    <div class="section">
+        <label for="v1">Initial Velocity</label>
+        <input type="text" id="v1" name="v1">
+    </div>
+    <div class="subtitle">Pipe 2</div>
+    <div class="section">
+        <label for="p2">Pressure</label>
+        <input type="text" id="p2" name="p2">
+    </div>
+    <div class="section">
+        <label for="h2">Elevation</label>
+        <input type="range" min="-10" max="10" step="1" id="h2" name="h2">
+        <span id="h2range">0</span>
+    </div>
+`;
+settings_phone.innerHTML = settings_phone_content;
+
+let setting_desktop = document.getElementById("setting-desktop");
 if (window.innerWidth <= 767) {
-    let settings = document.getElementById("settings");
-    let settings_content = `
-        <div class="subtitle">Fluid A</div>
-        <div class="section">
-            <label for="raw1">Fluid Density (r)</label>
-            <input type="text" id="raw1" name="raw1">
-        </div>
-        <div class="section">
-            <label for="g">Gravitational Potential (g)</label>
-            <input type="text" id="g" name="g">
-        </div>
-        <div class="section">
-            <label for="h1">Height (h)</label>
-            <input type="text" id="h1" name="h1">
-        </div>
-        <div class="section">
-            <label for="atm">Atmospheric Pressure</label>
-            <input type="text" id="atm" name="atm">
-        </div>
-        <div class="section">
-            <label for="lidA">Isolated</label>
-            <input type="checkbox" name="lidA" id="lidA">
-        </div>
-        <br>
-        <div class="subtitle">Fluid B</div>
-        <div class="section">
-            <label for="raw2">Fluid Density</label>
-            <input type="text" id="raw2" name="raw2">
-        </div>
-        <div class="section">
-            <label for="lidB">Isolated</label>
-            <input type="checkbox" name="lidB" id="lidB">
-        </div>
-    `;
-    settings.innerHTML = settings_content;
-    let settings_desktop = document.getElementById("desktop");
-    settings_desktop.innerHTML = "";
+    setting_desktop.setAttribute("hidden", "true");
 }
 
-let fluidDensity_A_txt = document.getElementById("raw1");
-let fluidDensity_B_txt = document.getElementById("raw2");
-let fluidHeight_A_txt = document.getElementById("h1");
-let fluidHeight_B_txt = document.getElementById("h2");
-let gaugePressure_A_txt = document.getElementById("Gp1");
-let gaugePressure_B_txt = document.getElementById("Gp2");
-let AbsPressure_A_txt = document.getElementById("Ap1");
-let AbsPressure_B_txt = document.getElementById("Ap2");
-let lid_A_check = document.getElementById("lidA");
-let lid_B_check = document.getElementById("lidB");
-let atm_txt = document.getElementById("atm");
+let p1_txt = document.getElementById("p1");
+let p2_txt = document.getElementById("p2");
+let e1_range = document.getElementById("h1");
+let e2_range = document.getElementById("h2");
+let e1_txt = document.getElementById("h1range");
+let e2_txt = document.getElementById("h2range");
+let v1_txt = document.getElementById("v1");
+let v2_txt = document.getElementById("v2");
+let raw_txt = document.getElementById("raw");
 let g_txt = document.getElementById("g");
-
-let settings_desktop = document.querySelectorAll(".fluid");
-let settings_phone = document.getElementById("fluid-phone");
-let black = document.getElementById("black-background");
+let w_txt = document.getElementById("w");
 
 black.setAttribute("hidden", "true");
-if (window.innerWidth <= 767) {
-    settings_phone.setAttribute("hidden", "true");
-    for (let i = 0; i < settings_desktop.length; i++) {
-        settings_desktop[i].setAttribute("hidden", "true");
-    }
+layover_phone.setAttribute("hidden", "true");
+
+e1_range.oninput = function () {
+    e1_txt.innerText = e1_range.value;
 }
 
-let fluidDensity_A;
-let fluidDensity_B;
-let gaugePressure_A;
-let gaugePressure_B;
-let AbsPressure_A;
-let AbsPressure_B;
-let fluidHeight_A;
-let fluidHeight_B;
-let lidA;
-let lidB;
-let atm;
-let g;
-
-let startingHeight;
-let currentA;
-let currentB;
-let dA;
-let dB;
-
-let animationFrameId;
+e2_range.oninput = function () {
+    e2_txt.innerText = e2_range.value;
+}
 
 let layover = document.getElementById("layover");
 
-g_txt.value = "9.81";
+let p1;
+let p2;
+let v1;
+let v2;
+let e1;
+let e2;
+let raw;
+let g;
+let w;
 
-atm_txt.value = 1013;
-g_txt.value = 9.81;
+let collective1;
+let collective2;
+
+let animationFrameId;
+
+let particles = [];
+
+g_txt.value = 9.81
 
 document.addEventListener("click", function (e) {
     let targetElement = e.target;
@@ -105,217 +101,213 @@ document.addEventListener("click", function (e) {
     } else if (targetElement.id === "closeinfo") {
         layover.setAttribute("hidden", "true");
     } else if (targetElement.id === "open-settings") {
-        settings_phone.setAttribute("hidden", "false");
         black.setAttribute("hidden", "false");
+        layover_phone.setAttribute("hidden", "false");
     } else if (targetElement.id === "close-settings") {
-        settings_phone.setAttribute("hidden", "true");
         black.setAttribute("hidden", "true");
+        layover_phone.setAttribute("hidden", "true");
     }
 })
 
 function checkAvailability() {
     if (
-        fluidDensity_A_txt.value === "" ||
-        fluidDensity_B_txt.value === "" ||
-        fluidHeight_A_txt.value === "" ||
-        atm_txt.value === "" ||
-        g_txt.value === ""
+        p1_txt.value === "" ||
+        p2_txt.value === "" ||
+        raw_txt.value === "" ||
+        g_txt.value === "" ||
+        v1_txt.value === ""
     ) {
-        alert("Please Fill out All fields");
+        alert("Please fill out all fields");
     } else {
-        settings_phone.setAttribute("hidden", "true");
         black.setAttribute("hidden", "true");
+        layover_phone.setAttribute("hidden", "true");
         window.setTimeout(start(), 300);
     }
 }
 
+let posAXinitial;
+let posBXinitial;
+let posAYinitial;
+let posBYinitial;
+
 function start() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    fluidDensity_A = parseFloat(fluidDensity_A_txt.value);
-    fluidDensity_B = parseFloat(fluidDensity_B_txt.value);
-    fluidHeight_A = parseFloat(fluidHeight_A_txt.value);
-    atm = parseFloat(atm_txt.value);
     g = parseFloat(g_txt.value);
-    lidA = lid_A_check.checked;
-    lidB = lid_B_check.checked;
+    raw = parseFloat(raw_txt.value);
+    p1 = parseFloat(p1_txt.value);
+    p2 = parseFloat(p2_txt.value);
+    e1 = parseFloat(e1_range.value);
+    e2 = parseFloat(e2_range.value);
+    v1 = parseFloat(v1_txt.value);
+
+    e1 *= 25;
+    e2 *= 25;
+
+    posAXinitial = 0;
+    posBXinitial = ((canvas.width - 75) / 2) + 10;
+    posAYinitial = ((canvas.height - 75) / 2) - e1 + 25;
+    posBYinitial = ((canvas.height - 75) / 2) - e2 + 25;
+
+    collective1 = p1 + (0.5 * raw * Math.pow(v1, 2)) + (raw * g * e1);
+    collective2 = p2 + (raw * g * e2);
+    v2 = (collective1 - collective2) / (0.5 * raw);
     
-    gaugePressure_A = fluidDensity_A * g * fluidHeight_A;
-    
-    if (lidA === true) {
-        AbsPressure_A = gaugePressure_A;
-        AbsPressure_B = AbsPressure_A;
-        if (lidB === true) {
-            gaugePressure_B = AbsPressure_B;
+    if (v2 < 0) {
+        noFlow();
+        v2_txt.innerText = 0;
+        w_txt.innerText = 0;
+    } else {
+        v2 = Math.sqrt(v2);
+        w = (p1 - p2) * (v2 - v1);
+        v2_txt.innerText = Math.floor(v2 * 1000) / 1000;
+        w_txt.innerText = Math.floor(w * 1000) / 1000;
+        if (animationFrameId) {
+            cancelAnimationFrame(animateFluid);
         } else {
-            gaugePressure_B = AbsPressure_B - atm;
-            if (gaugePressure_B < 0) {
-                gaugePressure_B = AbsPressure_B;
+            requestAnimationFrame(animateFluid);
+        }
+    }
+    
+    particles = [];
+
+    for (let i = 1; i <= 15; i++) {
+        let particleA = new Object({
+            pipe: "A",
+            posX: 0,
+            posY: 0
+        })
+        particles.push(particleA);
+        let particleB = new Object({
+            pipe: "B",
+            posX: 0,
+            posY: 0
+        })
+        particles.push(particleB);
+    }
+    
+    for (let i = 0; i <= particles.length - 1; i++) {
+        if (particles[i].pipe === "A") {
+            particles[i].posX = posAXinitial - (15 * (i + 1));
+            if (i < 10) {
+                particles[i].posY = posAYinitial;
+            } else if (i >= 10 && i < 20) {
+                particles[i].posY = posAYinitial + 15;
+            } else if (i >= 20 && i < 30) {
+                particles[i].posY = posAYinitial + 30;
+            }
+        } else {
+            particles[i].posX = posBXinitial - (15 * (i + 1));
+            if (i < 10) {
+                particles[i].posY = posBYinitial;
+            } else if (i >= 10 && i < 20) {
+                particles[i].posY = posBYinitial + 15;
+            } else if (i >= 20 && i < 30) {
+                particles[i].posY = posBYinitial + 30;
             }
         }
-    } else {
-        AbsPressure_A = gaugePressure_A + atm;
-        AbsPressure_B = AbsPressure_A;
-        if (lidB === true) {
-            gaugePressure_B = AbsPressure_B;
-        } else {
-            gaugePressure_B = AbsPressure_B - atm;
-        }
-    }
-
-    fluidHeight_B = gaugePressure_B / (fluidDensity_B * g);
-
-    startingHeight = (fluidHeight_A + fluidHeight_B) / 2;
-    dA = startingHeight / 100;
-    dB = startingHeight / 100;
-    currentA = startingHeight;
-    currentB = startingHeight;
-
-    if (startingHeight >= fluidHeight_A) {
-        dA = dA * -1;
-    } 
-    if (startingHeight >= fluidHeight_B) {
-        dB = dB * -1;
-    }
-
-    if (animationFrameId) {
-        cancelAnimationFrame(animate);
-    } else {
-        requestAnimationFrame(animate);
-    }
-
-    if (window.innerWidth > 767) {
-        gaugePressure_A_txt.innerText = Math.floor(gaugePressure_A * 1000) / 1000;
-        gaugePressure_B_txt.innerText = Math.floor(gaugePressure_B * 1000) / 1000;
-        AbsPressure_A_txt.innerText = Math.floor(AbsPressure_A * 1000) / 1000;
-        AbsPressure_B_txt.innerText = Math.floor(AbsPressure_B * 1000) / 1000;
-        fluidHeight_B_txt.innerText = Math.floor(fluidHeight_B * 1000) / 1000;
     }
 }
 
-function drawTube() {
+function drawPipeA(e1, e2) {
     ctx.beginPath();
     ctx.fillStyle = "black";
-    ctx.fillRect((canvas.width - 200) / 2, 20, 5, 300);
-    ctx.fillRect(((canvas.width - 200) / 2) + 200, 20, 5, 300);
-    ctx.fillRect(((canvas.width - 200) / 2) + 150, 20, 5, 300);
-    ctx.fillRect(((canvas.width - 200) / 2) + 50, 20, 5, 300);
+    ctx.fillRect(0, ((canvas.height - 75) / 2) - e1, (canvas.width - 75) / 2, 10);
+    ctx.fillRect(0, ((canvas.height - 75) / 2) + 75 - e1, (canvas.width - 75) / 2, 10);
     ctx.closePath();
-    
-    ctx.beginPath();
-    ctx.strokeStyle = "black";
-    ctx.arc(352.5, 320, 50, 0, Math.PI, false);
-    ctx.lineWidth = 5;
-    ctx.stroke();
-    ctx.closePath();
-    
-    ctx.beginPath();
-    ctx.strokeStyle = "black";
-    ctx.arc(352.5, 320, 100, 0, Math.PI, false);
-    ctx.lineWidth = 5;
-    ctx.stroke();
-    ctx.closePath();
-
-    ctx.beginPath();
-    ctx.arc(352.5, 320, 75, 0, Math.PI, false);
-    ctx.lineWidth = 46;
-    ctx.strokeStyle = "black";
-    ctx.stroke();
-    ctx.closePath();
-    
-    for (let i = 100; i <= canvas.width - 100; i += 25) {
-        ctx.beginPath();
-        ctx.fillStyle = "black";
-        ctx.fillRect(i, 320, 20, 5);
-        ctx.closePath();
-    }
 }
 
-function fluidA(height, lid) {
+function drawPipeB(e1, e2) {
+    ctx.beginPath();
+    ctx.fillStyle = "black";
+    ctx.fillRect(((canvas.width - 75) / 2) + 75, ((canvas.height - 75) / 2) - e2, (canvas.width - 75) / 2, 10);
+    ctx.fillRect(((canvas.width - 75) / 2) + 75, ((canvas.height - 75) / 2) + 75 - e2, (canvas.width - 75) / 2, 10);
+    ctx.closePath();
+}
+
+function drawPipeM(e1, e2) {
+    ctx.beginPath();
+    ctx.fillStyle = "black";
+    if (e1 >= e2) {
+        ctx.fillRect((canvas.width - 76) / 2, ((canvas.height - 75) / 2) + 75 - e1, 10, (e1 - e2) + 10);
+        ctx.fillRect((canvas.width - 94) / 2 + 75, ((canvas.height - 75) / 2) - e1, 10, (e1 - e2) + 10);
+        ctx.fillRect((canvas.width - 76) / 2, ((canvas.height - 75) / 2) - e1, 75, 10);
+        ctx.fillRect((canvas.width - 74) / 2, ((canvas.height - 75) / 2) + 75 - e2, 75, 10);
+    } else {
+        ctx.fillRect((canvas.width - 76) / 2, ((canvas.height - 75) / 2) - e2, 10, (e2 - e1) + 10);
+        ctx.fillRect((canvas.width - 94) / 2 + 75, ((canvas.height - 75) / 2) + 75 - e2, 10, (e2 - e1) + 10);
+        ctx.fillRect((canvas.width - 74) / 2, ((canvas.height - 75) / 2) - e2, 75, 10);
+        ctx.fillRect((canvas.width - 76) / 2, ((canvas.height - 75) / 2) + 75 - e1, 75, 10);
+    }
+    ctx.fillStyle = "blue";
+    if (e1 >= e2) {
+        ctx.fillRect((canvas.width - 56) / 2, ((canvas.height - 55) / 2) - e1, 57, (e1 - e2) + 65);
+    } else {
+        ctx.fillRect((canvas.width - 56) / 2, ((canvas.height - 55) / 2) - e2, 57, (e2 - e1) + 65);
+    }
+    ctx.closePath();
+}
+
+function drawLiquidA(e) {
     ctx.beginPath();
     ctx.fillStyle = "blue";
-    ctx.fillRect(((canvas.width - 200) / 2) + 5, 20 + (300 - height), 45, height);
-    ctx.closePath();
-    
-    if (lid === true) {
-        ctx.beginPath();
-        ctx.fillStyle = "black";
-        ctx.fillRect(((canvas.width - 200) / 2) + 5, 10 + (300 - height), 45, 10);
-        ctx.closePath();
-    }
-
-    ctx.beginPath();
-    ctx.fillStyle = "black";
-    ctx.arc(277.5, 322.5, 15, 0, Math.PI * 2, false);
-    ctx.fill();
-    ctx.fillStyle = 'white';
-    ctx.font = '20px Arial';
-    const textMetrics = ctx.measureText("A");
-    const textWidth = textMetrics.width;
-    const textHeight = parseInt(ctx.font, 10);
-    const x = 277.5 - textWidth / 2;
-    const y = 322.5 + textHeight / 2 / 1.5;
-    ctx.fillText("A", x, y);
+    ctx.fillRect(0, (((canvas.height - 75) / 2) - e) + 10, ((canvas.width - 75) / 2) + 10, 65);
     ctx.closePath();
 }
 
-function fluidB(height, lid) {
+function drawLiquidB(e) {
     ctx.beginPath();
-    ctx.fillStyle = "red";
-    ctx.fillRect(((canvas.width - 200) / 2) + 155, 20 + (300 - height), 45, height);
-    ctx.closePath();
-
-    if (lid === true) {
-        ctx.beginPath();
-        ctx.fillStyle = "black";
-        ctx.fillRect(((canvas.width - 200) / 2) + 155, 10 + (300 - height), 45, 10);
-        ctx.closePath();
-    }
-
-    ctx.beginPath();
-    ctx.fillStyle = "black";
-    ctx.arc(427.5, 322.5, 15, 0, Math.PI * 2, false);
-    ctx.fill();
-    ctx.fillStyle = 'white';
-    ctx.font = '20px Arial';
-    const textMetrics = ctx.measureText("B");
-    const textWidth = textMetrics.width;
-    const textHeight = parseInt(ctx.font, 10);
-    const x = 427.5 - textWidth / 2;
-    const y = 322.5 + textHeight / 2 / 1.5;
-    ctx.fillText("B", x, y);
+    ctx.fillStyle = "blue";
+    ctx.fillRect(((canvas.width - 75) / 2) + 65, (((canvas.height - 75) / 2) - e) + 10, ((canvas.width - 75) / 2) + 10, 65);
     ctx.closePath();
 }
 
-function animate() {
+function noFlow() {
+    drawPipeA(e1, e2);
+    drawLiquidA(e1);
+    drawPipeB(e1, e2);
+    drawLiquidB(e2);
+    drawPipeM(e1, e2);
+}
+
+function FluidFlow() {
+    drawPipeA(e1, 0);
+    drawLiquidA(e1);
+    drawPipeB(0, e2);
+    drawLiquidB(e2);
+    drawPipeM(e1, e2);
+}
+
+function animateFluid() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    drawTube();
-    fluidA(currentA, lidA);
-    fluidB(currentB, lidB);
-    currentA += dA;
-    currentB += dB;
-    if (dA < 0) {
-        if (currentA <= fluidHeight_A) {
-            dA = 0;
-            currentA = fluidHeight_A;
-        }
-    } else if (dA > 0) {
-        if (currentA >= fluidHeight_A) {
-            dA = 0;
-            currentA = fluidHeight_A;
-        }
-    }
-    
-    if (dB < 0) {
-        if (currentB <= fluidHeight_B) {
-            dB = 0;
-            currentB = fluidHeight_B;
-        }
-    } else if (dB > 0) {
-        if (currentB >= fluidHeight_B) {
-            dB = 0;
-            currentB = fluidHeight_B;
+    FluidFlow();
+    fluidParticles();
+    animationFrameId = requestAnimationFrame(animateFluid);
+}
+
+function fluidParticles() {
+    for (let i = 0; i <= particles.length - 1; i++) {
+        if (particles[i].pipe === "A") {
+            particles[i].posX += v1 / 4;
+            if (particles[i].posX > 0 && particles[i].posX <= (canvas.width - 94) / 2 + 75 - 10) {
+                circle(particles[i].posX, particles[i].posY, 5);
+            } else if (particles[i].posX > (canvas.width - 94) / 2 + 75 - 10) {
+                particles[i].posX = posAXinitial;
+            }
+        } else if (particles[i].pipe === "B") {
+            particles[i].posX += v2 / 4;
+            if (particles[i].posX > ((canvas.width - 76) / 2) + 10 && particles[i].posX < canvas.width) {
+                circle(particles[i].posX, particles[i].posY, 5);
+            } else if (particles[i].posX > canvas.width) {
+                particles[i].posX = posBXinitial;
+            }
         }
     }
-    animationFrameId = requestAnimationFrame(animate);
+}
+
+function circle(posX, posY, r) {
+    ctx.beginPath();
+    ctx.fillStyle = "lightblue"
+    ctx.arc(posX, posY, r, 0, Math.PI * 2, false);
+    ctx.fill();
+    ctx.closePath();
 }
