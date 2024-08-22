@@ -137,9 +137,7 @@ h1 {
 }
 
 .Section > input:focus {
-    border: none;
-    background-color: gray;
-    color: white;
+    outline: none;
 }
 
 .force {
@@ -325,6 +323,7 @@ input[type="radio"] {
 
     .hamburger {
         display: flex;
+        height: 30px;
     }
 
     .container {
@@ -351,4 +350,35 @@ input[type="radio"] {
     .menu {
         z-index: 101;
     }
+    
+    .box {
+        width: 80%;
+        height: 60%;
+    }
+
+    .Section > label {
+        font-size: 18px;
+    }
+
+    .Section > input {
+        font-size: 14px;
+        width: 90%;
+        margin-bottom: 30px;
+        margin-top: 10px;
+    }
+
+    [btn] {
+        font-size: 18px;
+    }
+
+    .Section {
+        flex-direction: column;
+    }
+
+    .lay-cont {
+        width: 90% !important;
+        z-index: 100;
+    }
+
+
 }
