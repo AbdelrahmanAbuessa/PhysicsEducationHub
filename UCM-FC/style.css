@@ -79,3 +79,118 @@ canvas {
     justify-content: center;
     align-items: center;
 }
+
+.ham-menu {
+    width: 40px;
+    height: 20px;
+    position: relative;
+    margin: 10px;
+    display: none;
+}
+
+.line {
+    height: 7px;
+    width: 100%;
+    background-color: black;
+    border-radius: 10px;
+    position: absolute;
+    top: 0;
+}
+
+.line:nth-child(2) {
+    top: 50%;
+}
+
+.line:last-child {
+    top: 100%;
+}
+
+.close-menu {
+    width: 25px;
+    height: 25px;
+    background-color: red;
+    color: white;
+    font-weight: bold;
+    border-radius: 50%;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.black-background {
+    background-color: rgba(0, 0, 0, 0.6);
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 8;
+}
+
+@media (max-width: 767px) {
+    .props {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 80%;
+        height: 75%;
+        border-radius: 25px;
+        z-index: 9;
+    }
+
+    .section {
+        flex-direction: column;
+        margin-bottom: 20px;
+        margin-top: 20px;
+    }
+
+    .section label {
+        font-size: 18px;
+        width: 100%;
+    }
+
+    .section input {
+        width: 100%;
+    }
+
+    .text {
+        font-size: 18px;
+    }
+
+    .text span {
+        font-size: 18px;
+    }
+
+    .ham-menu {
+        display: flex;
+    }
+
+    .title {
+        font-size: 20px;
+    }
+
+    .text {
+        margin-top: 10px;
+    }
+
+    .lay-cont {
+        width: 90% !important;
+    }
+
+    .close-menu {
+        display: flex;
+    }
+
+    [btn] {
+        margin-top: 10px !important;
+        margin: auto;
+    }
+
+    canvas {
+        width: 100%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+}

@@ -26,8 +26,16 @@ let omega;
 let pt;
 let fc;
 
-let startTime;
-let endTime;
+let animationFrameId;
+
+let sidebar = document.getElementById("props");
+let black = document.getElementById("black-background");
+
+black.setAttribute("hidden", "true");
+
+if (window.innerWidth <= 767) {
+    sidebar.setAttribute("hidden", "true");
+}
 
 let angle = 0;
 
@@ -41,6 +49,12 @@ document.addEventListener("click", function (e) {
         layover.setAttribute("hidden", "false");
     } else if (targetElement.id === "closeinfo") {
         layover.setAttribute("hidden", "true");
+    } else if (targetElement.id === "open-settings") {
+        sidebar.setAttribute("hidden", "false");
+        black.setAttribute("hidden", "false");
+    } else if (targetElement.id === "close-menu") {
+        sidebar.setAttribute("hidden", "true");
+        black.setAttribute("hidden", "true");
     }
 })
 
@@ -48,16 +62,9 @@ function checkAvailability() {
     if (r_txt.value === "" || m_txt.value === "" || v_txt.value === "") {
         alert("Please fill all fields");
     } else {
-        r = 0;
-        m = 0;
-        v = 0;
-        angle = 0;
-        omega = 0;
-        start();
-        btn.setAttribute("disabled", "true");
-        window.setInterval(function () {
-            btn.setAttribute("disabled", "false");
-        }, 2000);
+        sidebar.setAttribute("hidden", "true");
+        black.setAttribute("hidden", "true");
+        window.setTimeout(start(), 300)
     }
 }
 
@@ -73,25 +80,18 @@ function start() {
     pt_txt.innerText = Math.floor(pt * 1000) / 1000;
     fc_txt.innerText = Math.floor(fc * 1000) / 1000;
 
-    requestAnimationFrame(updateAngle);
-
-    startTime = Date.now();
+    if (animationFrameId) {
+        cancelAnimationFrame(updateAngle);
+    } else {
+        requestAnimationFrame(updateAngle);
+    }
 }
 
 function updateAngle() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     draw(angle, r);
     angle += omega;
-
-    if (angle > 360) {
-        angle = 0;
-        console.log("turn");
-        endTime = Date.now();
-        console.log((endTime - startTime) / 1000);
-    } else {
-        animationFrameId = requestAnimationFrame(updateAngle);
-    }
-
+    animationFrameId = requestAnimationFrame(updateAngle);
 }
 
 function draw(angle, r) {
