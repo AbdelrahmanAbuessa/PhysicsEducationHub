@@ -14,20 +14,45 @@ let hmax = document.getElementById("hmax");
 let r = document.getElementById("r");
 let tText = document.getElementById("t");
 
+let sidebar = document.getElementById("side");
+let black = document.getElementById("black-background");
+
+if (window.innerWidth <= 767) {
+    sidebar.setAttribute("hidden", "true");
+}
+
 document.addEventListener("click", function (e) {
     let targetElement = e.target;
     if (targetElement.id === "animate") {
         if (Vi.value === "" || theta.value === "" || g.value === "") {
             alert("Please fill all the fields");
+        } else if (theta.value > 90 || theta.value < 0) {
+            alert("Please enter a correct angle value (between 0 and 90)");
         } else {
-            renderPath(Vi.value * 4, theta.value * (Math.PI / 180), g.value, path.checked, past.checked, generateColor());
+            if (window.innerWidth <= 767) {
+                sidebar.setAttribute("hidden", "true");
+                black.setAttribute("hidden", "true");
+            }
+            window.setTimeout(
+                renderPath(Vi.value * 4, theta.value * (Math.PI / 180), g.value, path.checked, past.checked, generateColor())
+            , 300)
         }
     } else if (targetElement.id === "reset") {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
+        if (window.innerWidth <= 767) {
+            sidebar.setAttribute("hidden", "true");
+            black.setAttribute("hidden", "true");
+        }
     } else if (targetElement.id === "info") {
         layover.setAttribute("hidden", "false");
     } else if (targetElement.id === "closeinfo") {
         layover.setAttribute("hidden", "true");
+    } else if (targetElement.id === "closemenu") {
+        sidebar.setAttribute("hidden", "true");
+        black.setAttribute("hidden", "true");
+    } else if (targetElement.id === "open-settings") {
+        sidebar.setAttribute("hidden", "false");
+        black.setAttribute("hidden", "false");
     }
 });
 

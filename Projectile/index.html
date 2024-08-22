@@ -9,13 +9,21 @@
     </head>
     <body>
         <div class="title">
+            <div class="hamburger-menu" id="open-settings">
+                <div class="line" id="open-settings"></div>
+                <div class="line" id="open-settings"></div>
+                <div class="line" id="open-settings"></div>
+            </div>
             Projectile Motion
         </div>
+
+        <div class="black-background" id="black-background"></div>
 
         <div class="content">
 
             <!-- Section 1: Sidebar -->
-            <div class="sidebar">
+            <div class="sidebar" id="side">
+                <div class="closemenu" id="closemenu">X</div>
                 <div class="subsection">
                     <label for="angle">Launch Angle</label>
                     <input type="number" id="angle">
@@ -38,8 +46,10 @@
                     <label for="g">Show Path</label>
                     <input type="checkbox" id="path">
                 </div>
-                <div btn="" id="animate" disabled="false">Launch</div>
-                <div btn="" id="reset">Reset</div>
+                <div class="subsection-btn">
+                    <div btn="" id="animate" disabled="false">Launch</div>
+                    <div btn="" id="reset">Reset</div>
+                </div>
             </div>
 
             <!-- Section 2: Render -->
@@ -68,7 +78,7 @@
         
         <div class="info" id="info">i</div>
 
-        <div class="layover" id="layover" hidden="false">
+        <div class="layover" id="layover" hidden="true">
             <div class="lay-cont">
                 <div class="lay-close" id="closeinfo">X</div>
                 <div class="lay-article">
