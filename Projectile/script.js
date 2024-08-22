@@ -19,6 +19,7 @@ let black = document.getElementById("black-background");
 
 if (window.innerWidth <= 767) {
     sidebar.setAttribute("hidden", "true");
+    black.setAttribute("hidden", "true");
 }
 
 document.addEventListener("click", function (e) {

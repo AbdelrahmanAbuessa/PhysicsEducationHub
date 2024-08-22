@@ -155,7 +155,7 @@ input[type="checkbox"] {
     }
 
     canvas {
-        border: 1px solid black;
+        width: 100%;
     }
 
     .sidebar {
@@ -198,5 +198,20 @@ input[type="checkbox"] {
 
     .closemenu {
         display: flex;
+    }
+
+    .additionalinfo {
+        font-size: 18px;
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: flex-start;
+    }
+
+    .additionalinfo div {
+        margin-left: 10px;
+    }
+
+    .lay-cont {
+        width: 90% !important;
     }
 }
