@@ -1,3 +1,38 @@
+let black = document.getElementById("black");
+let phone_layover = document.getElementById("phone-ui");
+let phone_content = document.getElementById("phone");
+
+if (window.innerWidth <= 767) {
+    let phone_content_txt = `
+        <div class="subtitle">Block 1</div>
+        <div class="section">
+            <label for="m1">Mass (kg)</label>
+            <input type="text" name="m1" id="m1">
+        </div>
+        <div class="section">
+            <label for="v1">Initial Velocity (m/s)</label>
+            <input type="text" name="v1" id="v1">
+        </div>
+        <div class="subtitle">Block 2</div>
+        <div class="section">
+            <label for="m2">Mass (kg)</label>
+            <input type="text" name="m2" id="m2">
+        </div>
+        <div class="section">
+            <label for="v2">Initial Velocity (m/s)</label>
+            <input type="text" name="v2" id="v2">
+        </div>
+        <div class="section">
+            <label for="e">Elastic</label>
+            <input type="checkbox" name="e" id="e">
+        </div>
+        <div class="section">
+            <div btn="" id="start" disabled="false">Start</div>
+        </div>
+    `;
+    phone_content.innerHTML = phone_content_txt
+}
+
 let mass1_txt = document.getElementById("m1");
 let mass2_txt = document.getElementById("m2");
 let velocity1_txt = document.getElementById("v1");
@@ -22,6 +57,9 @@ let KEf1_txt = document.getElementById("KEf1");
 let KEf2_txt = document.getElementById("KEf2");
 let totalKE_txt = document.getElementById("KE");
 let totalP_txt = document.getElementById("moment");
+
+black.setAttribute("hidden", "true");
+phone_layover.setAttribute("hidden", "true");
 
 let m1;
 let v1;
@@ -54,6 +92,8 @@ let ctx = canvas.getContext("2d");
 let pos1 = 0;
 let pos2 = canvas.width - t2;
 
+let animationFrameId;
+
 canvas.width = 500;
 canvas.height = 250;
 
@@ -67,6 +107,12 @@ document.addEventListener("click", function (e) {
         layover.setAttribute("hidden", "false");
     } else if (targetElement.id === "closeinfo") {
         layover.setAttribute("hidden", "true");
+    } else if (targetElement.id === "open-settings") {
+        black.setAttribute("hidden", "false");
+        phone_layover.setAttribute("hidden", "false");
+    } else if (targetElement.id === "close") {
+        black.setAttribute("hidden", "true");
+        phone_layover.setAttribute("hidden", "true");
     }
 })
 
@@ -79,11 +125,9 @@ function checkAvailability() {
     ) {
         alert("Please fill out all fields");
     } else {
-        start();
-        btn.setAttribute("disabled", "true");
-        setTimeout(() => {
-            btn.setAttribute("disabled", "false");
-        }, 2000);
+        black.setAttribute("hidden", "true");
+        phone_layover.setAttribute("hidden", "true");
+        window.setTimeout(start(), 300);
     }
 }
 
@@ -137,7 +181,7 @@ function start() {
     totalKE_txt.innerText = Math.floor((KEi_1 + KEi_2) * 1000) / 1000;
     totalP_txt.innerText = Math.floor((pi1 + pi2) * 1000) / 1000;
 
-    requestAnimationFrame(updatePosition);
+        requestAnimationFrame(updatePosition);
 }
 
 function draw(pos, t, m, box) {
