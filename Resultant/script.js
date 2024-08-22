@@ -34,6 +34,9 @@ q2.innerHTML = `Q <sub>2</sub>`;
 q3.innerHTML = `Q <sub>3</sub>`;
 q4.innerHTML = `Q <sub>4</sub>`;
 
+let forceListUI = document.getElementById("forcelist");
+let blacklayover = document.getElementById("black-background");
+
 let forceList = [];
 
 let pi = 3.141592653598;
@@ -44,6 +47,10 @@ let dirText = document.querySelector("#directionValue");
 
 let xc = document.querySelector("#xc");
 let yc = document.querySelector("#yc");
+
+if (window.innerWidth <= 767) {
+    forceListUI.setAttribute("hidden", "true");
+}
 
 document.addEventListener("click", function (e) {
     let elementTarget = e.target;
@@ -68,6 +75,12 @@ document.addEventListener("click", function (e) {
         layover.setAttribute("hidden", "false");
     } else if (elementTarget.id === "closeinfo") {
         layover.setAttribute("hidden", "true");
+    } else if (elementTarget.id === "hamburger") {
+        forceListUI.setAttribute("hidden", "false");
+        blacklayover.setAttribute("hidden", "false");
+    } else if (elementTarget.id === "closemenu") {
+        forceListUI.setAttribute("hidden", "true");
+        blacklayover.setAttribute("hidden", "true");
     }
 })
 

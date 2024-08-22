@@ -10,6 +10,14 @@
     <body>
         <h1>Resultant (Net Force) Simulator</h1>
         
+        <div class="black-background" id="black-background" hidden="true"></div>
+
+        <div class="hamburger" id="hamburger">
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+        </div>
+
         <!-- Layover Menu: Adding a Force -->
         <div hide class="menu">
             <div class="box">
@@ -31,7 +39,10 @@
         <div class="container">
 
             <!-- Section 1: Force List -->
-            <div class="forcelist">
+            <div class="forcelist" id="forcelist">
+                <div class="closemenu" id="closemenu">
+                    X
+                </div>
                 <div class="list">
                     <!-- Forces will be added here -->
                 </div>
