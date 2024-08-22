@@ -36,13 +36,25 @@ let acceleration;
 let layover = document.getElementById("layover");
 
 let canvas = document.getElementById("canvas");
-canvas.width = container.clientHeight * 0.9;
+canvas.width = container.clientHeight * 0.8;
 canvas.height = d;
 let ctx = canvas.getContext("2d");
+
+let black = document.getElementById("black-background");
+let sidebar = document.getElementById("sidebar");
+
+black.setAttribute("hidden", "true");
+
+if (window.innerWidth <= 767) {
+    black.setAttribute("hidden", "true");
+    sidebar.setAttribute("hidden", "true");
+}
 
 let X_init = (canvas.width - (d/2))/2;
 X_init = 0;
 let pos = X_init;
+
+g_txt.value = 9.81;
 
 document.addEventListener("click", function (e) {
     let targetElement = e.target;
@@ -54,6 +66,12 @@ document.addEventListener("click", function (e) {
         layover.setAttribute("hidden", "true");
     } else if (targetElement.id === "info") {
         layover.setAttribute("hidden", "false");
+    } else if (targetElement.id === "close-menu") {
+        black.setAttribute("hidden", "true");
+        sidebar.setAttribute("hidden", "true");
+    } else if (targetElement.id === "open-settings") {
+        sidebar.setAttribute("hidden", "false");
+        black.setAttribute("hidden", "false");
     }
 })
 
@@ -66,7 +84,9 @@ function checkAvailability() {
     if (m_txt.value === "" || g_txt.value === "" || us_txt.value === "" || uk_txt.value === "" || inc_txt.value === "" || fapp_slider.value === 0) {
         alert("Please Insert a Number");
     } else {
-        start();
+        black.setAttribute("hidden", "true");
+        sidebar.setAttribute("hidden", "true");
+        setTimeout(start(),300);
         btn.setAttribute("disabled", "true");
         setTimeout(() => {
             btn.setAttribute("disabled", "false");

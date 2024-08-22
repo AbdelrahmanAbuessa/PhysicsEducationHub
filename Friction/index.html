@@ -8,11 +8,23 @@
         <link rel="stylesheet" href="layover.css">
     </head>
     <body>
-        <div class="title">Friction (Kinetic & Static) Simulator</div>
+        <div class="title">
+            <div class="hamburger-menu" id="open-settings">
+                <div class="line" id="open-settings"></div>
+                <div class="line" id="open-settings"></div>
+                <div class="line" id="open-settings"></div>
+            </div>
+            Friction (Kinetic & Static) Simulator
+        </div>
+
+        <div class="black-background" id="black-background"></div>
 
         <div class="content">
 
-            <div class="sidebar">
+            <div class="sidebar" id="sidebar">
+                <div class="close-menu" id="close-menu">
+                    X
+                </div>
                 <div>
                     <label for="m">Mass of Block (kg) = </label>
                     <input type="text" id="m">

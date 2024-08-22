@@ -47,7 +47,6 @@ body {
     height: 70%;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
 }
 
 .sidebar > div {
@@ -110,4 +109,135 @@ canvas {
 
 .text span {
     font-weight: bold;
+}
+
+.hamburger-menu {
+    width: 60px;
+    height: 25px;
+    margin-left: 10px;
+    margin-right: 10px;
+    position: relative;
+    display: none;
+}
+
+.line {
+    width: 100%;
+    height: 7px;
+    background-color: black;
+    border-radius: 20px;
+    position: absolute;
+    top: 0;
+}
+
+.line:nth-child(2) {
+    top: 50%;
+}
+
+.line:last-child {
+    top: 100%;
+}
+
+.close-menu {
+    width: 25px;
+    height: 25px;
+    color: white;
+    background-color: red;
+    font-weight: bold;
+    border-radius: 50%;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    align-self: flex-start;
+}
+
+.black-background {
+    background-color: rgba(0, 0, 0, 0.6);
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    z-index: 8;
+}
+
+@media (max-width: 767px) {
+    .title {
+        font-size: 20px;
+        margin: 10px;
+        width: 90%;
+    }
+
+    .hamburger-menu {
+        display: block;
+    }
+
+    .sidebar {
+        width: 85%;
+        height: 85%;
+        overflow: scroll;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border-radius: 20px;
+        z-index: 9;
+    }
+    
+    .sidebar label, .sidebar input {
+        font-size: 18px;
+    }
+
+    .sidebar input[type="text"] {
+        width: 100%;
+    }
+
+    .sidebar input[type="range"] {
+        width: 80%;
+    }
+
+    .close-menu {
+        display: flex;
+    }
+
+    [btn] {
+        padding: 10px;
+        font-size: 24px !important;
+        margin: auto;
+    }
+
+    .lay-cont {
+        width: 90% !important;
+    }
+
+    .properties .text {
+        font-size: 18px !important;
+    }
+
+    img {
+        width: 100%;
+    }
+    
+    canvas {
+        width: 100%;
+    }
+
+    .section2 {
+        width: 100%;
+        height: 100%;
+    }
+
+    .simulation {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .properties {
+        height: 26%;
+    }
+
+    .info {
+        margin: 15px !important;
+        margin-bottom: 20px !important;
+    }
 }
