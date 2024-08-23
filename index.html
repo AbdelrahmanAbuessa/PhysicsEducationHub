@@ -131,6 +131,14 @@
             </div>
         </div>
 
-        <script src="script.js"></script>
+        <script>
+            let warning = document.getElementById("phone-warning");
+            document.addEventListener("click", function (e) {
+                let targetElement = e.target;
+                if (targetElement.id === "close-warning") {
+                    warning.style.display = "none";
+                }
+            })
+        </script>
     </body>
 </html>
