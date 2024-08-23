@@ -179,6 +179,34 @@ img {
     width: 30px;
 }
 
+.phone-warning {
+    color: #B30C00;
+    padding: 20px;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.warning-text {
+    font-weight: bold;
+    font-size: 18px;
+    width: 50%;
+}
+
+.close-warning {
+    width: 30px;
+    height: 30px;
+    color: white;
+    background-color: #B30C00;
+    border-radius: 50%;
+    font-weight: bold;
+    font-size: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
 @media (max-width: 767px) {
     .header {
         height: 15vh;
@@ -236,6 +264,15 @@ img {
         margin-top: 20px;
         width: 100%;
         padding: 0;
+    }
+
+    .phone-warning {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .warning-text {
+        width: 85%;
     }
 }
 
