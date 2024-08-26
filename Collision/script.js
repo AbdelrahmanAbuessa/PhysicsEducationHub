@@ -33,6 +33,10 @@ if (window.innerWidth <= 767) {
     phone_content.innerHTML = phone_content_txt
 }
 
+let car_body_height = 15;
+let car_body_width = 85;
+let wheel_radius = 10;
+
 let mass1_txt = document.getElementById("m1");
 let mass2_txt = document.getElementById("m2");
 let velocity1_txt = document.getElementById("v1");
@@ -153,8 +157,8 @@ function start() {
         vf1 = vf2;
     }
     
-    t1 = m1 * 5;
-    t2 = m2 * 5;
+    t1 = car_body_width;
+    t2 = car_body_width;
     
     pos1 = 0;
     pos2 = canvas.width - t2;
@@ -181,10 +185,13 @@ function start() {
     totalKE_txt.innerText = Math.floor((KEi_1 + KEi_2) * 1000) / 1000;
     totalP_txt.innerText = Math.floor((pi1 + pi2) * 1000) / 1000;
 
-        requestAnimationFrame(updatePosition);
+    requestAnimationFrame(updatePosition);
 }
 
-function draw(pos, t, m, box) {
+// draw(0, 15, 1);
+// draw(canvas.width - car_body_width, 15, 2);
+
+function draw(pos, m, box) {
     ctx.beginPath();
     
     if (box === 1) {
@@ -195,26 +202,56 @@ function draw(pos, t, m, box) {
         ctx.fillStyle = "black";
     }
     
-    ctx.rect(pos, canvas.height - t, t, t);
+    ctx.rect(pos, (canvas.height - car_body_height) - 15, car_body_width, car_body_height);
     ctx.fill();
+    ctx.closePath();
+
+    ctx.beginPath();
+    ctx.rect(pos + (car_body_width - (car_body_width / 1.5)) / 2, (canvas.height - car_body_height) - 15, car_body_width / 1.5, car_body_width / -3);
+    ctx.fill();
+    ctx.closePath();
     
+    ctx.beginPath();
+    ctx.fillStyle = "black";
+    ctx.rect((pos + (car_body_width - (car_body_width / 1.5)) / 2) + 5, (canvas.height - car_body_height) - 15 - 22, 47, 27);
+    ctx.fill();
+    ctx.closePath();
+
+    ctx.beginPath();
+    ctx.rotate(0);
+    ctx.fillStyle = "gray"
+    ctx.strokeStyle = "black"
+    ctx.lineWidth = 3;
+    ctx.arc(pos + (car_body_width * 0.5 / 3), canvas.height - wheel_radius, wheel_radius, 0, Math.PI * 2, false);
+    ctx.fill();
+    ctx.stroke();
+    ctx.closePath();
+    
+    ctx.beginPath();
+    ctx.fillStyle = "gray"
+    ctx.strokeStyle = "black"
+    ctx.lineWidth = 3;
+    ctx.arc(pos + (car_body_width * 2.5 / 3), canvas.height - wheel_radius, wheel_radius, 0, Math.PI * 2, false);
+    ctx.fill();
+    ctx.stroke();
+    ctx.closePath();
+    
+
     ctx.fillStyle = 'white';
-    ctx.font = '20px Arial';
-    const textMetrics = ctx.measureText(m);
+    ctx.font = '16px Arial';
+    const textMetrics = ctx.measureText(m + " kg");
     const textWidth = textMetrics.width;
     const textHeight = parseInt(ctx.font, 10);
-    const x = (t - textWidth) / 2 + pos;
-    const y = ((t + textHeight) / 2) + canvas.height - t;
-    ctx.fillText(m, x, y);
-
-    ctx.closePath();
+    const x = (car_body_width - textWidth) / 2 + pos;
+    const y = ((car_body_height + textHeight) / 2) + canvas.height - (car_body_height * 2) - 20;
+    ctx.fillText(m + " kg", x, y); 
 }
 
 
 function updatePosition() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    draw(pos1, t1, m1, 1);
-    draw(pos2, t2, m2, 2);
+    draw(pos1, m1, 1);
+    draw(pos2, m2, 2);
     if (pos1 + t1 > pos2 || pos1 < pos2 - canvas.width) {
         collision();
     } else {
@@ -243,16 +280,16 @@ function collisionElastic() {
     } else {
         animationFrameId = requestAnimationFrame(collisionElastic);
     }
-    draw(pos1, t1, m1, 1);
-    draw(pos2, t2, m2, 2);
+    draw(pos1, m1, 1);
+    draw(pos2, m2, 2);
     pos1 -= vf1 / 3;
     pos2 += vf2 / 3;
 }
 
 function collisionInElastic() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    draw(pos1, t1, m1, 1);
-    draw(pos1 + t1, t2, m2, 2);
+    draw(pos1, m1, 1);
+    draw(pos1 + t1, m2, 2);
     pos1 += vf2 / 3;
     if (pos1 < 0) {
         pos1 = 0;
