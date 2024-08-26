@@ -7,45 +7,45 @@ let black = document.getElementById("black");
 let settings_phone = document.getElementById("content");
 let layover_phone = document.getElementById("fluid-phone");
 
-let settings_phone_content = `
-    <div class="subtitle">Pipe 1</div>
-    <div class="section">
-        <label for="p1">Pressure</label>
-        <input type="text" id="p1" name="p1">
-    </div>
-    <div class="section">
-        <label for="h1">Elevation</label>
-        <input type="range" min="-10" max="10" step="1" id="h1" name="h1">
-        <span id="h1range">0</span>
-    </div>
-    <div class="section">
-        <label for="g">Gravitational Potential</label>
-        <input type="text" id="g" name="g">
-    </div>
-    <div class="section">
-        <label for="raw">Fluid Density</label>
-        <input type="text" id="raw" name="raw">
-    </div>
-    <div class="section">
-        <label for="v1">Initial Velocity</label>
-        <input type="text" id="v1" name="v1">
-    </div>
-    <div class="subtitle">Pipe 2</div>
-    <div class="section">
-        <label for="p2">Pressure</label>
-        <input type="text" id="p2" name="p2">
-    </div>
-    <div class="section">
-        <label for="h2">Elevation</label>
-        <input type="range" min="-10" max="10" step="1" id="h2" name="h2">
-        <span id="h2range">0</span>
-    </div>
-`;
-settings_phone.innerHTML = settings_phone_content;
 
 let setting_desktop = document.getElementById("setting-desktop");
 if (window.innerWidth <= 767) {
     setting_desktop.setAttribute("hidden", "true");
+    let settings_phone_content = `
+        <div class="subtitle">Pipe 1</div>
+        <div class="section">
+            <label for="p1">Pressure</label>
+            <input type="text" id="p1" name="p1">
+        </div>
+        <div class="section">
+            <label for="h1">Elevation</label>
+            <input type="range" min="-10" max="10" step="1" id="h1" name="h1">
+            <span id="h1range">0</span>
+        </div>
+        <div class="section">
+            <label for="g">Gravitational Potential</label>
+            <input type="text" id="g" name="g">
+        </div>
+        <div class="section">
+            <label for="raw">Fluid Density</label>
+            <input type="text" id="raw" name="raw">
+        </div>
+        <div class="section">
+            <label for="v1">Initial Velocity</label>
+            <input type="text" id="v1" name="v1">
+        </div>
+        <div class="subtitle">Pipe 2</div>
+        <div class="section">
+            <label for="p2">Pressure</label>
+            <input type="text" id="p2" name="p2">
+        </div>
+        <div class="section">
+            <label for="h2">Elevation</label>
+            <input type="range" min="-10" max="10" step="1" id="h2" name="h2">
+            <span id="h2range">0</span>
+        </div>
+    `;
+    settings_phone.innerHTML = settings_phone_content;
 }
 
 let p1_txt = document.getElementById("p1");
@@ -82,6 +82,7 @@ let e2;
 let raw;
 let g;
 let w;
+let transV;
 
 let collective1;
 let collective2;
@@ -123,6 +124,7 @@ function checkAvailability() {
         layover_phone.setAttribute("hidden", "true");
         window.setTimeout(start(), 300);
     }
+    // start();
 }
 
 let posAXinitial;
@@ -170,42 +172,55 @@ function start() {
     
     particles = [];
 
-    for (let i = 1; i <= 15; i++) {
-        let particleA = new Object({
-            pipe: "A",
-            posX: 0,
-            posY: 0
-        })
-        particles.push(particleA);
-        let particleB = new Object({
-            pipe: "B",
-            posX: 0,
-            posY: 0
-        })
-        particles.push(particleB);
+    for (let i = 1; i <= 30; i++) {
+        if (i === 1 || i === 4 || i === 7 || i === 10 || i === 13 || i === 16 || i === 19 || i === 22 || i === 25 | i === 28) {
+            let particle = new Object({
+                order: 1,
+                posX: 0,
+                posY: 0,
+                posXtransform: 0,
+                posYtransform: 0
+            })
+            particles.push(particle);
+        } else if (i === 2 || i === 5 || i === 8 || i === 11 || i === 14 || i === 17 || i === 20 || i === 23 || i === 26 || i === 29) {
+            let particle = new Object({
+                order: 2,
+                posX: 0,
+                posY: 0,
+                posXtransform: 0,
+                posYtransform: 0,
+            })
+            particles.push(particle);
+        } else {
+            let particle = new Object({
+                order: 3,
+                posX: 0,
+                posY: 0,
+                posXtransform: 0,
+                posYtransform: 0
+            })
+            particles.push(particle);
+        }
     }
     
     for (let i = 0; i <= particles.length - 1; i++) {
-        if (particles[i].pipe === "A") {
-            particles[i].posX = posAXinitial - (15 * (i + 1));
-            if (i < 10) {
-                particles[i].posY = posAYinitial;
-            } else if (i >= 10 && i < 20) {
-                particles[i].posY = posAYinitial + 15;
-            } else if (i >= 20 && i < 30) {
-                particles[i].posY = posAYinitial + 30;
-            }
-        } else {
-            particles[i].posX = posBXinitial - (15 * (i + 1));
-            if (i < 10) {
-                particles[i].posY = posBYinitial;
-            } else if (i >= 10 && i < 20) {
-                particles[i].posY = posBYinitial + 15;
-            } else if (i >= 20 && i < 30) {
-                particles[i].posY = posBYinitial + 30;
-            }
+        particles[i].posX = posAXinitial - (15 * (i + 1));
+        if (particles[i].order === 1) {
+            particles[i].posY = posAYinitial;
+            particles[i].posYtransform = posBYinitial;
+            particles[i].posXtransform = posBXinitial + 40;
+        } else if (particles[i].order === 2) {
+            particles[i].posY = posAYinitial + 15;
+            particles[i].posYtransform = posBYinitial + 15;
+            particles[i].posXtransform = posBXinitial + 25;
+        } else if (particles[i].order === 3) {
+            particles[i].posY = posAYinitial + 30
+            particles[i].posYtransform = posBYinitial + 30;
+            particles[i].posXtransform = posBXinitial + 10;
         }
     }
+
+    transV = (v1 + v2) / 2;
 }
 
 function drawPipeA(e1, e2) {
@@ -284,24 +299,52 @@ function animateFluid() {
     animationFrameId = requestAnimationFrame(animateFluid);
 }
 
+// remove pipe property
+// add order property
+// initial position at pipe A (x and y)
+// move until the desired position (after the pipe A)
+// check for direction of tube (upwards or downwards)
+// calculate the average speed (v1 + v2 / 2)
+// move in the corrisponding direction with the desired speed
+// check for initial position in tube B
+// move inside tube B untill end of the canvas
+// restart position to initial at pipe A
+// repeat
+
 function fluidParticles() {
+    if (e1 > e2) {
+        verticalDownwards();
+    } else {
+        verticalUpwards();
+    }
+}
+
+function verticalDownwards() {
     for (let i = 0; i <= particles.length - 1; i++) {
-        if (particles[i].pipe === "A") {
+        if (particles[i].posX < particles[i].posXtransform) {
             particles[i].posX += v1 / 4;
-            if (particles[i].posX > 0 && particles[i].posX <= (canvas.width - 94) / 2 + 75 - 10) {
+            if (particles[i].posX > 0 && particles[i].posX <= particles[i].posXtransform) {
                 circle(particles[i].posX, particles[i].posY, 5);
-            } else if (particles[i].posX > (canvas.width - 94) / 2 + 75 - 10) {
-                particles[i].posX = posAXinitial;
+            } else if (particles[i].posX > particles[i].posXtransform) {
+                particles[i].posX = particles[i].posXtransform;
             }
-        } else if (particles[i].pipe === "B") {
+        } else if (particles[i].posX === particles[i].posXtransform && particles[i].posY < particles[i].posYtransform) {
+            particles[i].posY += transV / 4;
+            if (particles[i].posY <= particles[i].posYtransform) {
+                circle(particles[i].posX, particles[i].posY, 5);
+            } else {
+                particles[i].posY === particles[i].posYtransform;
+            }
+        } else if (particles[i].posY >= particles[i].posYtransform && particles[i].posX >= particles[i].posXtransform) {
             particles[i].posX += v2 / 4;
-            if (particles[i].posX > ((canvas.width - 76) / 2) + 10 && particles[i].posX < canvas.width) {
+            if (particles[i])
                 circle(particles[i].posX, particles[i].posY, 5);
-            } else if (particles[i].posX > canvas.width) {
-                particles[i].posX = posBXinitial;
-            }
         }
     }
+}
+
+function verticalUpwards() {
+
 }
 
 function circle(posX, posY, r) {
