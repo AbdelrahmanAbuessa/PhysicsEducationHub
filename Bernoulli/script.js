@@ -154,8 +154,9 @@ function start() {
     collective2 = p2 + (raw * g * e2);
     v2 = (collective1 - collective2) / (0.5 * raw);
     
-    if (v2 < 0) {
+    if (v2 <= 0) {
         noFlow();
+        v2 = 0;
         v2_txt.innerText = 0;
         w_txt.innerText = 0;
     } else {
@@ -294,6 +295,7 @@ function FluidFlow() {
 
 function animateFluid() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    if (v2 > 0)
     FluidFlow();
     fluidParticles();
     animationFrameId = requestAnimationFrame(animateFluid);
@@ -337,14 +339,66 @@ function verticalDownwards() {
             }
         } else if (particles[i].posY >= particles[i].posYtransform && particles[i].posX >= particles[i].posXtransform) {
             particles[i].posX += v2 / 4;
-            if (particles[i])
+            if (particles[i].posX < canvas.width) {
                 circle(particles[i].posX, particles[i].posY, 5);
+            } else {
+                particles[i].posX = posAXinitial - (15 * (i + 1));
+                if (particles[i].order === 1) {
+                    particles[i].posY = posAYinitial;
+                    particles[i].posYtransform = posBYinitial;
+                    particles[i].posXtransform = posBXinitial + 40;
+                } else if (particles[i].order === 2) {
+                    particles[i].posY = posAYinitial + 15;
+                    particles[i].posYtransform = posBYinitial + 15;
+                    particles[i].posXtransform = posBXinitial + 25;
+                } else if (particles[i].order === 3) {
+                    particles[i].posY = posAYinitial + 30
+                    particles[i].posYtransform = posBYinitial + 30;
+                    particles[i].posXtransform = posBXinitial + 10;
+                }
+            }
         }
     }
 }
 
 function verticalUpwards() {
-
+    for (let i = 0; i <= particles.length - 1; i++) {
+        if (particles[i].posX < particles[i].posXtransform) {
+            particles[i].posX += v1 / 4;
+            if (particles[i].posX > 0 && particles[i].posX <= particles[i].posXtransform) {
+                circle(particles[i].posX, particles[i].posY, 5);
+            } else if (particles[i].posX > particles[i].posXtransform) {
+                particles[i].posX = particles[i].posXtransform;
+            }
+        } else if (particles[i].posX === particles[i].posXtransform && particles[i].posY > particles[i].posYtransform) {
+            particles[i].posY -= transV / 4;
+            if (particles[i].posY >= particles[i].posYtransform) {
+                circle(particles[i].posX, particles[i].posY, 5);
+            } else {
+                particles[i].posY === particles[i].posYtransform;
+            }
+        } else if (particles[i].posY <= particles[i].posYtransform && particles[i].posX >= particles[i].posXtransform) {
+            particles[i].posX += v2 / 4;
+            if (particles[i].posX < canvas.width) {
+                circle(particles[i].posX, particles[i].posY, 5);
+            } else {
+                particles[i].posX = posAXinitial - (15 * (i + 1));
+                if (particles[i].order === 1) {
+                    particles[i].posY = posAYinitial;
+                    particles[i].posYtransform = posBYinitial;
+                    particles[i].posXtransform = posBXinitial + 40;
+                } else if (particles[i].order === 2) {
+                    particles[i].posY = posAYinitial + 15;
+                    particles[i].posYtransform = posBYinitial + 15;
+                    particles[i].posXtransform = posBXinitial + 25;
+                } else if (particles[i].order === 3) {
+                    particles[i].posY = posAYinitial + 30
+                    particles[i].posYtransform = posBYinitial + 30;
+                    particles[i].posXtransform = posBXinitial + 10;
+                }
+            }
+        }
+    }
 }
 
 function circle(posX, posY, r) {
