@@ -55,7 +55,6 @@ giving feedback and recommendations that can be used for further development and
 My Contact Information:
 - E-mail Address: abdelrahman.ibrahim.abuessa@gmail.com
 - Linkedin: https://www.linkedin.com/in/abdelrahman-ibrahim-694031278/
-- Instagram: https://www.instagram.com/abdelrahman_ibrahim.471/
 - Twitter (X): https://x.com/The_A471
 - Currently Working on My Personal Website...
 
