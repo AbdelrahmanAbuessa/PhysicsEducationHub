@@ -1,6 +1,6 @@
 # Physics Education Hub 1.0
 ## Developed By: Abdelrahman Aboueissa
-### Published on Friday, August 23rd, 2024.
+### Live Demo: https://abdelrahmanabuessa.github.io/PhysicsEducationHub/
 **Welcome to the Physics Education Hub 1.0**
 
 ![image](https://github.com/user-attachments/assets/28a10ec4-3025-4e3f-ab86-40daae95b7cc)
