@@ -39,9 +39,6 @@ Using a tablet, laptop, or PC is recommended to avoid trouble with the UI and th
 ![image](https://github.com/user-attachments/assets/376410a6-37db-4ea8-be4c-201dd5c1d62b)
 
 
-Additionally, the website offers a number of resources and books that can assist students in deeply comprehending Physics concepts.
-All the sources and books the website offers are free and can be downloaded for personal use.  
-
 Special Thanks to the people that helped with testing the website and the simulators,
 giving feedback and recommendations that can be used for further development and improvement to the website:
 - Abdelrahman Ragheb
