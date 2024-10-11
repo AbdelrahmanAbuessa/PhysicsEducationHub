@@ -84,8 +84,10 @@ function checkAvailability() {
     if (m_txt.value === "" || g_txt.value === "" || us_txt.value === "" || uk_txt.value === "" || inc_txt.value === "" || fapp_slider.value === 0) {
         alert("Please Insert a Number");
     } else {
-        black.setAttribute("hidden", "true");
-        sidebar.setAttribute("hidden", "true");
+        if (window.innerWidth <= 767) {
+            black.setAttribute("hidden", "true");
+            sidebar.setAttribute("hidden", "true");
+        }
         setTimeout(start(),300);
         btn.setAttribute("disabled", "true");
         setTimeout(() => {
