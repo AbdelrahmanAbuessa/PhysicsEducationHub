@@ -3,6 +3,9 @@
 ### Live Demo: https://abdelrahmanabuessa.github.io/PhysicsEducationHub/
 **Welcome to the Physics Education Hub 1.0**
 
+### Note: This project is in its early development stages, results and simulators may not be accurate.
+### Should you notice any problem, please report it immediately through the following e-mail address: abdelrahman.ibrahim.abuessa@gmail.com
+
 ![image](https://github.com/user-attachments/assets/28a10ec4-3025-4e3f-ab86-40daae95b7cc)
 
 This Website was made with the intention of assisting High School Students and Teachers in expanding their knowledge and understanding of physics.
