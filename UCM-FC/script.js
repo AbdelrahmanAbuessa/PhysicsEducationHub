@@ -62,7 +62,9 @@ function checkAvailability() {
     if (r_txt.value === "" || m_txt.value === "" || v_txt.value === "") {
         alert("Please fill all fields");
     } else {
-        sidebar.setAttribute("hidden", "true");
+        if (window.innerWidth <= 767) {
+            sidebar.setAttribute("hidden", "true");
+        }
         black.setAttribute("hidden", "true");
         window.setTimeout(start(), 300)
     }
