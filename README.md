@@ -1,7 +1,7 @@
 # Physics Education Hub 1.0
-## Developed By: Abdelrahman Aboueissa
+### Developed By: Abdelrahman Aboueissa
 ### Live Demo: https://abdelrahmanabuessa.github.io/PhysicsEducationHub/
-**Welcome to the Physics Education Hub 1.0**
+### **Welcome to the Physics Education Hub 1.0**
 
 ### Note: This project is in its early development stages, results and simulators may not be accurate.
 ### Should you notice any problem, please report it immediately through the following e-mail address: abdelrahman.ibrahim.abuessa@gmail.com
@@ -58,4 +58,4 @@ My Contact Information:
 - Twitter (X): https://x.com/The_A471
 - Currently Working on My Personal Website...
 
-This Project was Completed During the Hack Club's Arcade Event, Summer 2024.
+This Project was Started During the Hack Club's Arcade Event, Summer 2024.
