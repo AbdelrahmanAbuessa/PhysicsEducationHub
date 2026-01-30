@@ -1,0 +1,10 @@
+.sim-image {
+    background-image: url(../assets/txt-background.jpg);
+    background-size: cover;
+    filter: brightness(0.3);
+    aspect-ratio: 1/1;
+}
+
+.article-page .article-link {
+    width: fit-content;
+}

@@ -1,0 +1,141 @@
+/* Global Section */
+:root {
+    --main-color: #b30c00;
+    --sec-color: #ca0d00;
+    --bg-dark: #0f0f0f;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
+    font-family: "Inter", sans-serif;
+    box-sizing: border-box;
+}
+
+.bg-main,
+.bg-main:hover,
+.bg-main:focus,
+.bg-main:active {
+    background-color: var(--main-color) !important;
+}
+
+.bg-dark {
+    background-color: var(--bg-dark) !important;
+}
+
+.fw-black {
+    font-weight: 800;
+}
+
+.navbar-toggler.heavy {
+    border-color: white;
+    border-width: 2px;
+}
+
+.list-none {
+    list-style-type: none;
+}
+
+.img-dark {
+    filter: brightness(0.3);
+}
+
+.fs-lg {
+    font-size: 2.5rem;
+}
+
+.border-none {
+    border: none;
+}
+
+.border-radius-8 {
+    border-radius: 0.75rem;
+}
+
+.border-radius-16 {
+    border-radius: 1.25rem;
+}
+
+.fs-08 {
+    font-size: 0.8rem;
+}
+
+.divider-x {
+    height: 1px;
+}
+
+.bg-light {
+    background-color: white;
+}
+
+.br-50 {
+    border-radius: 100%;
+}
+
+.text-main {
+    color: var(--main-color);
+}
+
+.w-35 {
+    width: 35%;
+}
+
+.vertical-divider {
+    width: 1px;
+}
+
+.fw-100 {
+    font-weight: 100;
+}
+
+.btn:hover,
+.offcanvas > ul > li:hover,
+.article-page .article-link:hover,
+.sim-page > ul > li:hover {
+    text-decoration: underline !important;
+}
+
+/* Footer Section */
+.contacts .social-media {
+    border-right: 1px solid white;
+}
+.contacts .social-media li {
+    width: 2.5rem;
+    height: 2.5rem;
+}
+.contacts .social-media li:hover {
+    cursor: pointer;
+    background-color: var(--bg-dark) !important;
+}
+.contacts .social-media li:hover svg {
+    color: white;
+}
+
+.sim-page > ul,
+.article-page > ul,
+.book-page > ul {
+    grid-template-columns: 1fr 1fr;
+}
+
+/* Entry Animations */
+section > ul > li {
+    opacity: 0;
+    transition:
+        opacity 0.5s ease,
+        transform 0.5s ease;
+}
+
+section > ul > li.left-entry {
+    transform: translateX(-10rem);
+}
+
+section > ul > li.right-entry {
+    transform: translateX(10rem);
+}
+
+section > ul > li.visible {
+    opacity: 1;
+
+    transform: translateX(0);
+}

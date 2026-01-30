@@ -16,7 +16,7 @@
         <link rel="stylesheet" href="css/bootstrap.min.css" />
         <link rel="stylesheet" href="css/style.css" />
         <link rel="stylesheet" href="css/style-lg.css" />
-        <link rel="stylesheet" href="css/style-landing.css" />
+        <link rel="stylesheet" href="css/style-books.css" />
 
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -24,6 +24,8 @@
             href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
             rel="stylesheet"
         />
+
+        <meta name="page" content="book-page" />
 
         <meta
             name="description"
@@ -38,7 +40,7 @@
 
     <body>
         <nav
-            class="navbar bg-main navbar-expand-lg fixed-top w-100 p-0"
+            class="navbar bg-main navbar-expand-lg sticky-top w-100 p-0"
             data-bs-theme="dark"
         >
             <div class="container p-3 d-flex no-wrap">
@@ -86,7 +88,7 @@
                     <ul
                         class="m-3 list-none d-lg-flex justify-content-center align-items-center ms-lg-auto gap-5"
                     >
-                        <li class="mb-3 m-lg-0">
+                        <li class="mb-3 mb-lg-0 m-lg-0">
                             <a
                                 href="sims.html"
                                 class="text-decoration-none text-light fw-semibold"
@@ -121,152 +123,141 @@
             </div>
         </nav>
 
-        <section class="landing position-relative">
-            <div class="box w-100 h-100 overflow-hidden position-absolute">
-                <img src="assets/sim-background.jpg" class="img img-dark" />
-            </div>
-
-            <div
-                class="box mt-5 position-absolute w-100 h-100 text-light landing-content d-flex justify-content-center align-items-center"
-            >
-                <div class="landing-graphic d-none d-lg-block p-3 w-35 ms-3">
-                    <div class="box w-100 h-100">
-                        <img
-                            src="assets/txt-background.jpg"
-                            class="img-fluid border-radius-16"
-                        />
-                    </div>
-                </div>
-                <div
-                    class="landing-text p-3 text-center text-md-start w-100 w-lg-35 ms-0 ms-md-3"
-                >
-                    <h1 class="fs-lg fw-black">
-                        Physics <br class="d-none d-lg-block" />
-                        Education Hub
-                    </h1>
-                    <p class="fs-4">
-                        Explore Interactive Simulators and Articles to Learn
-                        More About High School Physics
-                    </p>
-                    <div
-                        class="btn btn-primary bg-main border-none border-radius-8 mt-3"
-                        onclick="window.scrollBy(0, window.innerHeight)"
-                    >
-                        <div class="btn-content d-flex align-items-center">
-                            <span class="fs-5 fw-semibold"> Learn More </span>
-                            <span class="box animated-arrow">
-                                <i class="fa-solid fa-caret-down fs-1"></i>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <section
+            class="title-section text-center position-relative p-3 w-100 bg-dark text-light"
+        >
+            <h1 class="fw-bold p-3">Books & References</h1>
+            <p class="w-md-50 m-auto">
+                Look through a list of Physics resources to further deepen your
+                understanding of physics and its applications in the real world
+            </p>
         </section>
 
         <section
-            class="full-page w-100 bg-dark text-light p-4 text-center d-lg-flex align-items-center gap-5"
+            class="book-page w-100 h-100 bg-dark text-light text-center pb-3"
         >
-            <div class="sec mb-4">
-                <h3 class="sec-title p-3 bg-main fw-bold border-radius-8">
-                    Interactive Simulators
-                </h3>
-                <div class="sec-image mt-4 mb-4">
-                    <img
-                        src="assets/txt-background.jpg"
-                        class="border-radius-16 img-fluid w-75"
-                    />
-                </div>
-                <div class="sec-description fw-light mb-3">
-                    Learn about important Physics concepts using Browser-Based
-                    Interactive Simulators That work on All Devices.
-                </div>
-                <div class="sec-btn">
-                    <a
-                        href="sims.html"
-                        class="btn btn-primary bg-main border-none border-radius-8 mt-3"
-                    >
-                        <div class="btn-content d-flex align-items-center">
-                            <span class="fs-5 me-2"> Explore Simulators </span>
-                            <span class="box external">
-                                <i
-                                    class="fa-solid fa-arrow-up-right-from-square fs-1"
-                                ></i>
-                            </span>
+            <ul class="list-none p-0 d-md-grid gap-3 overflow-x-hidden">
+                <li class="mb-3 mb-lg-0">
+                    <div class="bg-main d-flex align-items-center p-3">
+                        <div
+                            class="book-image border-radius-8 h-100 w-50 net-force"
+                        ></div>
+                        <div
+                            class="book-content w-100 ps-3 text-start text-light d-flex-column justify-content-center align-items-center h-100"
+                        >
+                            <div class="fs-5 fw-semibold">Book Name</div>
+                            <p class="fw-light fs-08">John Doe</p>
+                            <p class="fs-08 lh-sm m-0">
+                                Lorem ipsum dolor sit amet, consectetur
+                                adipiscing elit. Vestibulum egestas justo
+                                sagittis, consequat purus quis, tempus magna.
+                                Aenean risus eros, luctus in ante bibendum,
+                                iaculis.
+                            </p>
                         </div>
-                    </a>
-                </div>
-            </div>
-
-            <div
-                class="vertical-divider h-100 d-none d-lg-block bg-light"
-            ></div>
-
-            <div class="sec mb-4">
-                <h3 class="sec-title p-3 bg-main fw-bold border-radius-8">
-                    Detailed Explanations
-                </h3>
-                <div class="sec-image mt-4 mb-4 d-flex justify-content-center">
-                    <img
-                        src="assets/txt-background.jpg"
-                        class="border-radius-16 img-fluid w-75"
-                    />
-                </div>
-                <div class="sec-description fw-light mb-3">
-                    Explore Physics Topics in Detail using Articles with Visuals
-                    and Animations
-                </div>
-                <div class="sec-btn">
-                    <a
-                        href="explanations.html"
-                        class="btn btn-primary bg-main border-none border-radius-8 mt-3"
-                    >
-                        <div class="btn-content d-flex align-items-center">
-                            <span class="fs-5 me-2"> Read Explanations </span>
-                            <span class="box external">
-                                <i
-                                    class="fa-solid fa-arrow-up-right-from-square fs-1"
-                                ></i>
-                            </span>
+                    </div>
+                </li>
+                <li class="mb-3 mb-lg-0">
+                    <div class="bg-main d-flex align-items-center p-3">
+                        <div
+                            class="book-image border-radius-8 h-100 w-50 net-force"
+                        ></div>
+                        <div
+                            class="book-content w-100 ps-3 text-start text-light d-flex-column justify-content-center align-items-center h-100"
+                        >
+                            <div class="fs-5 fw-semibold">Book Name</div>
+                            <p class="fw-light fs-08">John Doe</p>
+                            <p class="fs-08 lh-sm m-0">
+                                Lorem ipsum dolor sit amet, consectetur
+                                adipiscing elit. Vestibulum egestas justo
+                                sagittis, consequat purus quis, tempus magna.
+                                Aenean risus eros, luctus in ante bibendum,
+                                iaculis.
+                            </p>
                         </div>
-                    </a>
-                </div>
-            </div>
-
-            <div
-                class="vertical-divider h-100 d-none d-lg-block bg-light"
-            ></div>
-
-            <div class="sec mb-4">
-                <h3 class="sec-title p-3 bg-main fw-bold border-radius-8">
-                    Books & References
-                </h3>
-                <div class="sec-image mt-4 mb-4 d-flex justify-content-center">
-                    <img
-                        src="assets/txt-background.jpg"
-                        class="border-radius-16 img-fluid w-75"
-                    />
-                </div>
-                <div class="sec-description fw-light mb-3">
-                    Look through a list of Physics Resources to further deepen
-                    your understanding of Physics and its applications in the
-                    real world
-                </div>
-                <div class="sec-btn">
-                    <a
-                        href="books.html"
-                        class="btn btn-primary bg-main border-none border-radius-8 mt-3"
-                    >
-                        <div class="btn-content d-flex align-items-center">
-                            <span class="fs-5 me-2"> Explore Books </span>
-                            <span class="box external">
-                                <i
-                                    class="fa-solid fa-arrow-up-right-from-square fs-1"
-                                ></i>
-                            </span>
+                    </div>
+                </li>
+                <li class="mb-3 mb-lg-0">
+                    <div class="bg-main d-flex align-items-center p-3">
+                        <div
+                            class="book-image border-radius-8 h-100 w-50 net-force"
+                        ></div>
+                        <div
+                            class="book-content w-100 ps-3 text-start text-light d-flex-column justify-content-center align-items-center h-100"
+                        >
+                            <div class="fs-5 fw-semibold">Book Name</div>
+                            <p class="fw-light fs-08">John Doe</p>
+                            <p class="fs-08 lh-sm m-0">
+                                Lorem ipsum dolor sit amet, consectetur
+                                adipiscing elit. Vestibulum egestas justo
+                                sagittis, consequat purus quis, tempus magna.
+                                Aenean risus eros, luctus in ante bibendum,
+                                iaculis.
+                            </p>
                         </div>
-                    </a>
-                </div>
-            </div>
+                    </div>
+                </li>
+                <li class="mb-3 mb-lg-0">
+                    <div class="bg-main d-flex align-items-center p-3">
+                        <div
+                            class="book-image border-radius-8 h-100 w-50 net-force"
+                        ></div>
+                        <div
+                            class="book-content w-100 ps-3 text-start text-light d-flex-column justify-content-center align-items-center h-100"
+                        >
+                            <div class="fs-5 fw-semibold">Book Name</div>
+                            <p class="fw-light fs-08">John Doe</p>
+                            <p class="fs-08 lh-sm m-0">
+                                Lorem ipsum dolor sit amet, consectetur
+                                adipiscing elit. Vestibulum egestas justo
+                                sagittis, consequat purus quis, tempus magna.
+                                Aenean risus eros, luctus in ante bibendum,
+                                iaculis.
+                            </p>
+                        </div>
+                    </div>
+                </li>
+                <li class="mb-3 mb-lg-0">
+                    <div class="bg-main d-flex align-items-center p-3">
+                        <div
+                            class="book-image border-radius-8 h-100 w-50 net-force"
+                        ></div>
+                        <div
+                            class="book-content w-100 ps-3 text-start text-light d-flex-column justify-content-center align-items-center h-100"
+                        >
+                            <div class="fs-5 fw-semibold">Book Name</div>
+                            <p class="fw-light fs-08">John Doe</p>
+                            <p class="fs-08 lh-sm m-0">
+                                Lorem ipsum dolor sit amet, consectetur
+                                adipiscing elit. Vestibulum egestas justo
+                                sagittis, consequat purus quis, tempus magna.
+                                Aenean risus eros, luctus in ante bibendum,
+                                iaculis.
+                            </p>
+                        </div>
+                    </div>
+                </li>
+                <li class="mb-3 mb-lg-0">
+                    <div class="bg-main d-flex align-items-center p-3">
+                        <div
+                            class="book-image border-radius-8 h-100 w-50 net-force"
+                        ></div>
+                        <div
+                            class="book-content w-100 ps-3 text-start text-light d-flex-column justify-content-center align-items-center h-100"
+                        >
+                            <div class="fs-5 fw-semibold">Book Name</div>
+                            <p class="fw-light fs-08">John Doe</p>
+                            <p class="fs-08 lh-sm m-0">
+                                Lorem ipsum dolor sit amet, consectetur
+                                adipiscing elit. Vestibulum egestas justo
+                                sagittis, consequat purus quis, tempus magna.
+                                Aenean risus eros, luctus in ante bibendum,
+                                iaculis.
+                            </p>
+                        </div>
+                    </div>
+                </li>
+            </ul>
         </section>
 
         <footer
@@ -332,6 +323,8 @@
         </footer>
 
         <script src="js/all.min.js"></script>
+        <script src="js/animations.js"></script>
+        <script src="js/page.js"></script>
         <script src="js/bootstrap.bundle.min.js"></script>
     </body>
 </html>

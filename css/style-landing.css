@@ -1,0 +1,24 @@
+.offcanvas > ul > li:hover {
+    text-decoration: underline;
+}
+
+.landing {
+    height: 100vh;
+}
+
+.animated-arrow {
+    transform: translateY(0);
+    animation: up-down 1s ease-in-out infinite;
+}
+
+@keyframes up-down {
+    0% {
+        transform: translateY(0.25rem);
+    }
+    50% {
+        transform: translateY(-0.25rem);
+    }
+    100% {
+        transform: translateY(0.25rem);
+    }
+}

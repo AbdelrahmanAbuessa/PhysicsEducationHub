@@ -1,0 +1,112 @@
+[
+    {
+        "type": "sim",
+        "id": "resultant",
+        "article-title": "Net Force & Resultant",
+        "sim-title": "Net Force Calculator",
+        "sim-link": "Resultant/index.html",
+        "article-link": "Resultant/article.html",
+        "image": "assets/resultant.png",
+        "description": "Explore how multiple forces combine to produce a single resultant force. This simulator helps visualize vector addition, net force magnitude, and direction, reinforcing concepts essential for understanding equilibrium, Newton’s laws, and real-world force interactions."
+    },
+    {
+        "type": "sim",
+        "id": "projectile-motion",
+        "article-title": "Projectile Motion",
+        "sim-title": "Projectile Motion",
+        "sim-link": "Projectile/index.html",
+        "article-link": "Projectile/article.html",
+        "image": "assets/projectile.png",
+        "description": "Investigate the motion of projectiles launched at different angles and speeds. This simulation illustrates horizontal and vertical motion, time of flight, range, and maximum height, helping connect kinematic equations to real-world projectile behavior."
+    },
+    {
+        "type": "sim",
+        "id": "head-on-collisions",
+        "article-title": "2-Object Collision",
+        "sim-title": "2-Object Collision",
+        "sim-link": "Collision/index.html",
+        "article-link": "Collision/article.html",
+        "image": "assets/collision.png",
+        "description": "Analyze one-dimensional collisions between two objects moving toward each other. The simulator demonstrates conservation of momentum, elastic and inelastic collisions, and how mass and velocity influence post-collision motion."
+    },
+    {
+        "type": "sim",
+        "id": "centripetal-force",
+        "article-title": "Centripetal Force",
+        "sim-title": "Centripetal Force",
+        "sim-link": "UCM-FC/index.html",
+        "article-link": "UCM-FC/article.html",
+        "image": "assets/ucm.png",
+        "description": "Learn how objects move in circular paths under centripetal force. This simulation explores the relationship between speed, radius, mass, and force, clarifying key principles behind uniform circular motion and rotational dynamics."
+    },
+    {
+        "type": "sim",
+        "id": "friction-force",
+        "article-title": "Friction Force",
+        "sim-title": "Friction Force",
+        "sim-link": "Friction/index.html",
+        "article-link": "Friction/article.html",
+        "image": "assets/friction.png",
+        "description": "Examine how frictional forces affect motion between surfaces. This simulator compares static and kinetic friction, shows the influence of normal force and coefficients of friction, and connects theory to everyday physical interactions."
+    },
+    {
+        "type": "sim",
+        "id": "fluid-pressure",
+        "article-title": "Fluid Pressure & U-Tube",
+        "sim-title": "Fluid Pressure & U-Tube",
+        "sim-link": "FluidPressure/index.html",
+        "article-link": "FluidPressure/article.html",
+        "image": "assets/fluid-pressure.png",
+        "description": "Explore how pressure varies with depth in fluids using a U-tube model. This simulation demonstrates hydrostatic pressure, density effects, and pressure balance, providing insight into fundamental fluid statics concepts."
+    },
+    {
+        "type": "sim",
+        "id": "bernoulli",
+        "article-title": "Bernoulli's Principle",
+        "sim-title": "Bernoulli's Principle",
+        "sim-link": "Bernoulli/index.html",
+        "article-link": "Bernoulli/article.html",
+        "image": "assets/bernoulli.png",
+        "description": "Discover how fluid speed and pressure are related through Bernoulli’s principle. This simulator visualizes energy conservation in flowing fluids, explaining phenomena such as lift, airflow, and pressure differences in pipes."
+    },
+    {
+        "type": "book",
+        "id": "serway",
+        "title": "Physics for Scientists and Engineers",
+        "author": "Raymond A. Serway, John W. Jewett",
+        "image": "assets/serway.png",
+        "description": "A comprehensive calculus-based physics textbook emphasizing problem solving, clear derivations, and real-world applications, widely used in university-level science and engineering courses worldwide."
+    },
+    {
+        "type": "book",
+        "id": "halliday-resnick-walker",
+        "title": "Fundamentals of Physics",
+        "author": "David Halliday, Robert Resnick, Jearl Walker",
+        "image": "assets/halliday.png",
+        "description": "A classic introductory physics text known for conceptual clarity, strong problem sets, and thorough coverage of mechanics, waves, thermodynamics, electricity, magnetism, and modern physics."
+    },
+    {
+        "type": "book",
+        "id": "giancoli",
+        "title": "Physics: Principles with Applications",
+        "author": "Douglas C. Giancoli",
+        "image": "assets/giancoli.png",
+        "description": "An algebra-based physics book focused on conceptual understanding, practical examples, and clear explanations, making it especially popular for introductory high school and college courses."
+    },
+    {
+        "type": "book",
+        "id": "ap-physics",
+        "title": "AP Physics Course and Exam Description",
+        "author": "College Board",
+        "image": "assets/ap.png",
+        "description": "An official framework outlining AP Physics content, learning objectives, and exam structure, designed to guide students and teachers through college-level physics coursework."
+    },
+    {
+        "type": "book",
+        "id": "young-freedman",
+        "title": "University Physics with Modern Physics",
+        "author": "Hugh D. Young, Roger A. Freedman",
+        "image": "assets/modern.png",
+        "description": "A widely adopted calculus-based textbook emphasizing conceptual understanding, mathematical rigor, and modern physics topics for science and engineering students."
+    }
+]
