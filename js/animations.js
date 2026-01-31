@@ -1,8 +1,12 @@
-let items = document.querySelectorAll("section > ul > li");
-items.forEach((item, index) => {
-    item.classList.remove("left-entry", "right-entry");
-    item.classList.add(index % 2 ? "right-entry" : "left-entry");
-});
+export default function setupEntryAnimations() {
+    let items = document.querySelectorAll("section > ul > li");
+
+    items.forEach((item, index) => {
+        item.classList.remove("left-entry", "right-entry");
+        item.classList.add(index % 2 ? "right-entry" : "left-entry");
+        observer.observe(item);
+    });
+}
 
 const observer = new IntersectionObserver(
     (entries, observer) => {
@@ -17,5 +21,3 @@ const observer = new IntersectionObserver(
         threshold: 0.15,
     },
 );
-
-items.forEach((item) => observer.observe(item));
