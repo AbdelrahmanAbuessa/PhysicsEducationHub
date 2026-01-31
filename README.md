@@ -1,6 +1,6 @@
 # Physics Education Hub 1.0
 
-## WORK IN PROGRESS 👷‍♂️🚧
+## UPDATE IN PROGRESS 👷‍♂️🚧
 
 ### Developed By: Abdelrahman Aboueissa
 ### Live Demo: https://abdelrahmanabuessa.github.io/PhysicsEducationHub/
