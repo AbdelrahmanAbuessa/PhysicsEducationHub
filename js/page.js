@@ -35,7 +35,7 @@ request.onload = function () {
                 if (page_type === "sims-page") {
                     item_node.classList.add("bg-main");
                     node_content = `
-                        <a
+                        <a target="_blank"
                             href="${item["sim-link"]}"
                             class="text-decoration-none d-flex align-items-center"
                         >
@@ -63,12 +63,12 @@ request.onload = function () {
                                     <div class="fs-4 fw-semibold">
                                         ${item["article-title"]}
                                     </div>
-                                    <p class="fs-08">
+                                    <p class="mt-3 w-75">
                                     ${item["description"]}
                                     </p>
                                 </div>
                                 </div>
-                                <a
+                                <a target="_blank"
                                 href="${item["article-link"]}"
                                 class="article-link ms-auto text-decoration-none bg-main p-3 d-flex align-items-center justify-content-center text-light"
                             >
@@ -83,7 +83,7 @@ request.onload = function () {
             }
 
             if (item.type === "book") {
-                node_content = `<div class="bg-main d-flex align-items-center p-3">
+                node_content = `<div class="bg-main d-flex align-items-center h-100 p-3">
                         <div
                             class="book-image border-radius-8 h-100 w-50 ${item["id"]}"
                         ></div>
@@ -92,7 +92,7 @@ request.onload = function () {
                         >
                             <div class="fs-5 fw-semibold">${item["title"]}</div>
                             <p class="fw-light fs-08">${item["author"]}</p>
-                            <p class="fs-08 lh-sm m-0">
+                            <p class=" lh-sm m-0">
                                 ${item["description"]}
                             </p>
                         </div>
