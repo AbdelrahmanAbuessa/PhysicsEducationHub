@@ -22,6 +22,7 @@
             href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
             rel="stylesheet"
         />
+
         <meta
             name="description"
             content="A website to assist High School students and teachers with Physics and Applied Mathematics concepts using Interactive Simulators paired with Notes and Summarizations, in addition to books, references, and more"
@@ -33,20 +34,21 @@
         <meta name="author" content="Abdelrahman Aboueissa" />
     </head>
     <body class="vh-100 bg-secondary-light">
-        <!-- Bar -->
+        <!-- BAR -->
+        <div
+            class="overlay vh-100 vw-100 position-absolute top-0 hidden"
+            id="overlay"
+        ></div>
+
         <div class="sim-bar">
             <div
-                class="overlay vh-100 vw-100 position-absolute top-0 hidden"
-                id="overlay"
-            ></div>
-
-            <div class="control-bar p-4 d-flex align-items-center">
+                class="control-bar p-4 p-lg-0 d-flex align-items-center d-block d-lg-none"
+            >
                 <button
                     onclick="toggle_playground()"
                     class="box border-none toggle-sim-bar bg-main text-light d-flex align-items-center justify-content-center p-2 me-2 border-radius-8"
-                    id="toggle-sim-bar"
                 >
-                  <i class="fa-solid fa-gear img-fluid w-100"></i>
+                    <i class="fa-solid fa-gear img-fluid w-100"></i>
                 </button>
                 <h1 class="m-0 p-0 fw-semibold text-main">
                     Net Force Simulator
@@ -54,32 +56,92 @@
             </div>
 
             <div
-                class="sim-playground bg-light p-3 border-radius-8 position-absolute position-lg-relative hidden"
+                class="sim-playground m-0 m-lg-4 bg-white p-3 border-radius-8 position-absolute hidden z-3"
                 id="sim-playground"
             >
                 <button
-                    class="border-none position-absolute bg-main p-2 br-50 d-flex justify-content-center align-items-center"
+                    class="d-block d-lg-none border-none position-absolute bg-main p-2 br-50 d-flex justify-content-center align-items-center"
                     onclick="toggle_playground()"
                 >
                     <i class="fa-solid fa-x img-fluid text-light"></i>
                 </button>
-                <h3 class="m-0 text-center">Simulator Settings</h3>
+                <h3 class="m-0 text-center d-block d-lg-none">
+                    Simulator Settings
+                </h3>
+
+                <h1 class="m-0 p-0 fw-semibold text-main d-none d-lg-block">
+                    Net Force Simulator
+                </h1>
 
                 <hr />
 
                 <!-- FORCE LIST & DATA -->
                 <!-- Force addition button will be in the general area outside the playground -->
+
+                <div class="sim-input">
+                    <button
+                        class="fs-5 m-auto activate-sim btn btn-primary bg-main border-none border-radius-8 d-none d-lg-block top-100"
+                        onclick="toggle_sim()"
+                    >
+                        Add Force
+                    </button>
+                </div>
             </div>
         </div>
 
-        <div
-            class="box general-area d-flex flex-wrap h-75 justify-content-center align-items-center"
-        >
-            <div class="box sim-ground flex-shrink-0"></div>
+        <div class="box general-area h-75">
 
-            <button class="btn btn-primary bg-main border-none border-radius-8">
+            <button
+                class="fs-5 activate-sim btn btn-primary bg-main border-none border-radius-8 position-absolute d-block d-lg-none"
+                onclick="toggle_sim()"
+            >
                 Add Force
             </button>
+
+            <div
+                class="sim-activation bg-light p-3 border-radius-8 position-absolute hidden z-2"
+                id="activate-sim"
+            >
+                <button
+                    class="border-none w-max h-max position-absolute bg-main p-2 br-50 d-flex justify-content-center align-items-center"
+                    onclick="toggle_sim()"
+                >
+                    <i class="fa-solid fa-x img-fluid text-light"></i>
+                </button>
+                <h3 class="m-0 text-center">Add a Force</h3>
+                <hr />
+
+                <div class="sim-input">
+                    <label for="mag">Magnitude</label>
+                    <input
+                        class="border-radius-8 w-100 p-2 mt-1"
+                        type="text"
+                        name="mag"
+                        id="mag"
+                        placeholder="Enter Magnitude"
+                    />
+                </div>
+
+                <div class="sim-input mt-3 mb-3">
+                    <label for="dir">Direction</label>
+                    <input
+                        class="border-radius-8 w-100 p-2 mt-1"
+                        type="text"
+                        name="dir"
+                        id="dir"
+                        placeholder="Enter Direction"
+                    />
+                </div>
+
+                <div class="sim-input text-center">
+                    <button
+                        onclick="add_force()"
+                        class="btn btn-primary bg-main text-light border-radius-8 border-none p-2"
+                    >
+                        Add Force
+                    </button>
+                </div>
+            </div>
         </div>
 
         <script src="./script.js"></script>

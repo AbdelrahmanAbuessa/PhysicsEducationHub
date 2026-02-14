@@ -1,12 +1,10 @@
-// Testing
-
+// Toggle Menus
 let sim_playground = document.getElementById("sim-playground");
 let overlay = document.getElementById("overlay");
+let activate_sim = document.getElementById("activate-sim");
 
 let sim_options = [sim_playground, overlay];
-
-overlay.style.width = window.innerWidth;
-overlay.style.height = window.innerHeight;
+let sim_activate = [activate_sim, overlay];
 
 toggle_playground = function () {
     sim_options.forEach(function (e) {
@@ -16,6 +14,21 @@ toggle_playground = function () {
             e.classList.add("hidden");
         }
     });
+};
+
+toggle_sim = function () {
+    sim_activate.forEach(function (e) {
+        if (e.classList.contains("hidden")) {
+            e.classList.remove("hidden");
+        } else {
+            e.classList.add("hidden");
+        }
+    });
+};
+
+add_force = function () {
+    toggle_sim();
+    console.log("Added a Force");
 };
 
 // let canvas = document.querySelector(".axisgrid");
