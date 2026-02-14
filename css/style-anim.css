@@ -1,0 +1,32 @@
+/* Entry Animations */
+section > ul > li {
+    opacity: 0;
+    transition:
+        opacity 0.5s ease,
+        transform 0.5s ease;
+}
+
+section > ul > li.left-entry {
+    transform: translateX(-10rem);
+}
+
+section > ul > li.right-entry {
+    transform: translateX(10rem);
+}
+
+section > ul > li.visible {
+    opacity: 1;
+
+    transform: translateX(0);
+}
+
+/* Animate on Hover Section */
+section > ul > li > a {
+    overflow: hidden;
+}
+.sim-image {
+    transition-duration: 0.3s;
+}
+section > ul > li > a:hover .sim-image {
+    transform: scale(120%);
+}

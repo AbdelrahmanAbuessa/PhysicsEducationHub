@@ -1,0 +1,21 @@
+/* Footer Section */
+.contacts .social-media {
+    border-right: 1px solid white;
+}
+.contacts .social-media li {
+    width: 2.5rem;
+    height: 2.5rem;
+}
+.contacts .social-media li:hover {
+    cursor: pointer;
+    background-color: var(--bg-dark) !important;
+}
+.contacts .social-media li:hover svg {
+    color: white;
+}
+
+.sim-page > ul,
+.article-page > ul,
+.book-page > ul {
+    grid-template-columns: 1fr 1fr;
+}
