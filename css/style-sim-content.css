@@ -47,10 +47,8 @@
     right: -1rem;
 }
 
-.general-area button.activate-sim {
-    bottom: 5rem;
-    left: 50%;
-    transform: translate(-50%, 0);
+.general-area {
+    height: calc(100vh - 96px);
 }
 
 .general-area > .sim-activation {
@@ -63,12 +61,27 @@
     border: 1px solid black;
 }
 
+.sim-area > .simulator {
+    aspect-ratio: 1/1;
+}
+
 @media (min-width: 992px) {
+    .sim-page {
+        display: grid;
+        grid-template-columns: 1fr 100fr;
+    }
+
     .sim-bar > .sim-playground {
         opacity: 1 !important;
         left: 0 !important;
         transform: translate(0) scale(1) !important;
-        height: calc(100% - 3rem) !important;
+        position: relative !important;
+        width: max-content;
+        min-height: calc(100% - 3rem) !important;
         z-index: 1 !important;
+    }
+
+    .general-area {
+        height: 100vh;
     }
 }

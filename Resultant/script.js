@@ -31,6 +31,23 @@ add_force = function () {
     console.log("Added a Force");
 };
 
+// Making the simulator responsive
+let container = document.getElementById("sim-container");
+let sim = document.querySelector("#sim-container > .simulator");
+
+function resizeSimulator() {
+    let dSize = window.innerWidth < 768 ? 0 : 10;
+
+    if (container.clientWidth > container.clientHeight) {
+        sim.style.width = `calc(${container.clientHeight}px - ${dSize}rem)`;
+    } else {
+        sim.style.width = `calc(${container.clientWidth}px - ${dSize}rem)`;
+    }
+}
+
+window.onload = () => resizeSimulator();
+window.addEventListener("resize", resizeSimulator);
+
 // let canvas = document.querySelector(".axisgrid");
 // let hirearchy = document.querySelector(".list");
 
