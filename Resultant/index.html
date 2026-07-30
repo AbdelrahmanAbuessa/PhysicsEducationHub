@@ -79,6 +79,53 @@
 
                     <!-- FORCE LIST & DATA -->
                     <!-- Force addition button will be in the general area outside the playground -->
+                    <div class="sim-properties">
+                        <h5>Force Properties:</h5>
+                        <p>Force:</p>
+                        <p>Magnitude:</p>
+                        <p>Direction:</p>
+                        <hr />
+                        <h5>Force List:</h5>
+                        <div
+                            class="force-list mb-3 overflow-auto"
+                            id="force-list"
+                        >
+                            <div
+                                class="testforce d-flex justify-content-around align-items-center p-2 mb-2"
+                                style="background-color: red"
+                                id="test"
+                            >
+                                <p class="m-0">F-test</p>
+                                <input type="radio" name="force" />
+                                <button>X</button>
+                                <!-- 
+                                    Contents:
+                                    Force Name: F1, F2, R
+                                    bg-color: same as Force
+                                    radio button: select force to display properties
+                                    X button: delete a force
+                                    id: same as force
+                                -->
+                            </div>
+                            <div
+                                class="testforce d-flex justify-content-around align-items-center p-2 mb-2"
+                                style="background-color: red"
+                                id="test"
+                            >
+                                <p class="m-0">F-test</p>
+                                <input type="radio" name="force" />
+                                <button>X</button>
+                                <!-- 
+                                    Contents:
+                                    Force Name: F1, F2, R
+                                    bg-color: same as Force
+                                    radio button: select force to display properties
+                                    X button: delete a force
+                                    id: same as force
+                                -->
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="sim-input">
                         <button
@@ -91,17 +138,89 @@
                 </div>
             </div>
 
+            <!-- SIMULATOR CANVAS & CONTROLS -->
             <div
                 class="box general-area d-flex flex-column justify-content-between align-items-center"
             >
                 <div
-                    class="sim-area p-3 h-100 w-100 d-flex justify-content-center align-items-center"
+                    class="sim-area p-3 h-100 w-100 d-flex flex-column justify-content-center align-items-center"
                     id="sim-container"
                 >
-                    <div class="bg-white simulator"></div>
+                    <div class="bg-light simulator">
+                        <canvas id="canvas"></canvas>
+                    </div>
+                    <div
+                        class="sim-modifiers w-100 p-3 justify-content-center align-items-center"
+                    >
+                        <div
+                            class="d-flex justify-content-center align-items-center w-50"
+                        >
+                            <button class="controls-button" onclick="zoomOut()">
+                                -
+                            </button>
+                            <button class="controls-button" onclick="zoomIn()">
+                                +
+                            </button>
+                            <p class="fs-3 m-0 me-3">Zoom:</p>
+                            <input
+                                type="range"
+                                name="zoom-slider"
+                                id="zoom-slider"
+                                min="0.5"
+                                max="2.0"
+                                value="1.0"
+                                step="0.1"
+                            />
+                            <label
+                                for="zoom-slider"
+                                class="fs-4 m-0 ms-3"
+                                id="zoomLabel"
+                            >
+                                1.0x
+                            </label>
+                        </div>
+                        <div
+                            class="d-flex justify-content-center align-items-center w-50"
+                        >
+                            <p class="fs-3 m-0 me-3">Pan:</p>
+                            <span>
+                                <div
+                                    class="d-flex justify-content-center align-items-center"
+                                >
+                                    <button
+                                        class="controls-button"
+                                        onclick="pan('l')"
+                                    >
+                                        ←
+                                    </button>
+                                    <div class="d-flex flex-column">
+                                        <button
+                                            class="controls-button mb-1"
+                                            onclick="pan('t')"
+                                        >
+                                            ↑
+                                        </button>
+                                        <button
+                                            class="controls-button"
+                                            onclick="pan('b')"
+                                        >
+                                            ↓
+                                        </button>
+                                    </div>
+                                    <button
+                                        class="controls-button"
+                                        onclick="pan('r')"
+                                    >
+                                        →
+                                    </button>
+                                </div>
+                            </span>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="box p-5 d-block d-lg-none">
+                <!-- SIMULATOR METHODS -->
+                <div class="box d-block d-lg-none">
                     <button
                         class="fs-5 activate-sim btn btn-primary bg-main border-none border-radius-8"
                         onclick="toggle_sim()"
@@ -158,6 +277,7 @@
         </div>
 
         <script src="./script.js"></script>
+        <script src="./force-logic.js"></script>
         <script src="../js/all.min.js"></script>
         <script src="../js/bootstrap.bundle.min.js"></script>
     </body>

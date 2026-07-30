@@ -31,251 +31,211 @@ add_force = function () {
     console.log("Added a Force");
 };
 
-// Making the simulator responsive
-let container = document.getElementById("sim-container");
-let sim = document.querySelector("#sim-container > .simulator");
+// Canvas Identity
+let simulator = document.querySelector(".sim-area > .simulator");
+let canvas = document.getElementById("canvas");
+let ctx = canvas.getContext("2d");
 
-function resizeSimulator() {
-    let dSize = window.innerWidth < 768 ? 0 : 10;
+function resizeCanvas() {
+    let currHeight = simulator.clientHeight;
+    let currWidth = simulator.clientWidth;
 
-    if (container.clientWidth > container.clientHeight) {
-        sim.style.width = `calc(${container.clientHeight}px - ${dSize}rem)`;
-    } else {
-        sim.style.width = `calc(${container.clientWidth}px - ${dSize}rem)`;
-    }
+    canvas.height = currHeight;
+    canvas.width = currWidth;
 }
 
-window.onload = () => resizeSimulator();
-window.addEventListener("resize", resizeSimulator);
+window.onresize = () => {
+    resizeCanvas();
+    drawAllForces();
+};
+window.onload = () => {
+    resizeCanvas();
+    drawAllForces();
+};
 
-// let canvas = document.querySelector(".axisgrid");
-// let hirearchy = document.querySelector(".list");
+// Zoom Logic
+let baseUnit = 50;
+let scale = 1.0;
+let delta = 0.1;
 
-// let menu = document.querySelector(".menu");
+function updateScale() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    zoomSlider.value = scale;
+    zoomLabel.innerHTML = `${Math.floor(scale * 10) / 10}x`;
+    drawAllForces();
+}
 
-// let forceMagnitude = document.querySelector("#mag");
-// let forceDirection = document.querySelector("#dir");
+function zoomIn() {
+    scale += delta;
+    if (scale >= 2.0) scale = 2.0;
+    updateScale();
+}
 
-// let layover = document.getElementById("layover");
+function zoomOut() {
+    scale -= delta;
+    if (scale <= 0.5) scale = 0.5;
+    updateScale();
+}
 
-// let x = document.createElement("div");
-// let y = document.createElement("div");
-// x.setAttribute("axis", "");
-// y.setAttribute("axis", "");
-// x.style.setProperty("width", "100%");
-// x.style.setProperty("height", "1px");
-// y.style.setProperty("width", "1px");
-// y.style.setProperty("height", "100%");
+let zoomSlider = document.getElementById("zoom-slider");
+let zoomLabel = document.getElementById("zoomLabel");
 
-// let q1 = document.createElement("div");
-// let q2 = document.createElement("div");
-// let q3 = document.createElement("div");
-// let q4 = document.createElement("div");
-// q1.setAttribute("quarter", "");
-// q2.setAttribute("quarter", "");
-// q3.setAttribute("quarter", "");
-// q4.setAttribute("quarter", "");
-// q1.className = "q1";
-// q2.className = "q2";
-// q3.className = "q3";
-// q4.className = "q4";
-// q1.innerHTML = `Q <sub>1</sub>`;
-// q2.innerHTML = `Q <sub>2</sub>`;
-// q3.innerHTML = `Q <sub>3</sub>`;
-// q4.innerHTML = `Q <sub>4</sub>`;
+zoomSlider.oninput = function () {
+    scale = zoomSlider.value;
+    updateScale();
+};
 
-// let forceListUI = document.getElementById("forcelist");
-// let blacklayover = document.getElementById("black-background");
+canvas.addEventListener("wheel", function (event) {
+    if (event.deltaY > 0) {
+        zoomOut();
+    } else if (event.deltaY < 0) {
+        zoomIn();
+    }
+});
 
-// let forceList = [];
+// Panning Logic
+let offset = {
+    X: 0,
+    Y: 0,
+};
 
-// let pi = 3.141592653598;
+let deltaCanvas = 25;
 
-// let idText = document.querySelector("#IDValue");
-// let magText = document.querySelector("#magnitudeValue");
-// let dirText = document.querySelector("#directionValue");
+let isDragging = false;
+let lastMouseX = 0;
+let lastMouseY = 0;
 
-// let xc = document.querySelector("#xc");
-// let yc = document.querySelector("#yc");
+canvas.onmousedown = (e) => {
+    isDragging = true;
+    lastMouseX = e.clientX;
+    lastMouseY = e.clientY;
+};
 
-// if (window.innerWidth <= 767) {
-//     forceListUI.setAttribute("hidden", "true");
-// }
+canvas.onmousemove = (e) => {
+    if (!isDragging) return;
 
-// document.addEventListener("click", function (e) {
-//     let elementTarget = e.target;
-//     if (elementTarget.id === "activateMenu") {
-//         menu.style.setProperty("display", "flex");
-//         forceMagnitude.value = "";
-//         forceDirection.value = "";
-//     } else if (elementTarget.id === "disableMenu") {
-//         menu.style.setProperty("display", "none");
-//     } else if (elementTarget.id === "addForce") {
-//         if (forceDirection.value === "" || forceMagnitude.value === "") {
-//             alert("Please insert a number");
-//         } else {
-//             addForce();
-//             menu.style.setProperty("display", "none");
-//         }
-//     } else if (elementTarget.className === "del") {
-//         delForce(elementTarget.id);
-//     } else if (elementTarget.id === "forceSelect") {
-//         selectForce(elementTarget.getAttribute("force"));
-//     } else if (elementTarget.id === "info") {
-//         layover.setAttribute("hidden", "false");
-//     } else if (elementTarget.id === "closeinfo") {
-//         layover.setAttribute("hidden", "true");
-//     } else if (elementTarget.id === "hamburger") {
-//         forceListUI.setAttribute("hidden", "false");
-//         blacklayover.setAttribute("hidden", "false");
-//     } else if (elementTarget.id === "closemenu") {
-//         forceListUI.setAttribute("hidden", "true");
-//         blacklayover.setAttribute("hidden", "true");
-//     }
-// })
+    let deltaX = e.clientX - lastMouseX;
+    let deltaY = e.clientY - lastMouseY;
 
-// // Adding Forces Function
-// function addForce() {
-//     let force = {
-//         "id": forceList.length,
-//         "magnitude": forceMagnitude.value,
-//         "direction": forceDirection.value * (pi / 180),
-//         "color": generateColor()
-//     }
-//     forceList.push(force);
-//     renderAllForces();
-// }
+    offset.X += deltaX;
+    offset.Y += deltaY;
 
-// // Deleting Forces Function
-// function delForce(forceID) {
-//     forceList.splice(forceID, 1);
-//     renderAllForces();
-// }
+    lastMouseX = e.clientX;
+    lastMouseY = e.clientY;
 
-// // Rendering Forces Function
-// function renderAllForces() {
-//     canvas.innerHTML = "";
-//     canvas.appendChild(x);
-//     canvas.appendChild(y);
-//     canvas.appendChild(q1);
-//     canvas.appendChild(q2);
-//     canvas.appendChild(q3);
-//     canvas.appendChild(q4);
+    drawAllForces();
+};
 
-//     hirearchy.innerHTML = "";
+canvas.onmouseup = (e) => {
+    isDragging = false;
+};
 
-//     for (let i = 0; i < forceList.length; i++) {
-//         renderSingleForce(i, forceList[i].id, forceList[i].magnitude, forceList[i].direction, forceList[i].color);
-//     }
+canvas.onmouseleave = (e) => {
+    isDragging = false;
+};
 
-//     let resultant = {
-//         "magnitude": renderResultant().resultantMagnitude,
-//         "direction": renderResultant().resultantDirection,
-//     }
+// touchscreen controls
+canvas.ontouchstart = (e) => {
+    isDragging = true;
+    lastMouseX = e.touches[0].clientX;
+    lastMouseY = e.touches[0].clientY;
+};
 
-//     renderSingleForce(undefined, "resultant", resultant.magnitude, resultant.direction, "red");
-// }
+canvas.ontouchmove = (e) => {
+    if (!isDragging) return;
 
-// // Random Color Generation Function
-// function generateColor() {
-//     return Math.floor(Math.random() * 1000000);
-// }
+    let deltaX = e.touches[0].clientX - lastMouseX;
+    let deltaY = e.touches[0].clientY - lastMouseY;
+    offset.X += deltaX;
+    offset.Y += deltaY;
+    lastMouseX = e.touches[0].clientX;
+    lastMouseY = e.touches[0].clientY;
 
-// // Resultant Addition Function
-// function renderResultant() {
-//     let totalX = 0;
-//     let totalY = 0;
-//     let resultantMagnitude = 0;
-//     let resultantDirection = 0;
-//     for (let i = 0; i < forceList.length; i++) {
-//         totalX += forceList[i].magnitude * Math.cos(forceList[i].direction);
-//         totalY += forceList[i].magnitude * Math.sin(forceList[i].direction);
-//     }
-//     resultantDirection = Math.atan2(totalY , totalX);
-//     xc.innerHTML = `${Math.floor(totalX * 1000) / 1000}`;
-//     yc.innerHTML = `${Math.floor(totalY * 1000) / 1000}`;
-//     let xsqrt = totalX * totalX;
-//     let ysqrt = totalY * totalY;
-//     resultantMagnitude = Math.sqrt(xsqrt + ysqrt);
+    drawAllForces();
+};
 
-//     return new Object (
-//         {
-//             resultantDirection, resultantMagnitude, totalX, totalY
-//         }
-//     )
-// }
+canvas.ontouchend = (e) => {
+    isDragging = false;
+};
 
-// // Rendering only one Force Function
-// function renderSingleForce(i, id, mag, dir, color) {
-//     let realIndex;
-//     let userIndex;
-//     if (id === "resultant") {
-//         realIndex = "resultant";
-//         userIndex = "res";
-//     } else {
-//         realIndex = i;
-//         userIndex = i + 1;
-//     }
+canvas.ontouchcancel = (e) => {
+    isDragging = false;
+};
 
-//     // Adding Vectors to Canvas
-//     let vectorHTML = document.createElement("div");
-//     vectorHTML.setAttribute("vector", "");
-//     vectorHTML.style.setProperty("width", `${mag * 10}px`);
-//     vectorHTML.style.setProperty("background-color", `#${color}`);
+function pan(c) {
+    switch (c) {
+        case "l":
+            offset.X -= deltaCanvas;
+            break;
+        case "t":
+            offset.Y -= deltaCanvas;
+            break;
+        case "b":
+            offset.Y += deltaCanvas;
+            break;
+        case "r":
+            offset.X += deltaCanvas;
+            break;
+        default:
+            console.error("Invalid Panning Argument");
+    }
+    drawAllForces();
+}
 
-//     let antiHTML = document.createElement("div");
-//     antiHTML.setAttribute("antivector", "");
-//     antiHTML.style.setProperty("width", `${mag * 10}px`);
+let center = {
+    X: canvas.width / 2 + offset.X,
+    Y: canvas.height / 2 + offset.Y,
+};
 
-//     let vectorID = document.createElement("div");
-//     vectorID.innerHTML = `F<sub>${userIndex}</sub>`;
-//     vectorID.style.setProperty("font-size", "18px");
-//     vectorID.style.setProperty("position", "absolute");
-//     vectorID.style.setProperty("left", `${mag * 10 + 10}px`);
-//     vectorID.style.setProperty("transform", `rotate(${dir}rad)`);
+function updateCenter() {
+    center.X = canvas.width / 2 + offset.X;
+    center.Y = canvas.height / 2 + offset.Y;
+}
 
-//     let forceColorCode = document.createElement("style");
-//     forceColorCode.innerHTML = `
-//         #forceVector${id} [vector]::after {
-//             border-color: transparent transparent transparent #${color};
-//         }
+// Draw the Canvas
+function drawCoordinateAxis() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-//         #force${id} {
-//             background-color: #${color};
-//         }
-//     `;
+    let center = {
+        X: canvas.width / 2 + offset.X,
+        Y: canvas.height / 2 + offset.Y,
+    };
 
-//     let forceHTML = document.createElement("div");
-//     forceHTML.id = `forceVector${id}`;
-//     forceHTML.style.setProperty("transform", `rotate(${0 - dir}rad)`);
+    updateCenter();
 
-//     forceHTML.appendChild(vectorID);
-//     forceHTML.appendChild(vectorHTML);
-//     forceHTML.appendChild(antiHTML);
-//     forceHTML.appendChild(forceColorCode);
-//     canvas.appendChild(forceHTML);
+    ctx.lineWidth = 2;
+    ctx.globalAlpha = 1;
 
-//     // Adding Forces to List
-//     let forceListing = document.createElement("div");
-//     forceListing.className = `force`;
-//     forceListing.id = `force${id}`;
-//     forceListing.innerHTML = `
-//         <input type="radio" name="a" id="forceSelect" force="${realIndex}">
-//         <p class="forceName">F<sub>${userIndex}</sub></p>
-//         <div btn class="del" id="${realIndex}">Delete</div>
-//     `;
-//     hirearchy.appendChild(forceListing);
-// }
+    ctx.beginPath();
+    ctx.moveTo(center.X, 0);
+    ctx.lineTo(center.X, canvas.height);
+    ctx.stroke();
+    ctx.closePath();
 
-// // Showing Selected Function Properties
-// function selectForce(idName) {
-//     if (idName === "resultant") {
-//         idText.innerHTML = idName;
-//         magText.innerHTML = Math.floor(renderResultant().resultantMagnitude * 1000) / 1000;
-//         dirText.innerHTML = Math.floor(renderResultant().resultantDirection * (180 / Math.PI) * 1000) / 1000 + ` <sup>o</sup>`;
-//     } else {
-//         idText.innerText = parseInt(idName) + 1;
-//         magText.innerHTML = forceList[parseInt(idName)].magnitude;
-//         dirText.innerHTML = Math.floor(forceList[parseInt(idName)].direction * (180 / Math.PI) * 1000) / 1000 + ` <sup>o</sup>`;
-//     }
-// }
+    ctx.beginPath();
+    ctx.moveTo(0, center.Y);
+    ctx.lineTo(canvas.width, center.Y);
+    ctx.stroke();
+    ctx.closePath();
+
+    ctx.lineWidth = 1;
+    ctx.globalAlpha = 0.25;
+
+    let unit = baseUnit * scale;
+
+    for (let i = center.X % unit; i <= canvas.width; i += unit) {
+        ctx.beginPath();
+        ctx.moveTo(i, 0);
+        ctx.lineTo(i, canvas.height);
+        ctx.stroke();
+        ctx.closePath();
+    }
+
+    for (let i = center.Y % unit; i <= canvas.height; i += unit) {
+        ctx.beginPath();
+        ctx.moveTo(0, i);
+        ctx.lineTo(canvas.width, i);
+        ctx.stroke();
+        ctx.closePath();
+    }
+}
