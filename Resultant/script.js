@@ -60,7 +60,6 @@ let delta = 0.1;
 
 function updateScale() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    zoomSlider.value = scale;
     zoomLabel.innerHTML = `${Math.floor(scale * 10) / 10}x`;
     drawAllForces();
 }
@@ -77,13 +76,7 @@ function zoomOut() {
     updateScale();
 }
 
-let zoomSlider = document.getElementById("zoom-slider");
 let zoomLabel = document.getElementById("zoomLabel");
-
-zoomSlider.oninput = function () {
-    scale = zoomSlider.value;
-    updateScale();
-};
 
 canvas.addEventListener("wheel", function (event) {
     if (event.deltaY > 0) {

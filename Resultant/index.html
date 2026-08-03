@@ -15,6 +15,7 @@
         <link rel="stylesheet" href="../css/bootstrap.min.css" />
         <link rel="stylesheet" href="../css/style.css" />
         <link rel="stylesheet" href="../css/style-sim-content.css" />
+        <link rel="stylesheet" href="./style-resultant.css" />
 
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -81,49 +82,22 @@
                     <!-- Force addition button will be in the general area outside the playground -->
                     <div class="sim-properties">
                         <h5>Force Properties:</h5>
-                        <p>Force:</p>
-                        <p>Magnitude:</p>
-                        <p>Direction:</p>
+                        <p>Force: <span id="force-prop-id">N/A</span></p>
+                        <p>
+                            Magnitude:
+                            <span id="force-prop-mag">N/A</span> units
+                        </p>
+                        <p>
+                            Direction: <span id="force-prop-dir">N/A</span
+                            ><sup>o</sup>
+                        </p>
                         <hr />
                         <h5>Force List:</h5>
                         <div
                             class="force-list mb-3 overflow-auto"
                             id="force-list"
                         >
-                            <div
-                                class="testforce d-flex justify-content-around align-items-center p-2 mb-2"
-                                style="background-color: red"
-                                id="test"
-                            >
-                                <p class="m-0">F-test</p>
-                                <input type="radio" name="force" />
-                                <button>X</button>
-                                <!-- 
-                                    Contents:
-                                    Force Name: F1, F2, R
-                                    bg-color: same as Force
-                                    radio button: select force to display properties
-                                    X button: delete a force
-                                    id: same as force
-                                -->
-                            </div>
-                            <div
-                                class="testforce d-flex justify-content-around align-items-center p-2 mb-2"
-                                style="background-color: red"
-                                id="test"
-                            >
-                                <p class="m-0">F-test</p>
-                                <input type="radio" name="force" />
-                                <button>X</button>
-                                <!-- 
-                                    Contents:
-                                    Force Name: F1, F2, R
-                                    bg-color: same as Force
-                                    radio button: select force to display properties
-                                    X button: delete a force
-                                    id: same as force
-                                -->
-                            </div>
+                            <!-- FORCE LIST IN SIDEBAR -->
                         </div>
                     </div>
 
@@ -161,23 +135,12 @@
                             <button class="controls-button" onclick="zoomIn()">
                                 +
                             </button>
-                            <p class="fs-3 m-0 me-3">Zoom:</p>
-                            <input
-                                type="range"
-                                name="zoom-slider"
-                                id="zoom-slider"
-                                min="0.5"
-                                max="2.0"
-                                value="1.0"
-                                step="0.1"
-                            />
-                            <label
-                                for="zoom-slider"
-                                class="fs-4 m-0 ms-3"
-                                id="zoomLabel"
-                            >
-                                1.0x
-                            </label>
+                            <p class="fs-3 m-0">
+                                Zoom:
+                                <span class="fs-4 m-0" id="zoomLabel"
+                                    >1.0x</span
+                                >
+                            </p>
                         </div>
                         <div
                             class="d-flex justify-content-center align-items-center w-50"

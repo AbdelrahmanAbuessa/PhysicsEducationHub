@@ -1,0 +1,47 @@
+.force .force-label {
+    background-color: white;
+    padding: 0.7rem;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.force .force-select {
+    appearance: none;
+    width: 1.25rem;
+    height: 1.25rem;
+    padding: 1rem;
+    background-color: white;
+    border: 2px solid black;
+    border-radius: 100%;
+    position: relative;
+    margin: 0;
+    cursor: pointer;
+}
+
+.force .force-select:hover {
+    border-color: var(--main-color) !important;
+}
+
+.force .force-select:checked {
+    border-color: var(--main-color) !important;
+}
+
+.force .force-radio .force-select::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 60%;
+    height: 60%;
+    background-color: var(--main-color);
+    border-radius: 100%;
+    transform: translate(-50%, -50%) scale(0);
+}
+
+.force .force-radio .force-select:checked::before {
+    transform: translate(-50%, -50%) scale(1);
+}
