@@ -42,7 +42,7 @@
             id="overlay"
         ></div>
 
-        <div class="sim-page">
+        <div class="sim-page vh-100">
             <div class="sim-bar">
                 <div
                     class="control-bar p-4 p-lg-0 d-flex align-items-center d-block d-lg-none"
@@ -93,17 +93,32 @@
                         </p>
                         <hr />
                         <h5>Force List:</h5>
-                        <div
-                            class="force-list mb-3 overflow-auto"
-                            id="force-list"
-                        >
-                            <!-- FORCE LIST IN SIDEBAR -->
+                        <div class="mb-3 force-list">
+                            <div
+                                class="force d-flex justify-content-around align-items-center p-2 mb-2"
+                                style="background-color: #f00"
+                                id="Resultant"
+                            >
+                                <p class="m-0 force-label">R</p>
+                                <label for="resultant" class="force-radio">
+                                    <input
+                                        id="resultant"
+                                        type="radio"
+                                        name="force"
+                                        class="force-select"
+                                        onclick="select_force(-1)"
+                                    />
+                                </label>
+                            </div>
+                            <div id="force-list">
+                                <!-- FORCE LIST -->
+                            </div>
                         </div>
                     </div>
 
                     <div class="sim-input">
                         <button
-                            class="fs-5 m-auto activate-sim btn btn-primary bg-main border-none border-radius-8 d-none d-lg-block top-100"
+                            class="fs-5 m-auto mt-2 activate-sim btn btn-primary bg-main border-none border-radius-8 d-none d-lg-block top-100"
                             onclick="toggle_sim()"
                         >
                             Add Force

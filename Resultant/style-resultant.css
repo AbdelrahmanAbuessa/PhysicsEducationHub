@@ -1,9 +1,46 @@
+.sim-playground {
+    height: calc(100% - 10rem) !important;
+    display: flex;
+    flex-direction: column;
+}
+
+.sim-properties {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.force-list {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    overflow-y: auto;
+}
+
+.sim-page,
+.sim-bar,
+.sim-playground,
+.sim-properties,
+.force-lists {
+    min-height: 0;
+}
+
 .force .force-label {
     background-color: white;
     padding: 0.7rem;
     width: 3rem;
     height: 3rem;
     border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+}
+
+.force .force-radio {
+    margin: 0;
+    width: 3rem;
+    height: 3rem;
     display: flex;
     justify-content: center;
     align-items: center;
